@@ -3,6 +3,7 @@ package temp;
 public class ActionManager {
 
     private InfoAction infoAction;
+    private NewAction newAction;
 
     public ActionManager() {
         initActions();
@@ -10,13 +11,14 @@ public class ActionManager {
 
     private void initActions() {
         infoAction = new InfoAction();
+        newAction = new NewAction();
     }
 
     public InfoAction getInfoAction() {
         return infoAction;
     }
 
-    public void setInfoAction(InfoAction infoAction) {
-        this.infoAction = infoAction;
+    public NewAction getNewAction() {
+        return newAction;
     }
 }
