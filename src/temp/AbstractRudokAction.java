@@ -1,3 +1,5 @@
+package temp;
+
 import javax.swing.*;
 import java.net.URL;
 
@@ -10,7 +12,7 @@ public abstract class AbstractRudokAction extends AbstractAction {
         if(imageURL != null) {
             icon = new ImageIcon(imageURL);
         } else {
-            System.err.println("Resource not found" + filename);
+            System.err.println("Resource not found " + filename);
         }
         return icon;
     }
