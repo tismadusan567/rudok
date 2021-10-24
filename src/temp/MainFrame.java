@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class MainFrame extends JFrame {
     private static MainFrame instance = null;
-    private ActionManager actionManager = new ActionManager();
+    private final ActionManager actionManager = new ActionManager();
 
     private MainFrame() {
 
@@ -25,7 +25,7 @@ public class MainFrame extends JFrame {
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
 
-        setSize(screenWidth / 2, screenHeight / 2);
+        setSize(screenWidth, screenHeight);
 //        Image img = kit.getImage("images/iko.jpg");
 //        setIconImage(img);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,9 +33,15 @@ public class MainFrame extends JFrame {
 
         MyMenu myMenu = new MyMenu();
         setJMenuBar(myMenu);
-//
-//        toolbar=new Toolbar();
-//        add(toolbar, BorderLayout.NORTH);
+
+        MyToolbar myToolbar = new MyToolbar();
+        add(myToolbar, BorderLayout.NORTH);
+
+        JScrollPane treeScrollPane = new JScrollPane(); //mozda napravi klasu za ovo kasnije
+        treeScrollPane.setMinimumSize(new Dimension(screenWidth / 8, screenHeight));
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, new JPanel());
+        add(splitPane, BorderLayout.CENTER);
+
         setVisible(true);
     }
 
