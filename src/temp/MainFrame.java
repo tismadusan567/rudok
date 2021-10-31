@@ -37,7 +37,7 @@ public class MainFrame extends JFrame {
         MyToolbar myToolbar = new MyToolbar();
         add(myToolbar, BorderLayout.NORTH);
 
-        JScrollPane treeScrollPane = new JScrollPane(); //mozda napravi klasu za ovo kasnije
+        JScrollPane treeScrollPane = new JScrollPane(); //mozda napravi klasu za ovo kasnije ili dodaj u polja mainframea
         treeScrollPane.setMinimumSize(new Dimension(screenWidth / 8, screenHeight));
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, new JPanel());
         add(splitPane, BorderLayout.CENTER);
