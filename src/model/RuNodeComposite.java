@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class RuNodeComposite extends RuNode {
 
-    private List<RuNode> children;
+    protected List<RuNode> children;
 
     public RuNodeComposite(String name, RuNode parent) {
         super(name, parent);
