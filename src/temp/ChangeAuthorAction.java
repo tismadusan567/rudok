@@ -12,6 +12,7 @@ public class ChangeAuthorAction extends AbstractRudokAction{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        new ChangeAuthorDialog();
         //todo
     }
 }
