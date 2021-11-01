@@ -12,7 +12,7 @@ public class Workspace extends RuNodeComposite{
             children.add(node);
         } else {
             //error
-            System.out.println("You have to add Projekat to Workspace");
+            System.out.println("You have to add Project to Workspace");
         }
     }
 }

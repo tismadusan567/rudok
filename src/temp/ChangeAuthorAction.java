@@ -6,7 +6,7 @@ public class ChangeAuthorAction extends AbstractRudokAction{
     public ChangeAuthorAction() {
         putValue(NAME, "Change author");
         putValue(SHORT_DESCRIPTION, "Change author");
-        putValue(SMALL_ICON, loadIcon("/res/icons/document_empty.png")); //todo
+        putValue(SMALL_ICON, loadIcon("/res/icons/user.png")); //todo
 
     }
 
