@@ -7,7 +7,7 @@ public class Workspace extends RuNodeComposite{
     }
 
     @Override
-    void add(RuNode node) {
+    public void add(RuNode node) {
         if(node instanceof Project) {
             children.add(node);
         } else {

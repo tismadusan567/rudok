@@ -6,7 +6,7 @@ public class Project extends RuNodeComposite{
     }
 
     @Override
-    void add(RuNode node) {
+    public void add(RuNode node) {
         if(node instanceof Presentation) {
             children.add(node);
         } else {

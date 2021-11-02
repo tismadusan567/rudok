@@ -1,5 +1,8 @@
 package temp;
 
+import model.Presentation;
+import model.Project;
+import model.Slide;
 import model.Workspace;
 
 import javax.swing.*;
@@ -47,7 +50,18 @@ public class MainFrame extends JFrame {
         JScrollPane treeScrollPane = new JScrollPane(tree);
         treeScrollPane.setMinimumSize(new Dimension(screenWidth / 8, screenHeight));
 
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, new JPanel());
+        ProjectTabbedPane projectTabbedPane = new ProjectTabbedPane();
+        Project project = new Project("projekat1", null);
+        Presentation prez1 = new Presentation("prez1", project, "dusan", "/res/icons/background.jpeg");
+        Presentation prez2 = new Presentation("prez2", project, "marko", "/res/icons/background2.jpg");
+
+        prez1.add(new Slide("slide1", prez1, 0));
+        prez2.add(new Slide("slajd1", prez2, 0));
+        project.add(prez1);
+        project.add(prez2);
+        projectTabbedPane.displayProject(project);
+
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, projectTabbedPane);
         add(splitPane, BorderLayout.CENTER);
 
         setVisible(true);

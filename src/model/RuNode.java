@@ -12,4 +12,8 @@ public abstract class RuNode {
     public String getName() {
         return name;
     }
+
+    public RuNode getParent() {
+        return parent;
+    }
 }

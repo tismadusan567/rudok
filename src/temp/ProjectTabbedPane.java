@@ -22,7 +22,7 @@ public class ProjectTabbedPane extends JTabbedPane {
         removeAll();
         for(RuNode node : project.getChildren()) {
             Presentation presentation = (Presentation) node;
-            addTab(presentation.getName(), new JPanel()); //new PresentationPanel
+            addTab(presentation.getName(), new PresentationPanel(presentation)); //new PresentationPanel
         }
     }
 }

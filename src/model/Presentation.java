@@ -15,13 +15,18 @@ public class Presentation extends RuNodeComposite{
     }
 
         @Override
-    void add(RuNode node) {
+    public void add(RuNode node) {
         if(node instanceof Slide) {
             children.add(node);
         } else {
             //error
             System.out.println("You have to add Slide to Presentation");
         }
+    }
+
+    public Slide getSlideAt(int index) {
+        //todo: add error checks
+        return (Slide) children.get(index);
     }
 
     public String getAuthor() {
