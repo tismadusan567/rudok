@@ -19,4 +19,8 @@ public abstract class RuNodeComposite extends RuNode {
     void remove(RuNode node) {
         children.remove(node);
     }
+
+    public List<RuNode> getChildren() {
+        return children;
+    }
 }
