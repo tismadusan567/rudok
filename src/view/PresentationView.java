@@ -16,6 +16,8 @@ public class PresentationView extends JPanel {
     private Image image;
 
     public PresentationView(Presentation presentation) {
+        this.presentation = presentation;
+
         setLayout(new BorderLayout(0, 30));
 
 //        author label

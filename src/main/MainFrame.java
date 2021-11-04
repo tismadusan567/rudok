@@ -1,6 +1,7 @@
 package main;
 
 import actions.ActionManager;
+import gui.tree.MyTreeNode;
 import model.Presentation;
 import model.Project;
 import model.Slide;
@@ -17,7 +18,6 @@ import java.awt.*;
 public class MainFrame extends JFrame {
     private static MainFrame instance = null;
     private final ActionManager actionManager = new ActionManager();
-//    private JTabbedPane tabbedPane;
 
     private MainFrame() {
 
@@ -49,19 +49,26 @@ public class MainFrame extends JFrame {
         MyToolbar myToolbar = new MyToolbar(); //todo: add menu toolbar tree etc. to fields
         add(myToolbar, BorderLayout.NORTH);
 
-        JTree tree = new JTree(new DefaultTreeModel(new DefaultMutableTreeNode(new Workspace("asd", null))));
+
+
+        Workspace workspace = new Workspace("workspace1", null);
+        Project project = new Project("projekat1", workspace);
+
+        Presentation prez1 = new Presentation("prez1", project, "dusan", "/res/icons/background.jpeg");
+        Presentation prez2 = new Presentation("prez2", project, "marko", "/res/icons/background2.jpg");
+        prez1.add(new Slide("slide1", prez1, 0));
+        prez2.add(new Slide("slajd1", prez2, 0));
+
+        project.add(prez1);
+        project.add(prez2);
+
+        workspace.add(project);
+
+        JTree tree = new JTree(new DefaultTreeModel(new MyTreeNode(workspace)));
         JScrollPane treeScrollPane = new JScrollPane(tree);
         treeScrollPane.setMinimumSize(new Dimension(screenWidth / 8, screenHeight));
 
         ProjectView projectView = new ProjectView();
-        Project project = new Project("projekat1", null);
-        Presentation prez1 = new Presentation("prez1", project, "dusan", "/res/icons/background.jpeg");
-        Presentation prez2 = new Presentation("prez2", project, "marko", "/res/icons/background2.jpg");
-
-        prez1.add(new Slide("slide1", prez1, 0));
-        prez2.add(new Slide("slajd1", prez2, 0));
-        project.add(prez1);
-        project.add(prez2);
         projectView.displayProject(project);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, projectView);
