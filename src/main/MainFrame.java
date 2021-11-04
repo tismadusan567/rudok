@@ -1,6 +1,7 @@
 package main;
 
 import actions.ActionManager;
+import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
 import model.Presentation;
 import model.Project;
@@ -18,7 +19,7 @@ import java.awt.*;
 public class MainFrame extends JFrame {
     private static MainFrame instance = null;
     private final ActionManager actionManager = new ActionManager();
-    private JTree tree;
+    private MyTree tree;
 
     //for testing
     public Presentation prez1;
@@ -67,7 +68,7 @@ public class MainFrame extends JFrame {
 
         workspace.add(project);
 
-        tree = new JTree(new DefaultTreeModel(new MyTreeNode(workspace)));
+        tree = new MyTree(workspace);
         JScrollPane treeScrollPane = new JScrollPane(tree);
         treeScrollPane.setMinimumSize(new Dimension(screenWidth / 8, screenHeight));
 
@@ -84,7 +85,7 @@ public class MainFrame extends JFrame {
         return actionManager;
     }
 
-    public JTree getTree() {
+    public MyTree getTree() {
         return tree;
     }
 }

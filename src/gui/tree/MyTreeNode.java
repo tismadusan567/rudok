@@ -27,7 +27,7 @@ public class MyTreeNode extends DefaultMutableTreeNode {
 
     @Override
     public String toString() {
-        return ruNode.getName();
+        return ruNode.toString();
     }
 
     @Override

@@ -17,6 +17,11 @@ public abstract class RuNode implements IPublisher {
     }
 
     @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
     public void addSubscriber(ISubscriber subscriber) {
         if(subscribers.contains(subscriber)) return;
         subscribers.add(subscriber);

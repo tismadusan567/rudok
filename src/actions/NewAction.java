@@ -28,7 +28,7 @@ public class NewAction extends AbstractRudokAction{
 //        prez3.add(new Slide("slide1", prez3, 0));
 //        MainFrame.getInstance().project.add(prez3);
 
-        MainFrame.getInstance().prez1.setImagePath("/res/icons/background2.jpg");
+//        MainFrame.getInstance().prez1.setImagePath("/res/icons/background2.jpg");
         System.out.println("new action");
     }
 }
