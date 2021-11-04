@@ -5,11 +5,11 @@ import model.Slide;
 import javax.swing.*;
 import java.awt.*;
 
-public class SlidePanel extends JPanel {
+public class SlideView extends JPanel {
     private Slide slide;
     private Image image;
 
-    public SlidePanel(Slide slide, Image image) {
+    public SlideView(Slide slide, Image image) {
         this.slide = slide;
         this.image = image;
         init();

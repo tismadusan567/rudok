@@ -1,9 +1,13 @@
-package view;
+package main;
 
+import actions.ActionManager;
 import model.Presentation;
 import model.Project;
 import model.Slide;
 import model.Workspace;
+import gui.MyMenu;
+import gui.MyToolbar;
+import view.ProjectView;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -49,7 +53,7 @@ public class MainFrame extends JFrame {
         JScrollPane treeScrollPane = new JScrollPane(tree);
         treeScrollPane.setMinimumSize(new Dimension(screenWidth / 8, screenHeight));
 
-        ProjectTabbedPane projectTabbedPane = new ProjectTabbedPane();
+        ProjectView projectView = new ProjectView();
         Project project = new Project("projekat1", null);
         Presentation prez1 = new Presentation("prez1", project, "dusan", "/res/icons/background.jpeg");
         Presentation prez2 = new Presentation("prez2", project, "marko", "/res/icons/background2.jpg");
@@ -58,9 +62,9 @@ public class MainFrame extends JFrame {
         prez2.add(new Slide("slajd1", prez2, 0));
         project.add(prez1);
         project.add(prez2);
-        projectTabbedPane.displayProject(project);
+        projectView.displayProject(project);
 
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, projectTabbedPane);
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, projectView);
         add(splitPane, BorderLayout.CENTER);
 
         setVisible(true);

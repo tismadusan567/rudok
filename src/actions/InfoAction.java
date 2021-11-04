@@ -1,4 +1,6 @@
-package view;
+package actions;
+
+import main.MainFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

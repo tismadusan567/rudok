@@ -6,10 +6,10 @@ import model.RuNode;
 
 import javax.swing.*;
 
-public class ProjectTabbedPane extends JTabbedPane {
+public class ProjectView extends JTabbedPane {
     private Project project;
 
-    public ProjectTabbedPane() {
+    public ProjectView() {
         super(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
     }
 
@@ -22,7 +22,7 @@ public class ProjectTabbedPane extends JTabbedPane {
         removeAll();
         for(RuNode node : project.getChildren()) {
             Presentation presentation = (Presentation) node;
-            addTab(presentation.getName(), new PresentationPanel(presentation)); //new PresentationPanel
+            addTab(presentation.getName(), new PresentationView(presentation)); //new PresentationView
         }
     }
 }

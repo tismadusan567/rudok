@@ -1,4 +1,6 @@
-package view;
+package actions;
+
+import gui.ChangeThemeDialog;
 
 import java.awt.event.ActionEvent;
 
