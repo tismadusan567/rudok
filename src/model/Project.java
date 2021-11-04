@@ -11,7 +11,7 @@ public class Project extends RuNodeComposite{
             children.add(node);
         } else {
             //error
-            System.out.println("You have to add Presentation to Project");
+            System.err.println("You have to add Presentation to Project");
         }
     }
 }

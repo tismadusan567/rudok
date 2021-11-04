@@ -1,4 +1,4 @@
-package temp;
+package view;
 
 import java.awt.event.ActionEvent;
 

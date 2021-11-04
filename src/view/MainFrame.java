@@ -1,4 +1,4 @@
-package temp;
+package view;
 
 import model.Presentation;
 import model.Project;
@@ -9,7 +9,6 @@ import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
-import java.util.function.Function;
 
 public class MainFrame extends JFrame {
     private static MainFrame instance = null;
@@ -43,7 +42,7 @@ public class MainFrame extends JFrame {
         MyMenu myMenu = new MyMenu();
         setJMenuBar(myMenu);
 
-        MyToolbar myToolbar = new MyToolbar();
+        MyToolbar myToolbar = new MyToolbar(); //todo: add menu toolbar tree etc. to fields
         add(myToolbar, BorderLayout.NORTH);
 
         JTree tree = new JTree(new DefaultTreeModel(new DefaultMutableTreeNode(new Workspace("asd", null))));

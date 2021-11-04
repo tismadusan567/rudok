@@ -1,4 +1,4 @@
-package temp;
+package view;
 
 import model.Presentation;
 import model.Project;

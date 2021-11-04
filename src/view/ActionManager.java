@@ -1,4 +1,4 @@
-package temp;
+package view;
 
 public class ActionManager {
 

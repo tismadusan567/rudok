@@ -1,6 +1,5 @@
-package temp;
+package view;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class NewAction extends AbstractRudokAction{

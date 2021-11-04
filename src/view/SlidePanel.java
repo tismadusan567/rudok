@@ -1,7 +1,5 @@
-package temp;
+package view;
 
-import model.Presentation;
-import model.RuNode;
 import model.Slide;
 
 import javax.swing.*;

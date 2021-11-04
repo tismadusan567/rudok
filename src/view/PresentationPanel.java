@@ -1,4 +1,4 @@
-package temp;
+package view;
 
 import model.Presentation;
 
@@ -18,7 +18,7 @@ public class PresentationPanel extends JPanel {
         add(lblAuthor, BorderLayout.NORTH);
 
 //        Image image = new ImageIcon(presentation.getImagePath()).getImage();
-        Image image = new ImageIcon(getClass().getResource(presentation.getImagePath())).getImage();
+        Image image = new ImageIcon(getClass().getResource(presentation.getImagePath())).getImage(); //todo: check null
         slidePanel = new SlidePanel(presentation.getSlideAt(slideIndex), image);
         add(slidePanel, BorderLayout.CENTER);
 
