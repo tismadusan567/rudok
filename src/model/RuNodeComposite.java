@@ -12,12 +12,11 @@ public abstract class RuNodeComposite extends RuNode {
         children = new ArrayList<>();
     }
 
-    public void add(RuNode node) {
-        children.add(node);
-    }
+    public abstract void add(RuNode node);
 
     public void remove(RuNode node) {
         children.remove(node);
+        notify(this);
     }
 
     public List<RuNode> getChildren() {

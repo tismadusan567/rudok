@@ -6,4 +6,6 @@ public class Slide extends RuNode{
         super(name, parent);
         this.redniBroj = redniBroj;
     }
+
+    //ne zaboravi notify kad budes dodavo funkcionalnost
 }

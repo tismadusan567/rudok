@@ -14,5 +14,6 @@ public class Workspace extends RuNodeComposite{
             //error
             System.err.println("You have to add Project to Workspace");
         }
+        notify(this);
     }
 }

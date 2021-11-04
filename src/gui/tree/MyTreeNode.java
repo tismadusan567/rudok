@@ -25,6 +25,28 @@ public class MyTreeNode extends DefaultMutableTreeNode {
         }
     }
 
+    @Override
+    public String toString() {
+        return ruNode.getName();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MyTreeNode that = (MyTreeNode) o;
+        return ruNode.equals(that.ruNode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ruNode);
+    }
+
+    public RuNode getRuNode() {
+        return ruNode;
+    }
+
 //    @Override
 //    public Enumeration<TreeNode> children() {
 //        if(isComposite) {
@@ -80,28 +102,6 @@ public class MyTreeNode extends DefaultMutableTreeNode {
 //    public boolean isLeaf() {
 //        return !isComposite;
 //    }
-
-    @Override
-    public String toString() {
-        return ruNode.getName();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MyTreeNode that = (MyTreeNode) o;
-        return ruNode.equals(that.ruNode);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(ruNode);
-    }
-
-    public RuNode getRuNode() {
-        return ruNode;
-    }
 
 
 }

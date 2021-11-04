@@ -22,6 +22,7 @@ public class Presentation extends RuNodeComposite{
             //error
             System.out.println("You have to add Slide to Presentation");
         }
+        notify(this);
     }
 
     public Slide getSlideAt(int index) {
@@ -35,6 +36,7 @@ public class Presentation extends RuNodeComposite{
 
     public void setAuthor(String author) {
         this.author = author;
+        notify(this);
     }
 
     public String getImagePath() {
@@ -43,5 +45,6 @@ public class Presentation extends RuNodeComposite{
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+        notify(this);
     }
 }
