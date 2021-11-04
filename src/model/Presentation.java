@@ -30,6 +30,8 @@ public class Presentation extends RuNodeComposite{
         return (Slide) children.get(index);
     }
 
+
+
     public String getAuthor() {
         return author;
     }

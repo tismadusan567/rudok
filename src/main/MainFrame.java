@@ -18,6 +18,11 @@ import java.awt.*;
 public class MainFrame extends JFrame {
     private static MainFrame instance = null;
     private final ActionManager actionManager = new ActionManager();
+    private JTree tree;
+
+    //for testing
+    public Presentation prez1;
+    public Project project;
 
     private MainFrame() {
 
@@ -49,12 +54,10 @@ public class MainFrame extends JFrame {
         MyToolbar myToolbar = new MyToolbar(); //todo: add menu toolbar tree etc. to fields
         add(myToolbar, BorderLayout.NORTH);
 
-
-
         Workspace workspace = new Workspace("workspace1", null);
-        Project project = new Project("projekat1", workspace);
+        project = new Project("projekat1", workspace);
 
-        Presentation prez1 = new Presentation("prez1", project, "dusan", "/res/icons/background.jpeg");
+        prez1 = new Presentation("prez1", project, "dusan", "/res/icons/background.jpeg");
         Presentation prez2 = new Presentation("prez2", project, "marko", "/res/icons/background2.jpg");
         prez1.add(new Slide("slide1", prez1, 0));
         prez2.add(new Slide("slajd1", prez2, 0));
@@ -64,7 +67,7 @@ public class MainFrame extends JFrame {
 
         workspace.add(project);
 
-        JTree tree = new JTree(new DefaultTreeModel(new MyTreeNode(workspace)));
+        tree = new JTree(new DefaultTreeModel(new MyTreeNode(workspace)));
         JScrollPane treeScrollPane = new JScrollPane(tree);
         treeScrollPane.setMinimumSize(new Dimension(screenWidth / 8, screenHeight));
 
@@ -79,5 +82,9 @@ public class MainFrame extends JFrame {
 
     public ActionManager getActionManager() {
         return actionManager;
+    }
+
+    public JTree getTree() {
+        return tree;
     }
 }

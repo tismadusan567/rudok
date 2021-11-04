@@ -8,7 +8,7 @@ import java.util.*;
 public abstract class RuNode implements IPublisher {
     protected String name;
     protected RuNode parent;
-    private final List<ISubscriber> subscribers; //maybe set in future
+    private final List<ISubscriber> subscribers; //set in future
 
     public RuNode(String name, RuNode parent) {
         this.name = name;
@@ -18,6 +18,7 @@ public abstract class RuNode implements IPublisher {
 
     @Override
     public void addSubscriber(ISubscriber subscriber) {
+        if(subscribers.contains(subscriber)) return;
         subscribers.add(subscriber);
     }
 
@@ -28,8 +29,8 @@ public abstract class RuNode implements IPublisher {
 
     @Override
     public void notify(Object notification) {
-        for(ISubscriber iSubscriber : subscribers) {
-            iSubscriber.update(notification);
+        for (ISubscriber subscriber : subscribers) {
+            subscriber.update(notification);
         }
     }
 
