@@ -13,6 +13,7 @@ public class PresentationView extends JPanel {
     private int slideIndex = 0;
     private JLabel lblAuthor;
     private SlideView slideView;
+    private Image image;
 
     public PresentationView(Presentation presentation) {
         setLayout(new BorderLayout(0, 30));
@@ -22,14 +23,9 @@ public class PresentationView extends JPanel {
         lblAuthor.setFont(new Font("Dialog", Font.BOLD, 20));
         add(lblAuthor, BorderLayout.NORTH);
 
-//        Image image = new ImageIcon(presentation.getImagePath()).getImage();
-        URL imageURL = getClass().getResource(presentation.getImagePath());
-        Image image = null;
-        if(imageURL != null) {
-            image = new ImageIcon(imageURL).getImage();
-        } else {
-            System.err.println("Image not found"); //todo: handle
-        }
+        loadImage();
+
+//        todo: clean up code
         JPanel panel = new JPanel();
         BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
         panel.setLayout(boxLayout);
@@ -48,5 +44,14 @@ public class PresentationView extends JPanel {
 //        slidesScrollPane.add(slideView);
         add(slidesScrollPane, BorderLayout.CENTER);
 
+    }
+
+    private void loadImage() {
+        URL imageURL = getClass().getResource(presentation.getImagePath());
+        if(imageURL != null) {
+            image = new ImageIcon(imageURL).getImage();
+        } else {
+            System.err.println("Image not found"); //todo: handle
+        }
     }
 }
