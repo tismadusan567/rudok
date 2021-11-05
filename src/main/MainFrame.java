@@ -68,7 +68,7 @@ public class MainFrame extends JFrame {
 
         workspace.add(project);
 
-        tree = new MyTree(workspace);
+        tree = new MyTree(new MyTreeNode(workspace));
         JScrollPane treeScrollPane = new JScrollPane(tree);
         treeScrollPane.setMinimumSize(new Dimension(screenWidth / 8, screenHeight));
 

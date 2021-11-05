@@ -47,10 +47,10 @@ public class PresentationView extends JPanel implements ISubscriber {
         slidesPanel.removeAll();
         slidesPanel.revalidate();
 
-        for(int i=0;i<10;i++) { //filler
-            slidesPanel.add(Box.createVerticalStrut(50));
-            slidesPanel.add(new SlideView(presentation.getSlideAt(slideIndex), image));
-        }
+//        for(int i=0;i<10;i++) { //filler
+//            slidesPanel.add(Box.createVerticalStrut(50));
+//            slidesPanel.add(new SlideView(presentation.getSlideAt(slideIndex), image));
+//        }
         for(RuNode child : presentation.getChildren()) {
             slidesPanel.add(Box.createVerticalStrut(50));
             slidesPanel.add(new SlideView((Slide) child, image));

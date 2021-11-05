@@ -1,13 +1,15 @@
 package gui.tree;
 
-import model.RuNode;
-import model.RuNodeComposite;
+import model.*;
 
+import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.Vector;
 
 public class MyTreeNode extends DefaultMutableTreeNode {
     private RuNode ruNode;
@@ -19,11 +21,25 @@ public class MyTreeNode extends DefaultMutableTreeNode {
         if(isComposite) {
             for(RuNode child : ((RuNodeComposite) ruNode).getChildren()) {
 //                children.add(new MyTreeNode(child));
-                add(new MyTreeNode(child));
+                super.add(new MyTreeNode(child));
 //                System.out.println(child);
             }
         }
     }
+
+    //    @Override
+//    public void add(MutableTreeNode newChild) {
+//        MyTreeNode myNewChild = (MyTreeNode) newChild;
+//        super.add(myNewChild);
+//
+//        if(ruNode instanceof Workspace) {
+//            ((Workspace) ruNode).add(myNewChild.getRuNode());
+//        } else if(ruNode instanceof Project) {
+//            ((Project) ruNode).add(myNewChild.getRuNode());
+//        } else if (ruNode instanceof Presentation) {
+//            ((Presentation) ruNode).add(myNewChild.getRuNode());
+//        }
+//    }
 
     @Override
     public String toString() {

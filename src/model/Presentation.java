@@ -27,6 +27,7 @@ public class Presentation extends RuNodeComposite{
 
     public Slide getSlideAt(int index) {
         //todo: add error checks
+        if(children.size() == 0 || index >= children.size()) return null;
         return (Slide) children.get(index);
     }
 
