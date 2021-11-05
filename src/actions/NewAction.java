@@ -53,7 +53,8 @@ public class NewAction extends AbstractRudokAction{
 
         SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getTree());
 
-
+//        MainFrame.getInstance().prez1.setName("asd");
+        if( activePresentation != null) ((Presentation)activePresentation.getRuNode()).setName("asd");
 
         //testing
 //        MainFrame.getInstance().prez1.setAuthor("to da");

@@ -52,7 +52,11 @@ public abstract class RuNode implements IPublisher {
         return parent;
     }
 
-//    @Override
+    public List<ISubscriber> getSubscribers() {
+        return subscribers;
+    }
+
+    //    @Override
 //    public boolean equals(Object o) {
 //        if (this == o) return true;
 //        if (o == null || getClass() != o.getClass()) return false;

@@ -66,7 +66,8 @@ public class MyTreeNode extends DefaultMutableTreeNode {
 //    @Override
 //    public Enumeration<TreeNode> children() {
 //        if(isComposite) {
-//            return (Enumeration) ((RuNodeComposite) ruNode).getChildren(); //sus
+////            return (Enumeration) ((RuNodeComposite) ruNode).getChildren(); //sus
+//            return (Enumeration<TreeNode>) children;
 //        }
 //        return null;
 //    }

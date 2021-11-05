@@ -2,6 +2,7 @@ package view;
 
 import model.Presentation;
 import model.RuNode;
+import model.RuNodeComposite;
 import model.Slide;
 import observer.ISubscriber;
 
@@ -39,7 +40,8 @@ public class PresentationView extends JPanel implements ISubscriber {
 
     private void displayPresentation(Presentation presentation) {
         this.presentation = presentation;
-        this.presentation.addSubscriber(this);
+        presentation.getSubscribers().removeIf(e -> e instanceof PresentationView); //presentation can only have one presentation view at any time
+        presentation.addSubscriber(this);
 
         lblAuthor.setText(presentation.getAuthor());
         loadImage();
@@ -47,10 +49,6 @@ public class PresentationView extends JPanel implements ISubscriber {
         slidesPanel.removeAll();
         slidesPanel.revalidate();
 
-//        for(int i=0;i<10;i++) { //filler
-//            slidesPanel.add(Box.createVerticalStrut(50));
-//            slidesPanel.add(new SlideView(presentation.getSlideAt(slideIndex), image));
-//        }
         for(RuNode child : presentation.getChildren()) {
             slidesPanel.add(Box.createVerticalStrut(50));
             slidesPanel.add(new SlideView((Slide) child, image));
@@ -69,7 +67,13 @@ public class PresentationView extends JPanel implements ISubscriber {
     @Override
     public void update(Object notification) {
         if(notification instanceof Presentation) {
-            displayPresentation((Presentation) notification);
+            Presentation presentation = (Presentation)notification;
+
+            if(getParent() == null) System.err.println("Parent of presentationview is null");;
+
+            //find index of presentation in its parent and set this components parent(ProjectView)'s title at the index to the required name
+            ((ProjectView)getParent()).setTitleAt(((RuNodeComposite)presentation.getParent()).getChildren().indexOf(presentation), presentation.getName());
+            displayPresentation(presentation);
         } else {
             System.err.println("Notification not of type Presentation in PresentationView");
         }

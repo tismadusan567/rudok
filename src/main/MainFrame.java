@@ -20,9 +20,11 @@ public class MainFrame extends JFrame {
     private static MainFrame instance = null;
     private final ActionManager actionManager = new ActionManager();
     private MyTree tree;
+    private ProjectView projectView;
 
     //for testing
     public Presentation prez1;
+    public Presentation prez2;
     public Project project;
 
     private MainFrame() {
@@ -40,8 +42,8 @@ public class MainFrame extends JFrame {
     private void init() {
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screenSize = kit.getScreenSize();
-        int screenHeight = screenSize.height;
-        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height / 2;
+        int screenWidth = screenSize.width / 2;
 
         setSize(screenWidth, screenHeight);
 //        Image img = kit.getImage("images/iko.jpg");
@@ -59,7 +61,7 @@ public class MainFrame extends JFrame {
         project = new Project("projekat1", workspace);
 
         prez1 = new Presentation("prez1", project, "dusan", "/res/icons/background.jpeg");
-        Presentation prez2 = new Presentation("prez2", project, "marko", "/res/icons/background2.jpg");
+        prez2 = new Presentation("prez2", project, "marko", "/res/icons/background2.jpg");
         prez1.add(new Slide("slide1", prez1, 0));
         prez2.add(new Slide("slajd1", prez2, 0));
 
@@ -72,7 +74,7 @@ public class MainFrame extends JFrame {
         JScrollPane treeScrollPane = new JScrollPane(tree);
         treeScrollPane.setMinimumSize(new Dimension(screenWidth / 8, screenHeight));
 
-        ProjectView projectView = new ProjectView();
+        projectView = new ProjectView();
         projectView.displayProject(project);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, projectView);
@@ -87,5 +89,9 @@ public class MainFrame extends JFrame {
 
     public MyTree getTree() {
         return tree;
+    }
+
+    public ProjectView getProjectView() {
+        return projectView;
     }
 }

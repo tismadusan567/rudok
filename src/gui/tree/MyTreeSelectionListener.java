@@ -1,5 +1,7 @@
 package gui.tree;
 
+import main.Main;
+import main.MainFrame;
 import model.Presentation;
 import model.Project;
 import model.RuNode;
@@ -31,6 +33,11 @@ public class MyTreeSelectionListener implements TreeSelectionListener {
             }
         }
 
-        System.out.println(tree.getActiveProjectNode() + " " + tree.getActivePresentationNode() + " " + tree.getActiveSlideNode());
+        //change view
+        if(tree.getActiveProjectNode() != null) {
+            MainFrame.getInstance().getProjectView().displayProject((Project) tree.getActiveProjectNode().getRuNode());
+        }
+
+//        System.out.println(tree.getActiveProjectNode() + " " + tree.getActivePresentationNode() + " " + tree.getActiveSlideNode());
     }
 }
