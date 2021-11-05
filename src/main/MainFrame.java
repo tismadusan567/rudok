@@ -83,6 +83,17 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
+    public void setViewToTreeSelection() {
+        //change view
+        if(tree.getActiveProjectNode() != null) {
+            MainFrame.getInstance().getProjectView().displayProject((Project) tree.getActiveProjectNode().getRuNode());
+        }
+        if(tree.getActivePresentationNode() != null) {
+            MainFrame.getInstance().getProjectView().setSelectedIndex(tree.getActivePresentationNode().getIndexOfThis());
+        }
+        //todo: scroll to slide
+    }
+
     public ActionManager getActionManager() {
         return actionManager;
     }

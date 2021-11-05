@@ -32,19 +32,22 @@ public class NewAction extends AbstractRudokAction{
         if(activeSlide != null) {
             System.out.println("Slides cant have children!");
         } else if(activePresentation != null) {
-            Slide newSlide = new Slide("bice ime", activePresentation.getRuNode(), 0);
+            int index = activePresentation.getChildCount() + 1;
+            Slide newSlide = new Slide("Slide" + index, activePresentation.getRuNode(), 0);
             ((Presentation)activePresentation.getRuNode()).add(newSlide);
             activePresentation.add(new MyTreeNode(newSlide));
 
             System.out.println("add slide to " + activePresentation);
         } else if(activeProject != null) {
-            Presentation newPresentation = new Presentation("bice ime", activeProject.getRuNode(), "bice autor", "/res/icons/background.jpeg");
+            int index = activeProject.getChildCount() + 1;
+            Presentation newPresentation = new Presentation("Presentation" + index, activeProject.getRuNode(), "bice autor", "/res/icons/background.jpeg");
            ((Project) activeProject.getRuNode()).add(newPresentation);
            activeProject.add(new MyTreeNode(newPresentation));
 
             System.out.println("add presentation to " + activeProject);
         } else {
-            Project newProject = new Project("projekat", root.getRuNode());
+            int index = root.getChildCount() + 1;
+            Project newProject = new Project("Project" + index, root.getRuNode());
             ((Workspace)root.getRuNode()).add(newProject);
             root.add(new MyTreeNode(newProject));
 
@@ -53,8 +56,7 @@ public class NewAction extends AbstractRudokAction{
 
         SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getTree());
 
-//        MainFrame.getInstance().prez1.setName("asd");
-        if( activePresentation != null) ((Presentation)activePresentation.getRuNode()).setName("asd");
+        if( activePresentation != null) (activePresentation.getRuNode()).setName("asd");
 
         //testing
 //        MainFrame.getInstance().prez1.setAuthor("to da");

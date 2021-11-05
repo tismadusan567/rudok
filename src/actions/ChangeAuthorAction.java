@@ -1,7 +1,5 @@
 package actions;
 
-import gui.ChangeAuthorDialog;
-
 import java.awt.event.ActionEvent;
 
 public class ChangeAuthorAction extends AbstractRudokAction{

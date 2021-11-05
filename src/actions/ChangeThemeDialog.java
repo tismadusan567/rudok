@@ -1,4 +1,4 @@
-package gui;
+package actions;
 
 import main.MainFrame;
 

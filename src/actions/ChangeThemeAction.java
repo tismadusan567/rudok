@@ -1,7 +1,5 @@
 package actions;
 
-import gui.ChangeThemeDialog;
-
 import java.awt.event.ActionEvent;
 
 public class ChangeThemeAction extends AbstractRudokAction{

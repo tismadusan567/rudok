@@ -26,6 +26,7 @@ public class SlideView extends JPanel implements ISubscriber {
 
     private void displaySlide(Slide slide) {
         this.slide = slide;
+        slide.getSubscribers().removeIf(e -> e instanceof SlideView);
         this.slide.addSubscriber(this);
 
         add(new JLabel("ASD"));
