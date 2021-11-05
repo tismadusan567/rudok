@@ -21,11 +21,8 @@ public class MainFrame extends JFrame {
     private final ActionManager actionManager = new ActionManager();
     private MyTree tree;
     private ProjectView projectView;
-
-    //for testing
-    public Presentation prez1;
-    public Presentation prez2;
-    public Project project;
+    private MyMenu myMenu;
+    private MyToolbar myToolbar;
 
     private MainFrame() {
 
@@ -51,31 +48,19 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Rudok");
 
-        MyMenu myMenu = new MyMenu();
+        myMenu = new MyMenu();
         setJMenuBar(myMenu);
 
-        MyToolbar myToolbar = new MyToolbar(); //todo: add menu toolbar tree etc. to fields
+        myToolbar = new MyToolbar(); //todo: add menu toolbar tree etc. to fields
         add(myToolbar, BorderLayout.NORTH);
 
         Workspace workspace = new Workspace("workspace1", null);
-        project = new Project("projekat1", workspace);
-
-        prez1 = new Presentation("prez1", project, "dusan", "/res/icons/background.jpeg");
-        prez2 = new Presentation("prez2", project, "marko", "/res/icons/background2.jpg");
-        prez1.add(new Slide("slide1", prez1, 0));
-        prez2.add(new Slide("slajd1", prez2, 0));
-
-        project.add(prez1);
-        project.add(prez2);
-
-        workspace.add(project);
-
         tree = new MyTree(new MyTreeNode(workspace));
+
         JScrollPane treeScrollPane = new JScrollPane(tree);
         treeScrollPane.setMinimumSize(new Dimension(screenWidth / 8, screenHeight));
 
         projectView = new ProjectView();
-        projectView.displayProject(project);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, projectView);
         add(splitPane, BorderLayout.CENTER);
@@ -88,6 +73,7 @@ public class MainFrame extends JFrame {
         if(tree.getActiveProjectNode() != null) {
             MainFrame.getInstance().getProjectView().displayProject((Project) tree.getActiveProjectNode().getRuNode());
         }
+        //select tab
         if(tree.getActivePresentationNode() != null) {
             MainFrame.getInstance().getProjectView().setSelectedIndex(tree.getActivePresentationNode().getIndexOfThis());
         }
@@ -105,4 +91,6 @@ public class MainFrame extends JFrame {
     public ProjectView getProjectView() {
         return projectView;
     }
+
+
 }

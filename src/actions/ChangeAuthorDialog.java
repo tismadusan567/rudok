@@ -1,6 +1,7 @@
 package actions;
 
 import main.MainFrame;
+import model.Presentation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,17 +9,23 @@ import java.awt.*;
 public class ChangeAuthorDialog extends JDialog {
     private final JTextField textField;
     private final JButton button;
+    private final Presentation presentation;
 
-    public ChangeAuthorDialog() {
+    public ChangeAuthorDialog(Presentation presentation) {
         super(MainFrame.getInstance(), "Change author", true);
+        this.presentation = presentation;
 
         setSize(250, 250); //todo: add scaling
         setLocationRelativeTo(null);
         setLayout(new FlowLayout());
-        JLabel label = new JLabel("Enter new author name:");
+
+        JLabel label = new JLabel("Enter author name:");
+
         textField = new JTextField();
         textField.setPreferredSize(new Dimension(200, 50)); //todo: add scaling
-        button = new JButton("Change author");
+
+        button = new JButton("Save author");
+        initActions();
 
         add(label);
         add(textField);
@@ -26,6 +33,14 @@ public class ChangeAuthorDialog extends JDialog {
 
         setVisible(true);
 
+    }
+
+    private void initActions() {
+        button.addActionListener(e -> {
+            String newAuthor = textField.getText();
+            presentation.setAuthor(newAuthor);
+            dispose();
+        });
     }
 
     public String getDialogText() {

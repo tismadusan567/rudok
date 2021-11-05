@@ -2,7 +2,6 @@ package actions;
 
 import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
-import main.Main;
 import main.MainFrame;
 import model.Presentation;
 import model.Project;
@@ -40,7 +39,8 @@ public class NewAction extends AbstractRudokAction{
             System.out.println("add slide to " + activePresentation);
         } else if(activeProject != null) {
             int index = activeProject.getChildCount() + 1;
-            Presentation newPresentation = new Presentation("Presentation" + index, activeProject.getRuNode(), "bice autor", "/res/icons/background.jpeg");
+            Presentation newPresentation = new Presentation("Presentation" + index, activeProject.getRuNode(), "Author", "/backgrounds/background.jpeg");
+//            new ChangeAuthorDialog(newPresentation); //optional for setting author name at creation
            ((Project) activeProject.getRuNode()).add(newPresentation);
            activeProject.add(new MyTreeNode(newPresentation));
 
@@ -56,7 +56,7 @@ public class NewAction extends AbstractRudokAction{
 
         SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getTree());
 
-        if( activePresentation != null) (activePresentation.getRuNode()).setName("asd");
+//        if( activePresentation != null) (activePresentation.getRuNode()).setName("asd");
 
         //testing
 //        MainFrame.getInstance().prez1.setAuthor("to da");
