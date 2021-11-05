@@ -63,6 +63,10 @@ public class MyTreeNode extends DefaultMutableTreeNode {
         return ruNode;
     }
 
+    public int getIndexOfThis() {
+        return ((RuNodeComposite)((MyTreeNode)getParent()).getRuNode()).getChildren().indexOf(this.getRuNode());
+    }
+
 //    @Override
 //    public Enumeration<TreeNode> children() {
 //        if(isComposite) {

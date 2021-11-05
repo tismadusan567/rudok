@@ -37,7 +37,9 @@ public class MyTreeSelectionListener implements TreeSelectionListener {
         if(tree.getActiveProjectNode() != null) {
             MainFrame.getInstance().getProjectView().displayProject((Project) tree.getActiveProjectNode().getRuNode());
         }
-
-//        System.out.println(tree.getActiveProjectNode() + " " + tree.getActivePresentationNode() + " " + tree.getActiveSlideNode());
+        if(tree.getActivePresentationNode() != null) {
+            MainFrame.getInstance().getProjectView().setSelectedIndex(tree.getActivePresentationNode().getIndexOfThis());
+        }
+        //todo: scroll to slide
     }
 }
