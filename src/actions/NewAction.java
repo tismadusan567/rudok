@@ -43,6 +43,7 @@ public class NewAction extends AbstractRudokAction{
 //            new ChangeAuthorDialog(newPresentation); //optional for setting author name at creation
            ((Project) activeProject.getRuNode()).add(newPresentation);
            activeProject.add(new MyTreeNode(newPresentation));
+           MainFrame.getInstance().selectProjectViewLastTab();
 
             System.out.println("add presentation to " + activeProject);
         } else {

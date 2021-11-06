@@ -1,12 +1,8 @@
 package gui.tree;
 
-import model.Presentation;
-import model.Project;
-import model.Slide;
-import model.Workspace;
-
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 public class MyTree extends JTree {
@@ -16,11 +12,23 @@ public class MyTree extends JTree {
     private MyTreeNode activePresentationNode = null;
     private MyTreeNode activeSlideNode = null;
 
+    private boolean actionListenerPaused = false;
+
     public MyTree(MyTreeNode rootNode) {
         super(new DefaultTreeModel(rootNode));
         this.rootNode = rootNode;
         getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         addTreeSelectionListener(new MyTreeSelectionListener());
+    }
+
+    public void setSelectionPathWithNoEvent(TreePath path) {
+        actionListenerPaused = true;
+        setSelectionPath(path);
+        actionListenerPaused = false;
+    }
+
+    public boolean isActionListenerPaused() {
+        return actionListenerPaused;
     }
 
     public MyTreeNode getRootNode() {

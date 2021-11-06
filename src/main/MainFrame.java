@@ -70,14 +70,18 @@ public class MainFrame extends JFrame {
 
     public void setViewToTreeSelection() {
         //change view
-        if(tree.getActiveProjectNode() != null) {
-            MainFrame.getInstance().getProjectView().displayProject((Project) tree.getActiveProjectNode().getRuNode());
+        if(tree.getActiveProjectNode() != null && tree.getActiveProjectNode().getRuNode() != projectView.getProject()) {
+            projectView.displayProject((Project) tree.getActiveProjectNode().getRuNode());
         }
         //select tab
         if(tree.getActivePresentationNode() != null) {
-            MainFrame.getInstance().getProjectView().setSelectedIndex(tree.getActivePresentationNode().getIndexOfThis());
+            projectView.setSelectedIndex(tree.getActivePresentationNode().getIndexOfThis());
         }
         //todo: scroll to slide
+    }
+
+    public void selectProjectViewLastTab() {
+        projectView.setSelectedIndex(projectView.getTabCount() - 1);
     }
 
     public ActionManager getActionManager() {
@@ -87,10 +91,5 @@ public class MainFrame extends JFrame {
     public MyTree getTree() {
         return tree;
     }
-
-    public ProjectView getProjectView() {
-        return projectView;
-    }
-
 
 }

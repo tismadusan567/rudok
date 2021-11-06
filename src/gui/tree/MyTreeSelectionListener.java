@@ -15,6 +15,8 @@ public class MyTreeSelectionListener implements TreeSelectionListener {
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         MyTree tree = (MyTree) e.getSource();
+        if(tree.isActionListenerPaused()) return;
+
         TreePath path = e.getPath();
 
         tree.setActiveSlideNode(null);
