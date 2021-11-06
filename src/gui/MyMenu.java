@@ -14,6 +14,7 @@ public class MyMenu extends JMenuBar {
         JMenu editMenu = new JMenu("Edit");
         editMenu.add(MainFrame.getInstance().getActionManager().getChangeAuthorAction());
         editMenu.add(MainFrame.getInstance().getActionManager().getChangeThemeAction());
+        editMenu.add(MainFrame.getInstance().getActionManager().getRenameAction());
 
         JMenu helpMenu = new JMenu("Help");
         helpMenu.setMaximumSize(new Dimension(50, 50)); //doesnt work
