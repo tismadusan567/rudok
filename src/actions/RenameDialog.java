@@ -32,26 +32,12 @@ public class RenameDialog extends JDialog {
 
         okButton.addActionListener(e -> {
             MyTree tree = MainFrame.getInstance().getTree();
-            MyTreeNode activeSlide = tree.getActiveSlideNode();
-            MyTreeNode activePresentation = tree.getActivePresentationNode();
-            MyTreeNode activeProject = tree.getActiveProjectNode();
-            MyTreeNode root =  tree.getRootNode();
 
-            RuNode target;
-
-            if(activeSlide != null) {
-                target = activeSlide.getRuNode();
-            } else if(activePresentation != null) {
-                target = activePresentation.getRuNode();
-            } else if(activeProject != null) {
-                target = activeProject.getRuNode();
-            } else {
-                target = root.getRuNode();
-            }
+            RuNode target = tree.getActiveNode().getRuNode();
 
             target.setName(textField.getText());
 
-            SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getTree());
+            SwingUtilities.updateComponentTreeUI(tree);
 
             dispose();
         });

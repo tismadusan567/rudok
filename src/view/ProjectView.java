@@ -13,10 +13,12 @@ import javax.swing.tree.TreePath;
 
 public class ProjectView extends JTabbedPane implements ISubscriber {
     private Project project;
+    private boolean changeListenerPaused = false;
 
     public ProjectView() {
         super(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
         addChangeListener(e -> {
+            if(changeListenerPaused) return;
             if(getSelectedIndex() == -1) return;
 
             MyTree tree = MainFrame.getInstance().getTree();
@@ -33,8 +35,7 @@ public class ProjectView extends JTabbedPane implements ISubscriber {
             if(projectNode.getChildCount() <= 0) return;
             System.out.println(projectNode  + " " + getSelectedIndex());
             TreePath path = new TreePath(((MyTreeNode)projectNode.getChildAt(getSelectedIndex())).getPath());
-            tree.setSelectionPathWithNoEvent(path);
-
+            tree.setSelectionPath(path);
 
 //            System.out.println(getSelectedIndex());
         });
@@ -61,6 +62,10 @@ public class ProjectView extends JTabbedPane implements ISubscriber {
         } else {
             System.err.println("Notification not of type Project in ProjectView");
         }
+    }
+
+    public void setChangeListenerPaused(boolean changeListenerPaused) {
+        this.changeListenerPaused = changeListenerPaused;
     }
 
     public Project getProject() {

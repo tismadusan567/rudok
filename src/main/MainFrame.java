@@ -71,7 +71,9 @@ public class MainFrame extends JFrame {
     public void setViewToTreeSelection() {
         //change view
         if(tree.getActiveProjectNode() != null && tree.getActiveProjectNode().getRuNode() != projectView.getProject()) {
+            projectView.setChangeListenerPaused(true);
             projectView.displayProject((Project) tree.getActiveProjectNode().getRuNode());
+            projectView.setChangeListenerPaused(false);
         }
         //select tab
         if(tree.getActivePresentationNode() != null) {

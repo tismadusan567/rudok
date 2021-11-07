@@ -66,6 +66,7 @@ public class PresentationView extends JPanel implements ISubscriber {
 
     @Override
     public void update(Object notification) {
+        //show different presentation
         if(notification instanceof Presentation) {
             Presentation presentation = (Presentation)notification;
 

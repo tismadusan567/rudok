@@ -3,10 +3,7 @@ package actions;
 import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
 import main.MainFrame;
-import model.Presentation;
-import model.Project;
-import model.Slide;
-import model.Workspace;
+import model.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -27,33 +24,35 @@ public class NewAction extends AbstractRudokAction{
         MyTreeNode activeProject = tree.getActiveProjectNode();
         MyTreeNode root =  tree.getRootNode();
 
+        MyTreeNode target = tree.getActiveNode();
+        RuNode targetRuNode = target.getRuNode();
+        RuNode newNode = null;
 
-        if(activeSlide != null) {
+        int index = target.getChildCount() + 1;
+
+
+        if(targetRuNode instanceof Slide) {
             System.out.println("Slides cant have children!");
-        } else if(activePresentation != null) {
-            int index = activePresentation.getChildCount() + 1;
-            Slide newSlide = new Slide("Slide" + index, activePresentation.getRuNode(), 0);
-            ((Presentation)activePresentation.getRuNode()).add(newSlide);
-            activePresentation.add(new MyTreeNode(newSlide));
+            return;
+        } else if(targetRuNode instanceof Presentation) {
+            newNode = new Slide("Slide" + index, targetRuNode, 0);
 
-            System.out.println("add slide to " + activePresentation);
-        } else if(activeProject != null) {
-            int index = activeProject.getChildCount() + 1;
-            Presentation newPresentation = new Presentation("Presentation" + index, activeProject.getRuNode(), "Author", "/backgrounds/background.jpeg");
+            System.out.println("add slide to " + targetRuNode);
+        } else if(targetRuNode instanceof Project) {
+            newNode = new Presentation("Presentation" + index, targetRuNode, "Author", "/backgrounds/background.jpeg");
 //            new ChangeAuthorDialog(newPresentation); //optional for setting author name at creation
-           ((Project) activeProject.getRuNode()).add(newPresentation);
-           activeProject.add(new MyTreeNode(newPresentation));
-           MainFrame.getInstance().selectProjectViewLastTab();
 
-            System.out.println("add presentation to " + activeProject);
+            System.out.println("add presentation to " + targetRuNode);
         } else {
-            int index = root.getChildCount() + 1;
-            Project newProject = new Project("Project" + index, root.getRuNode());
-            ((Workspace)root.getRuNode()).add(newProject);
-            root.add(new MyTreeNode(newProject));
+            newNode = new Project("Project" + index, targetRuNode);
 
-            System.out.println("add project to " + root);
+            System.out.println("add project to " + targetRuNode);
         }
+
+        ((RuNodeComposite)targetRuNode).add(newNode);
+        target.add(new MyTreeNode(newNode));
+        if(targetRuNode instanceof Project) MainFrame.getInstance().selectProjectViewLastTab();
+
 
         SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getTree());
 

@@ -12,8 +12,6 @@ public class MyTree extends JTree {
     private MyTreeNode activePresentationNode = null;
     private MyTreeNode activeSlideNode = null;
 
-    private boolean actionListenerPaused = false;
-
     public MyTree(MyTreeNode rootNode) {
         super(new DefaultTreeModel(rootNode));
         this.rootNode = rootNode;
@@ -21,14 +19,15 @@ public class MyTree extends JTree {
         addTreeSelectionListener(new MyTreeSelectionListener());
     }
 
-    public void setSelectionPathWithNoEvent(TreePath path) {
-        actionListenerPaused = true;
-        setSelectionPath(path);
-        actionListenerPaused = false;
-    }
-
-    public boolean isActionListenerPaused() {
-        return actionListenerPaused;
+    public MyTreeNode getActiveNode() {
+        if(activeSlideNode != null) {
+            return activeSlideNode;
+        } else if(activePresentationNode != null) {
+            return activePresentationNode;
+        } else if(activeProjectNode != null) {
+            return activeProjectNode;
+        }
+        return rootNode;
     }
 
     public MyTreeNode getRootNode() {
