@@ -11,16 +11,25 @@ import observer.ISubscriber;
 
 import javax.swing.*;
 import javax.swing.tree.TreePath;
+import java.awt.*;
 
-public class ProjectView extends JTabbedPane implements ISubscriber {
+public class ProjectView extends JPanel implements ISubscriber {
     private Project project;
+    private final JTabbedPane tabbedPane;
+    private final JLabel nameLabel;
     private boolean changeListenerPaused = false;
 
     public ProjectView() {
-        super(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
-        addChangeListener(e -> {
+        setLayout(new BorderLayout());
+
+        nameLabel = new JLabel("", SwingConstants.CENTER);
+        add(nameLabel, BorderLayout.NORTH);
+
+        tabbedPane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
+        add(tabbedPane, BorderLayout.CENTER);
+        tabbedPane.addChangeListener(e -> {
             if(changeListenerPaused) return;
-            if(getSelectedIndex() == -1) return;
+            if(tabbedPane.getSelectedIndex() == -1) return;
 
             MyTree tree = MainFrame.getInstance().getTree();
             var projects = tree.getRootNode().children();
@@ -34,25 +43,25 @@ public class ProjectView extends JTabbedPane implements ISubscriber {
                 return;
             }
             if(projectNode.getChildCount() <= 0) return;
-            System.out.println(projectNode  + " " + getSelectedIndex());
-            TreePath path = new TreePath(((MyTreeNode)projectNode.getChildAt(getSelectedIndex())).getPath());
+            System.out.println(projectNode  + " " + tabbedPane.getSelectedIndex());
+            TreePath path = new TreePath(((MyTreeNode)projectNode.getChildAt(tabbedPane.getSelectedIndex())).getPath());
             tree.setSelectionPath(path);
-
-//            System.out.println(getSelectedIndex());
         });
     }
 
     public void displayProject(Project project) {
         this.project = project;
         this.project.addSubscriber(this);
+
+        nameLabel.setText(project.getName());
         createTabs();
     }
 
     private void createTabs() {
-        removeAll();
+        tabbedPane.removeAll();
         for(RuNode node : project.getChildren()) {
             Presentation presentation = (Presentation) node;
-            addTab(presentation.getName(), new PresentationView(presentation)); //new PresentationView
+            tabbedPane.addTab(presentation.getName(), new PresentationView(presentation)); //new PresentationView
         }
     }
 
@@ -65,12 +74,14 @@ public class ProjectView extends JTabbedPane implements ISubscriber {
 
         //change name
         if(notification == Notifications.RUNODE_NAME_CHANGED) {
-
+            nameLabel.setText(project.getName());
         }
 
         //add presentation
         if(notification instanceof Presentation presentation){
-            addTab(presentation.getName(), new PresentationView(presentation));
+            System.out.println(presentation);
+            tabbedPane.addTab(presentation.getName(), new PresentationView(presentation));
+            tabbedPane.validate();
         }
     }
 
@@ -80,5 +91,17 @@ public class ProjectView extends JTabbedPane implements ISubscriber {
 
     public Project getProject() {
         return project;
+    }
+
+    public JTabbedPane getTabbedPane() {
+        return tabbedPane;
+    }
+
+    public void setSelectedIndex(int indexOfThis) {
+        tabbedPane.setSelectedIndex(indexOfThis);
+    }
+
+    public int getTabCount() {
+        return tabbedPane.getTabCount();
     }
 }

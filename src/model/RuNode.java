@@ -16,6 +16,12 @@ public abstract class RuNode implements IPublisher {
         subscribers = new ArrayList<>();
     }
 
+    public int getIndexInParent() {
+        if(!(parent instanceof RuNodeComposite)) return -1;
+
+        return ((RuNodeComposite) parent).getChildren().indexOf(this);
+    }
+
     @Override
     public String toString() {
         return name;

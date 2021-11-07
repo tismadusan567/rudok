@@ -85,7 +85,7 @@ public class PresentationView extends JPanel implements ISubscriber {
         //change name
         if(notification == Notifications.RUNODE_NAME_CHANGED) {
             //find index of presentation in its parent and set this components parent(ProjectView)'s title at the index to the required name
-            ((ProjectView)getParent()).setTitleAt(((RuNodeComposite)presentation.getParent()).getChildren().indexOf(presentation), presentation.getName());
+            ((JTabbedPane)getParent()).setTitleAt(presentation.getIndexInParent(), presentation.getName());
         }
 
         //change author name

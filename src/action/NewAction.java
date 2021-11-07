@@ -27,7 +27,7 @@ public class NewAction extends AbstractRudokAction{
         if(targetRuNode instanceof Slide) return;
 
 //        int index = target.getChildCount() + 1;
-        int index = ((RuNodeComposite) targetRuNode).getLastChild();
+        int index = ((RuNodeComposite) targetRuNode).getMaxChildIndex();
 
         if(targetRuNode instanceof Presentation) {
             newNode = new Slide("Slide" + index, targetRuNode, index);
