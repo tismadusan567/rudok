@@ -1,9 +1,7 @@
 package gui.tree;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeSelectionModel;
+import javax.swing.tree.*;
 
 public class MyTree extends JTree {
     private MyTreeNode rootNode;
@@ -17,7 +15,10 @@ public class MyTree extends JTree {
         this.rootNode = rootNode;
         getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         addTreeSelectionListener(new MyTreeSelectionListener());
-        setCellRenderer(new MyTreeCellRenderer());
+        MyTreeCellRenderer myTreeCellRenderer = new MyTreeCellRenderer();
+        setCellRenderer(myTreeCellRenderer);
+        setCellEditor(new MyTreeEditor(this, myTreeCellRenderer));
+        setEditable(true);
     }
 
     public MyTreeNode getActiveNode() {
