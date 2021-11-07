@@ -19,7 +19,7 @@ public class Presentation extends RuNodeComposite{
     }
 
         @Override
-    public void add(RuNode node) {
+    protected void add(RuNode node) {
         if(node instanceof Slide) {
             children.add(node);
         } else {
@@ -35,8 +35,6 @@ public class Presentation extends RuNodeComposite{
         if(children.size() == 0 || index >= children.size()) return null;
         return (Slide) children.get(index);
     }
-
-
 
     public String getAuthor() {
         return author;

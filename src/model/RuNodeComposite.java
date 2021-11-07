@@ -5,14 +5,20 @@ import java.util.List;
 
 public abstract class RuNodeComposite extends RuNode {
 
-    protected List<RuNode> children;
+    protected final List<RuNode> children;
+    private int lastChild = 1;
 
     public RuNodeComposite(String name, RuNode parent) {
         super(name, parent);
         children = new ArrayList<>();
     }
 
-    public abstract void add(RuNode node);
+    protected abstract void add(RuNode node);
+
+    public void addChild(RuNode node) {
+        add(node);
+        lastChild++;
+    }
 
     public void remove(RuNode node) {
         children.remove(node);
@@ -21,5 +27,9 @@ public abstract class RuNodeComposite extends RuNode {
 
     public List<RuNode> getChildren() {
         return children;
+    }
+
+    public int getLastChild() {
+        return lastChild;
     }
 }

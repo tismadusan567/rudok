@@ -27,20 +27,6 @@ public class MyTreeNode extends DefaultMutableTreeNode {
         }
     }
 
-    //    @Override
-//    public void add(MutableTreeNode newChild) {
-//        MyTreeNode myNewChild = (MyTreeNode) newChild;
-//        super.add(myNewChild);
-//
-//        if(ruNode instanceof Workspace) {
-//            ((Workspace) ruNode).add(myNewChild.getRuNode());
-//        } else if(ruNode instanceof Project) {
-//            ((Project) ruNode).add(myNewChild.getRuNode());
-//        } else if (ruNode instanceof Presentation) {
-//            ((Presentation) ruNode).add(myNewChild.getRuNode());
-//        }
-//    }
-
     @Override
     public String toString() {
         return ruNode.toString();

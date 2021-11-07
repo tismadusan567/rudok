@@ -19,23 +19,18 @@ public class NewAction extends AbstractRudokAction{
     @Override
     public void actionPerformed(ActionEvent e) {
         MyTree tree = MainFrame.getInstance().getTree();
-        MyTreeNode activeSlide = tree.getActiveSlideNode();
-        MyTreeNode activePresentation = tree.getActivePresentationNode();
-        MyTreeNode activeProject = tree.getActiveProjectNode();
-        MyTreeNode root =  tree.getRootNode();
 
         MyTreeNode target = tree.getActiveNode();
         RuNode targetRuNode = target.getRuNode();
         RuNode newNode = null;
 
-        int index = target.getChildCount() + 1;
+        if(targetRuNode instanceof Slide) return;
 
+//        int index = target.getChildCount() + 1;
+        int index = ((RuNodeComposite) targetRuNode).getLastChild();
 
-        if(targetRuNode instanceof Slide) {
-            System.out.println("Slides cant have children!");
-            return;
-        } else if(targetRuNode instanceof Presentation) {
-            newNode = new Slide("Slide" + index, targetRuNode, 0);
+        if(targetRuNode instanceof Presentation) {
+            newNode = new Slide("Slide" + index, targetRuNode, index);
 
             System.out.println("add slide to " + targetRuNode);
         } else if(targetRuNode instanceof Project) {
@@ -49,7 +44,7 @@ public class NewAction extends AbstractRudokAction{
             System.out.println("add project to " + targetRuNode);
         }
 
-        ((RuNodeComposite)targetRuNode).add(newNode);
+        ((RuNodeComposite)targetRuNode).addChild(newNode);
         target.add(new MyTreeNode(newNode));
         if(targetRuNode instanceof Project) MainFrame.getInstance().selectProjectViewLastTab();
 

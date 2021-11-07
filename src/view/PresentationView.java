@@ -74,12 +74,15 @@ public class PresentationView extends JPanel implements ISubscriber {
 
     @Override
     public void update(Object notification) {
-        //show different presentation
+        //change name
         if(notification instanceof Presentation presentation) {
 
             if(getParent() == null) System.err.println("Parent of presentationview is null");;
 
-            displayPresentation(presentation);
+//            displayPresentation(presentation);
+            //find index of presentation in its parent and set this components parent(ProjectView)'s title at the index to the required name
+            ((ProjectView)getParent()).setTitleAt(((RuNodeComposite)presentation.getParent()).getChildren().indexOf(presentation), presentation.getName());
+
         }
 
         //add new slide
@@ -91,8 +94,6 @@ public class PresentationView extends JPanel implements ISubscriber {
         //change author name
         if(notification == Presentation.Notifications.NEW_AUTHOR) {
             lblAuthor.setText(presentation.getAuthor());
-            //find index of presentation in its parent and set this components parent(ProjectView)'s title at the index to the required name
-            ((ProjectView)getParent()).setTitleAt(((RuNodeComposite)presentation.getParent()).getChildren().indexOf(presentation), presentation.getName());
         }
 
         //change theme image
