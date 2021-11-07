@@ -1,6 +1,10 @@
 package model;
 
 public class Project extends RuNodeComposite{
+//    public enum Notifications {
+//        NEW_PRESENTATION
+//    }
+
     public Project(String name, RuNode parent) {
         super(name, parent);
     }
@@ -12,7 +16,8 @@ public class Project extends RuNodeComposite{
         } else {
             //error
             System.err.println("You have to add Presentation to Project");
+            return;
         }
-        notify(this);
+        notify(node);
     }
 }

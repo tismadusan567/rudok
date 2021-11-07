@@ -59,8 +59,10 @@ public class ProjectView extends JTabbedPane implements ISubscriber {
     public void update(Object notification) {
         if(notification instanceof Project) {
             displayProject((Project) notification);
+        } else if(notification instanceof Presentation presentation){
+            addTab(presentation.getName(), new PresentationView(presentation));
         } else {
-            System.err.println("Notification not of type Project in ProjectView");
+            System.err.println("Wrong notification in ProjectView");;
         }
     }
 

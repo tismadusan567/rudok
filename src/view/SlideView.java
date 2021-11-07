@@ -48,4 +48,8 @@ public class SlideView extends JPanel implements ISubscriber {
             System.err.println("Notification not of type Slide in SlideView");
         }
     }
+
+    public void setImage(Image image) {
+        this.image = image.getScaledInstance(dimension.width, dimension.height, Image.SCALE_SMOOTH);
+    }
 }

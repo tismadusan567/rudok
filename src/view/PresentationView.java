@@ -9,14 +9,16 @@ import observer.ISubscriber;
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PresentationView extends JPanel implements ISubscriber {
     private Presentation presentation;
     private int slideIndex = 0;
-    private JLabel lblAuthor;
-    private SlideView slideView;
+    private final JLabel lblAuthor;
     private Image image;
-    private JPanel slidesPanel;
+    private final JPanel slidesPanel;
+    private final List<SlideView> slideViews = new ArrayList<>();
 
     public PresentationView(Presentation presentation) {
 
@@ -50,9 +52,15 @@ public class PresentationView extends JPanel implements ISubscriber {
         slidesPanel.revalidate();
 
         for(RuNode child : presentation.getChildren()) {
-            slidesPanel.add(Box.createVerticalStrut(50));
-            slidesPanel.add(new SlideView((Slide) child, image));
+            addSlideView((Slide) child);
         }
+    }
+
+    private void addSlideView(Slide slide) {
+        slidesPanel.add(Box.createVerticalStrut(50));
+        SlideView newSlideView = new SlideView(slide, image);
+        slidesPanel.add(newSlideView);
+        slideViews.add(newSlideView);
     }
 
     private void loadImage() {
@@ -67,16 +75,33 @@ public class PresentationView extends JPanel implements ISubscriber {
     @Override
     public void update(Object notification) {
         //show different presentation
-        if(notification instanceof Presentation) {
-            Presentation presentation = (Presentation)notification;
+        if(notification instanceof Presentation presentation) {
 
             if(getParent() == null) System.err.println("Parent of presentationview is null");;
 
+            displayPresentation(presentation);
+        }
+
+        //add new slide
+        if(notification instanceof Slide slide) {
+            addSlideView(slide);
+            slidesPanel.getParent().validate();
+        }
+
+        //change author name
+        if(notification == Presentation.Notifications.NEW_AUTHOR) {
+            lblAuthor.setText(presentation.getAuthor());
             //find index of presentation in its parent and set this components parent(ProjectView)'s title at the index to the required name
             ((ProjectView)getParent()).setTitleAt(((RuNodeComposite)presentation.getParent()).getChildren().indexOf(presentation), presentation.getName());
-            displayPresentation(presentation);
-        } else {
-            System.err.println("Notification not of type Presentation in PresentationView");
+        }
+
+        //change theme image
+        if(notification == Presentation.Notifications.NEW_IMAGE_PATH) {
+            loadImage();
+            for(SlideView slideView : slideViews) {
+                slideView.setImage(image);
+                slideView.repaint();
+            }
         }
     }
 }
