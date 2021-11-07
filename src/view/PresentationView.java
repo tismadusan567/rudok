@@ -1,9 +1,6 @@
 package view;
 
-import model.Presentation;
-import model.RuNode;
-import model.RuNodeComposite;
-import model.Slide;
+import model.*;
 import observer.ISubscriber;
 
 import javax.swing.*;
@@ -74,15 +71,9 @@ public class PresentationView extends JPanel implements ISubscriber {
 
     @Override
     public void update(Object notification) {
-        //change name
+        //change presentation
         if(notification instanceof Presentation presentation) {
-
-            if(getParent() == null) System.err.println("Parent of presentationview is null");;
-
-//            displayPresentation(presentation);
-            //find index of presentation in its parent and set this components parent(ProjectView)'s title at the index to the required name
-            ((ProjectView)getParent()).setTitleAt(((RuNodeComposite)presentation.getParent()).getChildren().indexOf(presentation), presentation.getName());
-
+            displayPresentation(presentation);
         }
 
         //add new slide
@@ -91,13 +82,19 @@ public class PresentationView extends JPanel implements ISubscriber {
             slidesPanel.getParent().validate();
         }
 
+        //change name
+        if(notification == Notifications.RUNODE_NAME_CHANGED) {
+            //find index of presentation in its parent and set this components parent(ProjectView)'s title at the index to the required name
+            ((ProjectView)getParent()).setTitleAt(((RuNodeComposite)presentation.getParent()).getChildren().indexOf(presentation), presentation.getName());
+        }
+
         //change author name
-        if(notification == Presentation.Notifications.NEW_AUTHOR) {
+        if(notification == Notifications.PRESENTATION_NEW_AUTHOR) {
             lblAuthor.setText(presentation.getAuthor());
         }
 
         //change theme image
-        if(notification == Presentation.Notifications.NEW_IMAGE_PATH) {
+        if(notification == Notifications.PRESENTATION_NEW_IMAGE_PATH) {
             loadImage();
             for(SlideView slideView : slideViews) {
                 slideView.setImage(image);

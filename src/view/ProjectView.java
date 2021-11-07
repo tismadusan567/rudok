@@ -3,6 +3,7 @@ package view;
 import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
 import main.MainFrame;
+import model.Notifications;
 import model.Presentation;
 import model.Project;
 import model.RuNode;
@@ -57,12 +58,19 @@ public class ProjectView extends JTabbedPane implements ISubscriber {
 
     @Override
     public void update(Object notification) {
+        //display new project
         if(notification instanceof Project) {
             displayProject((Project) notification);
-        } else if(notification instanceof Presentation presentation){
+        }
+
+        //change name
+        if(notification == Notifications.RUNODE_NAME_CHANGED) {
+
+        }
+
+        //add presentation
+        if(notification instanceof Presentation presentation){
             addTab(presentation.getName(), new PresentationView(presentation));
-        } else {
-            System.err.println("Wrong notification in ProjectView");;
         }
     }
 

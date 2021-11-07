@@ -1,5 +1,6 @@
 package view;
 
+import model.Notifications;
 import model.Presentation;
 import model.Project;
 import model.Slide;
@@ -42,11 +43,16 @@ public class SlideView extends JPanel implements ISubscriber {
 
     @Override
     public void update(Object notification) {
-        if(notification instanceof Slide) {
-            displaySlide((Slide) notification);
-        } else {
-            System.err.println("Notification not of type Slide in SlideView");
+        //change slide
+        if (notification instanceof Slide newSlide) {
+            displaySlide(newSlide);
         }
+
+        //change name
+        if (notification == Notifications.RUNODE_NAME_CHANGED) {
+//            displaySlide((Slide) notification);
+        }
+
     }
 
     public void setImage(Image image) {

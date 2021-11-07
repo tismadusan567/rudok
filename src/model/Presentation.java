@@ -1,9 +1,6 @@
 package model;
 
 public class Presentation extends RuNodeComposite{
-    public enum Notifications {
-        NEW_AUTHOR, NEW_IMAGE_PATH
-    }
 
     private String author;
     private String imagePath;
@@ -42,7 +39,7 @@ public class Presentation extends RuNodeComposite{
 
     public void setAuthor(String author) {
         this.author = author;
-        notify(Notifications.NEW_AUTHOR);
+        notify(Notifications.PRESENTATION_NEW_AUTHOR);
     }
 
     public String getImagePath() {
@@ -51,6 +48,6 @@ public class Presentation extends RuNodeComposite{
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
-        notify(Notifications.NEW_IMAGE_PATH);
+        notify(Notifications.PRESENTATION_NEW_IMAGE_PATH);
     }
 }

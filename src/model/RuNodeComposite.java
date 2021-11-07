@@ -22,7 +22,7 @@ public abstract class RuNodeComposite extends RuNode {
 
     public void remove(RuNode node) {
         children.remove(node);
-        notify(this);
+        notify(Notifications.RUNODECOMPOSITE_REMOVE);
     }
 
     public List<RuNode> getChildren() {
