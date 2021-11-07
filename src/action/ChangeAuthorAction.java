@@ -1,5 +1,6 @@
-package actions;
+package action;
 
+import action.dialog.ChangeAuthorDialog;
 import gui.tree.MyTreeNode;
 import main.MainFrame;
 import model.Presentation;
@@ -10,7 +11,7 @@ public class ChangeAuthorAction extends AbstractRudokAction{
     public ChangeAuthorAction() {
         putValue(NAME, "Change author");
         putValue(SHORT_DESCRIPTION, "Change author");
-        putValue(SMALL_ICON, loadIcon("/res/icons/user.png")); //todo
+        putValue(SMALL_ICON, loadIcon("/icons/icons32/user.png")); //todo
 
     }
 

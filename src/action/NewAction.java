@@ -1,4 +1,4 @@
-package actions;
+package action;
 
 import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
@@ -12,7 +12,7 @@ public class NewAction extends AbstractRudokAction{
     public NewAction() {
         putValue(NAME, "New");
         putValue(SHORT_DESCRIPTION, "New");
-        putValue(SMALL_ICON, loadIcon("/res/icons/document_empty.png"));
+        putValue(SMALL_ICON, loadIcon("/icons/icons32/add.png"));
 
     }
 

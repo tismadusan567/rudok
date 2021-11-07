@@ -1,7 +1,6 @@
-package actions;
+package action.dialog;
 
 import gui.tree.MyTree;
-import gui.tree.MyTreeNode;
 import main.MainFrame;
 import model.RuNode;
 

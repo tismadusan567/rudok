@@ -1,4 +1,4 @@
-package actions;
+package action;
 
 import main.MainFrame;
 
@@ -11,7 +11,7 @@ public class InfoAction extends AbstractRudokAction{
 
         putValue(NAME, "Info");
         putValue(SHORT_DESCRIPTION, "Info");
-        putValue(SMALL_ICON, loadIcon("/res/icons/symbol_questionmark.png"));
+        putValue(SMALL_ICON, loadIcon("/icons/icons32/information.png"));
 
     }
 

@@ -13,7 +13,7 @@ import java.awt.*;
 public class SlideView extends JPanel implements ISubscriber {
     private Slide slide;
     private Image image;
-    private Dimension dimension;
+    private final Dimension dimension;
 
     public SlideView(Slide slide, Image image) {
         this.dimension = new Dimension(1066, 600);

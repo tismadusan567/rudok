@@ -1,5 +1,6 @@
-package actions;
+package action;
 
+import action.dialog.ChangeThemeDialog;
 import gui.tree.MyTreeNode;
 import main.MainFrame;
 import model.Presentation;
@@ -10,7 +11,7 @@ public class ChangeThemeAction extends AbstractRudokAction{
     public ChangeThemeAction() {
         putValue(NAME, "Change theme");
         putValue(SHORT_DESCRIPTION, "Change theme");
-        putValue(SMALL_ICON, loadIcon("/res/icons/painters_palette_brush.png")); //todo
+        putValue(SMALL_ICON, loadIcon("/icons/icons32/painters_palette_brush.png")); //todo
 
     }
 

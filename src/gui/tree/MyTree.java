@@ -17,6 +17,7 @@ public class MyTree extends JTree {
         this.rootNode = rootNode;
         getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         addTreeSelectionListener(new MyTreeSelectionListener());
+        setCellRenderer(new MyTreeCellRenderer());
     }
 
     public MyTreeNode getActiveNode() {

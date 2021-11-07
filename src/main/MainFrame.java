@@ -1,19 +1,15 @@
 package main;
 
-import actions.ActionManager;
+import action.ActionManager;
 import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
-import model.Presentation;
 import model.Project;
-import model.Slide;
 import model.Workspace;
 import gui.MyMenu;
 import gui.MyToolbar;
 import view.ProjectView;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
@@ -23,6 +19,7 @@ public class MainFrame extends JFrame {
     private ProjectView projectView;
     private MyMenu myMenu;
     private MyToolbar myToolbar;
+    public static final Color MAIN_COLOR = new Color(161, 192, 87);
 
     private MainFrame() {
 
@@ -58,7 +55,7 @@ public class MainFrame extends JFrame {
         tree = new MyTree(new MyTreeNode(workspace));
 
         JScrollPane treeScrollPane = new JScrollPane(tree);
-        treeScrollPane.setMinimumSize(new Dimension(screenWidth / 8, screenHeight));
+        treeScrollPane.setMinimumSize(new Dimension(200, screenHeight));
 
         projectView = new ProjectView();
 

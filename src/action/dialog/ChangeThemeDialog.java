@@ -1,4 +1,4 @@
-package actions;
+package action.dialog;
 
 import main.MainFrame;
 import model.Presentation;

@@ -18,6 +18,6 @@ public class MyToolbar extends JToolBar {
 
 
         setFloatable(false);
-        setBackground(new Color(163, 227, 226));
+        setBackground(MainFrame.MAIN_COLOR);
     }
 }
