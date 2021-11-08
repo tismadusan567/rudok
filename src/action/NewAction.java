@@ -1,5 +1,6 @@
 package action;
 
+import error.ErrorFactory;
 import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
 import main.MainFrame;
@@ -24,7 +25,10 @@ public class NewAction extends AbstractRudokAction{
         RuNode targetRuNode = target.getRuNode();
         RuNode newNode = null;
 
-        if(targetRuNode instanceof Slide) return;
+        if(targetRuNode instanceof Slide) {
+            ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.ADD_TO_SLIDE);
+            return;
+        }
 
 //        int index = target.getChildCount() + 1;
         int index = ((RuNodeComposite) targetRuNode).getMaxChildIndex();

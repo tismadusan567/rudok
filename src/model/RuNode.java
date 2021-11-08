@@ -16,6 +16,7 @@ public abstract class RuNode implements IPublisher {
         subscribers = new ArrayList<>();
     }
 
+    //dont use getindexinparent when removing this from parent
     public int getIndexInParent() {
         if (!(parent instanceof RuNodeComposite)) return -1;
 

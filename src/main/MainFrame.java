@@ -1,18 +1,20 @@
 package main;
 
 import action.ActionManager;
+import error.ErrorFactory;
 import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
 import model.Project;
 import model.Workspace;
 import gui.MyMenu;
 import gui.MyToolbar;
+import observer.ISubscriber;
 import view.ProjectView;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements ISubscriber {
     private static MainFrame instance = null;
     private final ActionManager actionManager = new ActionManager();
     private MyTree tree;
@@ -34,6 +36,8 @@ public class MainFrame extends JFrame {
     }
 
     private void init() {
+        ErrorFactory.getInstance().addSubscriber(this);
+
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screenSize = kit.getScreenSize();
         int screenHeight = screenSize.height / 2;
@@ -91,4 +95,8 @@ public class MainFrame extends JFrame {
         return tree;
     }
 
+    @Override
+    public void update(Object notification) {
+        JOptionPane.showMessageDialog(this, notification);
+    }
 }

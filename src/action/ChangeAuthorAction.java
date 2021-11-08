@@ -1,6 +1,7 @@
 package action;
 
 import action.dialog.ChangeAuthorDialog;
+import error.ErrorFactory;
 import gui.tree.MyTreeNode;
 import main.MainFrame;
 import model.Presentation;
@@ -19,7 +20,8 @@ public class ChangeAuthorAction extends AbstractRudokAction{
     public void actionPerformed(ActionEvent e) {
         MyTreeNode activePresentationNode = MainFrame.getInstance().getTree().getActivePresentationNode();
         if(activePresentationNode == null) {
-            System.out.println("No presentation selected");//todo: popup for this message or error handling
+//            System.out.println("No presentation selected");//todo: popup for this message or error handling
+            ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.NO_PRESENTATION_SELECTED);
             return;
         }
         new ChangeAuthorDialog((Presentation) activePresentationNode.getRuNode());
