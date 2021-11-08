@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ErrorFactory implements IPublisher {
     public enum ErrorType {
-        NO_PRESENTATION_SELECTED, ADD_TO_SLIDE, REMOVE_WORKSPACE
+        NO_PRESENTATION_SELECTED, ADD_TO_SLIDE, REMOVE_WORKSPACE, BLANK_RENAME, NO_THEME_SELECTED
     }
 
     private static ErrorFactory instance = null;
@@ -32,6 +32,8 @@ public class ErrorFactory implements IPublisher {
             case ADD_TO_SLIDE -> "You cant add anything to slide(yet)!";
             case NO_PRESENTATION_SELECTED -> "You have to select a presentation!";
             case REMOVE_WORKSPACE -> "You cant remove a workspace!";
+            case BLANK_RENAME -> "The name cant be blank!";
+            case NO_THEME_SELECTED -> "You have to select a theme";
         };
         MyError error = new MyError(message, errorType);
         notify(error);

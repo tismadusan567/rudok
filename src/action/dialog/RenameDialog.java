@@ -1,5 +1,6 @@
 package action.dialog;
 
+import error.ErrorFactory;
 import gui.tree.MyTree;
 import main.MainFrame;
 import model.RuNode;
@@ -15,7 +16,7 @@ public class RenameDialog extends JDialog {
         super(MainFrame.getInstance(), "Rename", true);
 
         setSize(250, 250); //todo: add scaling
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(MainFrame.getInstance());
         setLayout(new BorderLayout());
 
         textField = new JTextField();
@@ -30,6 +31,12 @@ public class RenameDialog extends JDialog {
         add(okButton, BorderLayout.SOUTH);
 
         okButton.addActionListener(e -> {
+            if(textField.getText().isBlank()) {
+//                dispose();
+                ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.BLANK_RENAME);
+                return;
+            }
+
             MyTree tree = MainFrame.getInstance().getTree();
 
             RuNode target = tree.getActiveNode().getRuNode();

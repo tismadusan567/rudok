@@ -1,5 +1,6 @@
 package action.dialog;
 
+import error.ErrorFactory;
 import main.MainFrame;
 import model.Presentation;
 
@@ -16,7 +17,7 @@ public class ChangeAuthorDialog extends JDialog {
         this.presentation = presentation;
 
         setSize(250, 250); //todo: add scaling
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(MainFrame.getInstance());
         setLayout(new FlowLayout());
 
         JLabel label = new JLabel("Enter author name:");
@@ -38,6 +39,10 @@ public class ChangeAuthorDialog extends JDialog {
     private void initActions() {
         button.addActionListener(e -> {
             String newAuthor = textField.getText();
+            if(newAuthor.isBlank()) {
+                ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.BLANK_RENAME);
+                return;
+            }
             presentation.setAuthor(newAuthor);
             dispose();
         });

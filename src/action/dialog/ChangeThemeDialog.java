@@ -1,5 +1,6 @@
 package action.dialog;
 
+import error.ErrorFactory;
 import main.MainFrame;
 import model.Presentation;
 
@@ -18,7 +19,7 @@ public class ChangeThemeDialog extends JDialog {
         this.presentation = presentation;
 
         setSize(250, 250); //todo: add scaling
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(MainFrame.getInstance());
         setLayout(new FlowLayout());
 
         JLabel label = new JLabel("Change theme:");
@@ -45,7 +46,11 @@ public class ChangeThemeDialog extends JDialog {
         });
 
         okButton.addActionListener(e -> {
-            if(newThemePath != null) presentation.setImagePath(newThemePath);
+            if(newThemePath == null || newThemePath.isBlank()) {
+                ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.NO_THEME_SELECTED);
+                return;
+            }
+            presentation.setImagePath(newThemePath);
             dispose();
         });
     }

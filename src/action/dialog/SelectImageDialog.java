@@ -26,7 +26,7 @@ public class SelectImageDialog extends JDialog {
 
     private void init() {
         setSize(250, 250); //todo: add scaling
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(getParent());
         setLayout(new BorderLayout());
 
         JLabel label = new JLabel("Select image");
