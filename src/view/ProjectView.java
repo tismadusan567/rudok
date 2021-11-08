@@ -65,6 +65,11 @@ public class ProjectView extends JPanel implements ISubscriber {
         }
     }
 
+    public void reset() {
+        nameLabel.setText("");
+        tabbedPane.removeAll();
+    }
+
     @Override
     public void update(Object notification) {
         //display new project

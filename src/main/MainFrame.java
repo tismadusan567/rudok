@@ -10,6 +10,7 @@ import gui.MyMenu;
 import gui.MyToolbar;
 import observer.ISubscriber;
 import view.ProjectView;
+import view.WorkspaceView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,7 +64,9 @@ public class MainFrame extends JFrame implements ISubscriber {
 
         projectView = new ProjectView();
 
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, projectView);
+        WorkspaceView workspaceView = new WorkspaceView(projectView, workspace);
+
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, workspaceView);
         add(splitPane, BorderLayout.CENTER);
 
         setVisible(true);
