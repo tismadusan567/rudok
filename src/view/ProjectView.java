@@ -79,7 +79,15 @@ public class ProjectView extends JPanel implements ISubscriber {
 
         //remove presentation
         if (notification instanceof Presentation presentation) {
-
+            int index = -1;
+            for(int i=0;i < tabbedPane.getTabCount();i++) {
+                //find the tab with this presentation
+                if(tabbedPane.getComponentAt(i) instanceof PresentationView curr && curr.getPresentation() == presentation) {
+                    index = i;
+                    break;
+                }
+            }
+            tabbedPane.removeTabAt(index);
         }
 
         //add presentation

@@ -121,4 +121,8 @@ public class PresentationView extends JPanel implements ISubscriber {
             }
         }
     }
+
+    public Presentation getPresentation() {
+        return presentation;
+    }
 }
