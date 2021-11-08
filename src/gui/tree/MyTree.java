@@ -32,6 +32,11 @@ public class MyTree extends JTree {
         return rootNode;
     }
 
+    public void selectNode(MyTreeNode node) {
+        TreePath path = new TreePath(node.getPath());
+        setSelectionPath(path);
+    }
+
     public MyTreeNode getRootNode() {
         return rootNode;
     }

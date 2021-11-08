@@ -2,6 +2,7 @@ package view;
 
 import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
+import main.Main;
 import main.MainFrame;
 import model.Notifications;
 import model.Presentation;
@@ -44,8 +45,7 @@ public class ProjectView extends JPanel implements ISubscriber {
             }
             if (projectNode.getChildCount() <= 0) return;
             System.out.println(projectNode + " " + tabbedPane.getSelectedIndex());
-            TreePath path = new TreePath(((MyTreeNode) projectNode.getChildAt(tabbedPane.getSelectedIndex())).getPath());
-            tree.setSelectionPath(path);
+            tree.selectNode((MyTreeNode) projectNode.getChildAt(tabbedPane.getSelectedIndex()));
         });
     }
 
@@ -93,6 +93,8 @@ public class ProjectView extends JPanel implements ISubscriber {
                 }
             }
             tabbedPane.removeTabAt(index);
+            MyTree tree = MainFrame.getInstance().getTree();
+            tree.selectNode(tree.getActiveProjectNode());
         }
 
         //add presentation

@@ -1,5 +1,7 @@
 package view;
 
+import gui.tree.MyTree;
+import main.MainFrame;
 import model.*;
 import observer.ISubscriber;
 
@@ -79,7 +81,7 @@ public class PresentationView extends JPanel implements ISubscriber {
 
         //remove slide
         if (notification instanceof Slide slide) {
-            int index = 0;
+            int index = -1;
             for(int i=0;i<slideViews.size();i++) {
                 var el = slideViews.get(i);
                 if(el.getSlide() == slide) {
@@ -87,11 +89,14 @@ public class PresentationView extends JPanel implements ISubscriber {
                     break;
                 }
             }
+            if(index == -1) return;
             slidesPanel.remove(2*index); //2*i-1 because of vertical struts
             slidesPanel.remove(2*index);
             validate();
             repaint();
             slideViews.remove(index);
+            MyTree tree = MainFrame.getInstance().getTree();
+            tree.selectNode(tree.getActivePresentationNode());
         }
 
         //add slide

@@ -1,5 +1,7 @@
 package view;
 
+import gui.tree.MyTree;
+import main.MainFrame;
 import model.Project;
 import model.Workspace;
 import observer.ISubscriber;
@@ -24,6 +26,8 @@ public class WorkspaceView extends JPanel implements ISubscriber {
         //remove project
         if(notification instanceof Project) {
             projectView.reset();
+            MyTree tree = MainFrame.getInstance().getTree();
+            tree.selectNode(tree.getRootNode());
         }
     }
 }
