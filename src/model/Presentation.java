@@ -24,7 +24,7 @@ public class Presentation extends RuNodeComposite{
             System.out.println("You have to add Slide to Presentation");
             return;
         }
-        notify(node);
+        notify(Notifications.RUNODECOMPOSITE_ADD);
     }
 
     public Slide getSlideAt(int index) {

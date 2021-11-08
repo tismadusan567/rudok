@@ -9,6 +9,7 @@ public class MyToolbar extends JToolBar {
 
     public MyToolbar() {
         add(MainFrame.getInstance().getActionManager().getNewAction());
+        add(MainFrame.getInstance().getActionManager().getRemoveAction());
         addSeparator();
         add(MainFrame.getInstance().getActionManager().getInfoAction());
         addSeparator();

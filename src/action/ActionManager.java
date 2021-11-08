@@ -7,6 +7,7 @@ public class ActionManager {
     private ChangeAuthorAction changeAuthorAction;
     private ChangeThemeAction changeThemeAction;
     private RenameAction renameAction;
+    private RemoveAction removeAction;
 
     public ActionManager() {
         initActions();
@@ -18,6 +19,7 @@ public class ActionManager {
         changeAuthorAction = new ChangeAuthorAction();
         changeThemeAction = new ChangeThemeAction();
         renameAction = new RenameAction();
+        removeAction = new RemoveAction();
     }
 
     public InfoAction getInfoAction() {
@@ -38,5 +40,9 @@ public class ActionManager {
 
     public RenameAction getRenameAction() {
         return renameAction;
+    }
+
+    public RemoveAction getRemoveAction() {
+        return removeAction;
     }
 }

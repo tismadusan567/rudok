@@ -17,7 +17,7 @@ public abstract class RuNode implements IPublisher {
     }
 
     public int getIndexInParent() {
-        if(!(parent instanceof RuNodeComposite)) return -1;
+        if (!(parent instanceof RuNodeComposite)) return -1;
 
         return ((RuNodeComposite) parent).getChildren().indexOf(this);
     }
@@ -29,7 +29,7 @@ public abstract class RuNode implements IPublisher {
 
     @Override
     public void addSubscriber(ISubscriber subscriber) {
-        if(subscribers.contains(subscriber)) return;
+        if (subscribers.contains(subscriber)) return;
         subscribers.add(subscriber);
     }
 

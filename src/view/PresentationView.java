@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PresentationView extends JPanel implements ISubscriber {
@@ -48,7 +49,7 @@ public class PresentationView extends JPanel implements ISubscriber {
         slidesPanel.removeAll();
         slidesPanel.revalidate();
 
-        for(RuNode child : presentation.getChildren()) {
+        for (RuNode child : presentation.getChildren()) {
             addSlideView((Slide) child);
         }
     }
@@ -62,7 +63,7 @@ public class PresentationView extends JPanel implements ISubscriber {
 
     private void loadImage() {
         URL imageURL = getClass().getResource(presentation.getImagePath());
-        if(imageURL != null) {
+        if (imageURL != null) {
             image = new ImageIcon(imageURL).getImage();
         } else {
             System.err.println("Image not found"); //todo: handle
@@ -72,31 +73,49 @@ public class PresentationView extends JPanel implements ISubscriber {
     @Override
     public void update(Object notification) {
         //change presentation
-        if(notification instanceof Presentation presentation) {
+        if (notification instanceof Presentation presentation) {
             displayPresentation(presentation);
         }
 
-        //add new slide
-        if(notification instanceof Slide slide) {
-            addSlideView(slide);
-            slidesPanel.getParent().validate();
+        //remove slide
+        if (notification instanceof Slide slide) {
+            int index = 0;
+            for(int i=0;i<slideViews.size();i++) {
+                var el = slideViews.get(i);
+                if(el.getSlide() == slide) {
+                    index = i;
+                    break;
+                }
+            }
+            slidesPanel.remove(2*index); //2*i-1 because of vertical struts
+            slidesPanel.remove(2*index);
+            validate();
+            repaint();
+            slideViews.remove(index);
+        }
+
+        //add slide
+        if (notification == Notifications.RUNODECOMPOSITE_ADD) {
+            //add newest element from children
+            addSlideView((Slide) presentation.getChildren().get(presentation.getChildren().size() - 1));
+            validate();
         }
 
         //change name
-        if(notification == Notifications.RUNODE_NAME_CHANGED) {
+        if (notification == Notifications.RUNODE_NAME_CHANGED) {
             //find index of presentation in its parent and set this components parent(ProjectView)'s title at the index to the required name
-            ((JTabbedPane)getParent()).setTitleAt(presentation.getIndexInParent(), presentation.getName());
+            ((JTabbedPane) getParent()).setTitleAt(presentation.getIndexInParent(), presentation.getName());
         }
 
         //change author name
-        if(notification == Notifications.PRESENTATION_NEW_AUTHOR) {
+        if (notification == Notifications.PRESENTATION_NEW_AUTHOR) {
             lblAuthor.setText(presentation.getAuthor());
         }
 
         //change theme image
-        if(notification == Notifications.PRESENTATION_NEW_IMAGE_PATH) {
+        if (notification == Notifications.PRESENTATION_NEW_IMAGE_PATH) {
             loadImage();
-            for(SlideView slideView : slideViews) {
+            for (SlideView slideView : slideViews) {
                 slideView.setImage(image);
                 slideView.repaint();
             }
