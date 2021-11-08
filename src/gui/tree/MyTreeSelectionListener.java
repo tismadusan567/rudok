@@ -23,13 +23,13 @@ public class MyTreeSelectionListener implements TreeSelectionListener {
         tree.setActiveProjectNode(null);
 
         //set active components of tree
-        for(int i=0; i<path.getPathCount(); i++) {
-            MyTreeNode current = (MyTreeNode)path.getPathComponent(i);
-            if(current.getRuNode() instanceof Project) {
+        for (int i = 0; i < path.getPathCount(); i++) {
+            MyTreeNode current = (MyTreeNode) path.getPathComponent(i);
+            if (current.getRuNode() instanceof Project) {
                 tree.setActiveProjectNode(current);
-            } else if(current.getRuNode() instanceof Presentation) {
+            } else if (current.getRuNode() instanceof Presentation) {
                 tree.setActivePresentationNode(current);
-            } else if(current.getRuNode() instanceof Slide) {
+            } else if (current.getRuNode() instanceof Slide) {
                 tree.setActiveSlideNode(current);
             }
         }

@@ -12,14 +12,14 @@ import java.util.Objects;
 import java.util.Vector;
 
 public class MyTreeNode extends DefaultMutableTreeNode {
-    private RuNode ruNode;
+    private final RuNode ruNode;
     private final boolean isComposite;
 
     public MyTreeNode(RuNode ruNode) {
         this.ruNode = ruNode;
         isComposite = ruNode instanceof RuNodeComposite;
-        if(isComposite) {
-            for(RuNode child : ((RuNodeComposite) ruNode).getChildren()) {
+        if (isComposite) {
+            for (RuNode child : ((RuNodeComposite) ruNode).getChildren()) {
 //                children.add(new MyTreeNode(child));
                 super.add(new MyTreeNode(child));
 //                System.out.println(child);
@@ -50,7 +50,7 @@ public class MyTreeNode extends DefaultMutableTreeNode {
     }
 
     public int getIndexOfThis() {
-        return ((RuNodeComposite)((MyTreeNode)getParent()).getRuNode()).getChildren().indexOf(this.getRuNode());
+        return ((RuNodeComposite) ((MyTreeNode) getParent()).getRuNode()).getChildren().indexOf(this.getRuNode());
     }
 
 //    @Override

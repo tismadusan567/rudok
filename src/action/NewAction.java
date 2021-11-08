@@ -9,7 +9,7 @@ import model.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class NewAction extends AbstractRudokAction{
+public class NewAction extends AbstractRudokAction {
     public NewAction() {
         putValue(NAME, "New");
         putValue(SHORT_DESCRIPTION, "New");
@@ -23,35 +23,30 @@ public class NewAction extends AbstractRudokAction{
 
         MyTreeNode target = tree.getActiveNode();
         RuNode targetRuNode = target.getRuNode();
-        RuNode newNode = null;
 
-        if(targetRuNode instanceof Slide) {
+        if (targetRuNode instanceof Slide) {
             ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.ADD_TO_SLIDE);
             return;
         }
 
-//        int index = target.getChildCount() + 1;
-        int index = ((RuNodeComposite) targetRuNode).getMaxChildIndex();
+        RuNodeComposite targetRuNodeComposite = (RuNodeComposite) targetRuNode;
 
-        if(targetRuNode instanceof Presentation) {
-            newNode = new Slide("Slide" + index, targetRuNode, index);
+        int index = targetRuNodeComposite.getMaxChildIndex();
 
-            System.out.println("add slide to " + targetRuNode);
-        } else if(targetRuNode instanceof Project) {
-            newNode = new Presentation("Presentation" + index, targetRuNode, "Author", "/backgrounds/background.jpeg");
+        RuNode newNode = null;
+
+        if (targetRuNode instanceof Presentation) {
+            newNode = new Slide("Slide" + index, targetRuNodeComposite, index);
+        } else if (targetRuNode instanceof Project) {
+            newNode = new Presentation("Presentation" + index, targetRuNodeComposite, "Author", "/backgrounds/background.jpeg");
 //            new ChangeAuthorDialog(newPresentation); //optional for setting author name at creation
-
-            System.out.println("add presentation to " + targetRuNode);
         } else {
-            newNode = new Project("Project" + index, targetRuNode);
-
-            System.out.println("add project to " + targetRuNode);
+            newNode = new Project("Project" + index, targetRuNodeComposite);
         }
 
-        ((RuNodeComposite)targetRuNode).addChild(newNode);
+        targetRuNodeComposite.addChild(newNode);
         target.add(new MyTreeNode(newNode));
-        if(targetRuNode instanceof Project) MainFrame.getInstance().selectProjectViewLastTab();
-
+        if (targetRuNode instanceof Project) MainFrame.getInstance().selectProjectViewLastTab();
 
         SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getTree());
     }

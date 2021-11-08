@@ -1,14 +1,14 @@
 package model;
 
-public class Workspace extends RuNodeComposite{
+public class Workspace extends RuNodeComposite {
 
-    public Workspace(String name, RuNode parent) {
+    public Workspace(String name, RuNodeComposite parent) {
         super(name, parent); // (name, null) if workspace cant have parent
     }
 
     @Override
     protected void add(RuNode node) {
-        if(node instanceof Project) {
+        if (node instanceof Project) {
             children.add(node);
         } else {
             //error

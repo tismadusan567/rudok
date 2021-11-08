@@ -1,20 +1,16 @@
 package view;
 
 import model.Notifications;
-import model.Presentation;
-import model.Project;
 import model.Slide;
 import observer.ISubscriber;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class SlideView extends JPanel implements ISubscriber {
     private Slide slide;
     private Image image;
-    private JLabel nameLabel;
+    private final JLabel nameLabel;
     private final Dimension dimension;
 
     public SlideView(Slide slide, Image image) {

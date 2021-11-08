@@ -42,11 +42,11 @@ public class ChangeThemeDialog extends JDialog {
             SelectImageDialog selectImageDialog = new SelectImageDialog(this);
             newThemePath = selectImageDialog.showDialog();
 //            System.out.println(newThemePath);
-            if(newThemePath != null) pathLabel.setText(newThemePath);
+            if (newThemePath != null) pathLabel.setText(newThemePath);
         });
 
         okButton.addActionListener(e -> {
-            if(newThemePath == null || newThemePath.isBlank()) {
+            if (newThemePath == null || newThemePath.isBlank()) {
                 ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.NO_THEME_SELECTED);
                 return;
             }

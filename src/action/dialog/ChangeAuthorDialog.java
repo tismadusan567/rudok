@@ -39,7 +39,7 @@ public class ChangeAuthorDialog extends JDialog {
     private void initActions() {
         button.addActionListener(e -> {
             String newAuthor = textField.getText();
-            if(newAuthor.isBlank()) {
+            if (newAuthor.isBlank()) {
                 ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.BLANK_RENAME);
                 return;
             }

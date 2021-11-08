@@ -12,10 +12,11 @@ import java.awt.*;
 public class WorkspaceView extends JPanel implements ISubscriber {
     private Workspace workspace;
     private final ProjectView projectView;
+
     public WorkspaceView(ProjectView projectView, Workspace workspace) {
         this.projectView = projectView;
         this.workspace = workspace;
-        workspace.addSubscriber(this);
+        this.workspace.addSubscriber(this);
 
         setLayout(new BorderLayout());
         add(projectView, BorderLayout.CENTER);
@@ -24,7 +25,7 @@ public class WorkspaceView extends JPanel implements ISubscriber {
     @Override
     public void update(Object notification) {
         //remove project
-        if(notification instanceof Project) {
+        if (notification instanceof Project) {
             projectView.reset();
             MyTree tree = MainFrame.getInstance().getTree();
             tree.selectNode(tree.getRootNode());

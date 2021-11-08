@@ -8,7 +8,7 @@ import model.Presentation;
 
 import java.awt.event.ActionEvent;
 
-public class ChangeAuthorAction extends AbstractRudokAction{
+public class ChangeAuthorAction extends AbstractRudokAction {
     public ChangeAuthorAction() {
         putValue(NAME, "Change author");
         putValue(SHORT_DESCRIPTION, "Change author");
@@ -19,8 +19,7 @@ public class ChangeAuthorAction extends AbstractRudokAction{
     @Override
     public void actionPerformed(ActionEvent e) {
         MyTreeNode activePresentationNode = MainFrame.getInstance().getTree().getActivePresentationNode();
-        if(activePresentationNode == null) {
-//            System.out.println("No presentation selected");//todo: popup for this message or error handling
+        if (activePresentationNode == null) {
             ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.NO_PRESENTATION_SELECTED);
             return;
         }

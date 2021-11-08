@@ -12,15 +12,15 @@ public class SelectImageDialog extends JDialog {
     private final String imageDirectory = "/backgrounds";
     private final String imageDirectoryPath = "./src/res" + imageDirectory;
     private JButton button;
-    private ButtonGroup buttonGroup;
     private final List<JRadioButton> jRadioButtonList = new ArrayList<>();
 
     public SelectImageDialog(JDialog parent) {
         super(parent, "Select image", true);
         init();
     }
+
     public SelectImageDialog(JFrame parent) {
-        super(parent,"Select image", true);
+        super(parent, "Select image", true);
         init();
     }
 
@@ -37,7 +37,7 @@ public class SelectImageDialog extends JDialog {
 
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
-        buttonGroup = new ButtonGroup();
+        ButtonGroup buttonGroup = new ButtonGroup();
 
         File dir = new File(imageDirectoryPath);
         File[] directoryListing = dir.listFiles();
@@ -59,8 +59,8 @@ public class SelectImageDialog extends JDialog {
 
         button = new JButton("Select");
         button.addActionListener(e -> {
-            for(var el : jRadioButtonList) {
-                if(el.isSelected()) {
+            for (var el : jRadioButtonList) {
+                if (el.isSelected()) {
                     selectedImage = el.getText();
                     break;
                 }
@@ -73,7 +73,7 @@ public class SelectImageDialog extends JDialog {
 
     String showDialog() {
         setVisible(true);
-        if(selectedImage == null) return null;
+        if (selectedImage == null) return null;
         return imageDirectory + "/" + selectedImage;
     }
 }

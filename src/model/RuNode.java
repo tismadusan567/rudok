@@ -7,10 +7,10 @@ import java.util.*;
 
 public abstract class RuNode implements IPublisher {
     protected String name;
-    protected RuNode parent;
+    protected RuNodeComposite parent;
     private final List<ISubscriber> subscribers; //set in future
 
-    public RuNode(String name, RuNode parent) {
+    public RuNode(String name, RuNodeComposite parent) {
         this.name = name;
         this.parent = parent;
         subscribers = new ArrayList<>();
@@ -18,9 +18,9 @@ public abstract class RuNode implements IPublisher {
 
     //dont use getindexinparent when removing this from parent
     public int getIndexInParent() {
-        if (!(parent instanceof RuNodeComposite)) return -1;
+        if (parent == null) return -1;
 
-        return ((RuNodeComposite) parent).getChildren().indexOf(this);
+        return parent.getChildren().indexOf(this);
     }
 
     @Override
@@ -55,24 +55,11 @@ public abstract class RuNode implements IPublisher {
         return name;
     }
 
-    public RuNode getParent() {
+    public RuNodeComposite getParent() {
         return parent;
     }
 
     public List<ISubscriber> getSubscribers() {
         return subscribers;
     }
-
-    //    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        RuNode ruNode = (RuNode) o;
-//        return Objects.equals(name, ruNode.name) && Objects.equals(parent, ruNode.parent);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(name, parent);
-//    }
 }

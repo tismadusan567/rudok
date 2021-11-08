@@ -13,6 +13,7 @@ public class MyTree extends JTree {
     public MyTree(MyTreeNode rootNode) {
         super(new DefaultTreeModel(rootNode));
         this.rootNode = rootNode;
+
         getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         addTreeSelectionListener(new MyTreeSelectionListener());
         MyTreeCellRenderer myTreeCellRenderer = new MyTreeCellRenderer();
@@ -22,11 +23,11 @@ public class MyTree extends JTree {
     }
 
     public MyTreeNode getActiveNode() {
-        if(activeSlideNode != null) {
+        if (activeSlideNode != null) {
             return activeSlideNode;
-        } else if(activePresentationNode != null) {
+        } else if (activePresentationNode != null) {
             return activePresentationNode;
-        } else if(activeProjectNode != null) {
+        } else if (activeProjectNode != null) {
             return activeProjectNode;
         }
         return rootNode;

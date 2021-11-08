@@ -2,19 +2,20 @@ package view;
 
 import gui.tree.MyTree;
 import main.MainFrame;
-import model.*;
+import model.Notifications;
+import model.Presentation;
+import model.RuNode;
+import model.Slide;
 import observer.ISubscriber;
 
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PresentationView extends JPanel implements ISubscriber {
     private Presentation presentation;
-    private int slideIndex = 0;
     private final JLabel lblAuthor;
     private Image image;
     private final JPanel slidesPanel;
@@ -37,7 +38,6 @@ public class PresentationView extends JPanel implements ISubscriber {
         add(slidesScrollPane, BorderLayout.CENTER);
 
         displayPresentation(presentation);
-
     }
 
     private void displayPresentation(Presentation presentation) {
@@ -82,19 +82,22 @@ public class PresentationView extends JPanel implements ISubscriber {
         //remove slide
         if (notification instanceof Slide slide) {
             int index = -1;
-            for(int i=0;i<slideViews.size();i++) {
+            for (int i = 0; i < slideViews.size(); i++) {
                 var el = slideViews.get(i);
-                if(el.getSlide() == slide) {
+                if (el.getSlide() == slide) {
                     index = i;
                     break;
                 }
             }
-            if(index == -1) return;
-            slidesPanel.remove(2*index); //2*i-1 because of vertical struts
-            slidesPanel.remove(2*index);
+            if (index == -1) return; //removing nonexistent slide, should never happen
+
+            slidesPanel.remove(2 * index); //2*i because of vertical struts
+            slidesPanel.remove(2 * index);
             validate();
             repaint();
             slideViews.remove(index);
+
+            //select presentation
             MyTree tree = MainFrame.getInstance().getTree();
             tree.selectNode(tree.getActivePresentationNode());
         }
@@ -108,7 +111,7 @@ public class PresentationView extends JPanel implements ISubscriber {
 
         //change name
         if (notification == Notifications.RUNODE_NAME_CHANGED) {
-            //find index of presentation in its parent and set this components parent(ProjectView)'s title at the index to the required name
+            //find index of presentation in its parent and set this components parent(ProjectView)'s title at that index to the required name
             ((JTabbedPane) getParent()).setTitleAt(presentation.getIndexInParent(), presentation.getName());
         }
 

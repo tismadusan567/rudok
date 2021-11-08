@@ -29,7 +29,7 @@ public class MainFrame extends JFrame implements ISubscriber {
     }
 
     public static MainFrame getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new MainFrame();
             instance.init();
         }
@@ -41,10 +41,10 @@ public class MainFrame extends JFrame implements ISubscriber {
 
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screenSize = kit.getScreenSize();
-        int screenHeight = screenSize.height / 2;
-        int screenWidth = screenSize.width / 2;
+        int screenHeight = screenSize.height;
+        int screenWidth = screenSize.width;
 
-        setSize(screenWidth, screenHeight);
+        setSize(screenWidth / 2, screenHeight / 2);
 //        Image img = kit.getImage("images/iko.jpg");
 //        setIconImage(img);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,17 +53,16 @@ public class MainFrame extends JFrame implements ISubscriber {
         myMenu = new MyMenu();
         setJMenuBar(myMenu);
 
-        myToolbar = new MyToolbar(); //todo: add menu toolbar tree etc. to fields
+        myToolbar = new MyToolbar();
         add(myToolbar, BorderLayout.NORTH);
 
         Workspace workspace = new Workspace("workspace1", null);
-        tree = new MyTree(new MyTreeNode(workspace));
 
+        tree = new MyTree(new MyTreeNode(workspace));
         JScrollPane treeScrollPane = new JScrollPane(tree);
         treeScrollPane.setMinimumSize(new Dimension(200, screenHeight));
 
         projectView = new ProjectView();
-
         WorkspaceView workspaceView = new WorkspaceView(projectView, workspace);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, workspaceView);
@@ -74,13 +73,13 @@ public class MainFrame extends JFrame implements ISubscriber {
 
     public void setViewToTreeSelection() {
         //change view
-        if(tree.getActiveProjectNode() != null && tree.getActiveProjectNode().getRuNode() != projectView.getProject()) {
+        if (tree.getActiveProjectNode() != null && tree.getActiveProjectNode().getRuNode() != projectView.getProject()) {
             projectView.setChangeListenerPaused(true);
             projectView.displayProject((Project) tree.getActiveProjectNode().getRuNode());
             projectView.setChangeListenerPaused(false);
         }
         //select tab
-        if(tree.getActivePresentationNode() != null) {
+        if (tree.getActivePresentationNode() != null) {
             projectView.setSelectedIndex(tree.getActivePresentationNode().getIndexOfThis());
         }
         //todo: scroll to slide

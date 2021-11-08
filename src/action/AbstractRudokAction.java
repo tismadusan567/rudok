@@ -9,7 +9,7 @@ public abstract class AbstractRudokAction extends AbstractAction {
         URL imageURL = getClass().getResource(filename);
         Icon icon = null;
 
-        if(imageURL != null) {
+        if (imageURL != null) {
             icon = new ImageIcon(imageURL);
         } else {
             System.err.println("Resource not found " + filename);

@@ -1,23 +1,23 @@
 package model;
 
-public class Presentation extends RuNodeComposite{
+public class Presentation extends RuNodeComposite {
 
     private String author;
     private String imagePath;
 
-    public Presentation(String name, RuNode parent, String author, String imagePath) {
+    public Presentation(String name, RuNodeComposite parent, String author, String imagePath) {
         super(name, parent);
         this.author = author;
         this.imagePath = imagePath;
     }
 
-    public Presentation(String name, RuNode parent, String author) {
+    public Presentation(String name, RuNodeComposite parent, String author) {
         this(name, parent, author, "defaultTheme.png"); //todo: add default theme
     }
 
-        @Override
+    @Override
     protected void add(RuNode node) {
-        if(node instanceof Slide) {
+        if (node instanceof Slide) {
             children.add(node);
         } else {
             //error
@@ -25,12 +25,6 @@ public class Presentation extends RuNodeComposite{
             return;
         }
         notify(Notifications.RUNODECOMPOSITE_ADD);
-    }
-
-    public Slide getSlideAt(int index) {
-        //todo: add error checks
-        if(children.size() == 0 || index >= children.size()) return null;
-        return (Slide) children.get(index);
     }
 
     public String getAuthor() {

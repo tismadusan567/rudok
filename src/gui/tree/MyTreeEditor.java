@@ -39,8 +39,8 @@ public class MyTreeEditor extends DefaultTreeCellEditor implements ActionListene
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(!(clickedOn instanceof MyTreeNode)) return;
-        if(e.getActionCommand().isBlank()) {
+        if (!(clickedOn instanceof MyTreeNode)) return;
+        if (e.getActionCommand().isBlank()) {
             ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.BLANK_RENAME);
             return;
         }

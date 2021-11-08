@@ -1,14 +1,14 @@
 package model;
 
-public class Project extends RuNodeComposite{
+public class Project extends RuNodeComposite {
 
-    public Project(String name, RuNode parent) {
+    public Project(String name, RuNodeComposite parent) {
         super(name, parent);
     }
 
     @Override
     protected void add(RuNode node) {
-        if(node instanceof Presentation) {
+        if (node instanceof Presentation) {
             children.add(node);
         } else {
             //error

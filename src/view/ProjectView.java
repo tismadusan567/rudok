@@ -2,7 +2,6 @@ package view;
 
 import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
-import main.Main;
 import main.MainFrame;
 import model.Notifications;
 import model.Presentation;
@@ -11,7 +10,6 @@ import model.RuNode;
 import observer.ISubscriber;
 
 import javax.swing.*;
-import javax.swing.tree.TreePath;
 import java.awt.*;
 
 public class ProjectView extends JPanel implements ISubscriber {
@@ -28,6 +26,8 @@ public class ProjectView extends JPanel implements ISubscriber {
 
         tabbedPane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
         add(tabbedPane, BorderLayout.CENTER);
+
+        //select current tab in tree
         tabbedPane.addChangeListener(e -> {
             if (changeListenerPaused) return;
             if (tabbedPane.getSelectedIndex() == -1) return;
@@ -85,14 +85,16 @@ public class ProjectView extends JPanel implements ISubscriber {
         //remove presentation
         if (notification instanceof Presentation presentation) {
             int index = -1;
-            for(int i=0;i < tabbedPane.getTabCount();i++) {
+            for (int i = 0; i < tabbedPane.getTabCount(); i++) {
                 //find the tab with this presentation
-                if(tabbedPane.getComponentAt(i) instanceof PresentationView curr && curr.getPresentation() == presentation) {
+                if (tabbedPane.getComponentAt(i) instanceof PresentationView curr && curr.getPresentation() == presentation) {
                     index = i;
                     break;
                 }
             }
             tabbedPane.removeTabAt(index);
+
+            //select project
             MyTree tree = MainFrame.getInstance().getTree();
             tree.selectNode(tree.getActiveProjectNode());
         }
