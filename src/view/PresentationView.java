@@ -10,16 +10,14 @@ import observer.ISubscriber;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URL;;
 
 public class PresentationView extends JPanel implements ISubscriber {
     private Presentation presentation;
     private final JLabel lblAuthor;
     private Image image;
-    private final JPanel slidesPanel;
-    private final List<SlideView> slideViews = new ArrayList<>();
+    private final SlidesPanel slidesPanel;
+    private final SlidesPanel thumbnailPanel;
 
     public PresentationView(Presentation presentation) {
 
@@ -29,13 +27,16 @@ public class PresentationView extends JPanel implements ISubscriber {
         lblAuthor.setFont(new Font("Dialog", Font.BOLD, 20));
         add(lblAuthor, BorderLayout.NORTH);
 
-        slidesPanel = new JPanel();
-        BoxLayout boxLayout = new BoxLayout(slidesPanel, BoxLayout.Y_AXIS);
-        slidesPanel.setLayout(boxLayout);
-
+        slidesPanel = new SlidesPanel(new Dimension(1066, 600));
         JScrollPane slidesScrollPane = new JScrollPane(slidesPanel);
         slidesScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
+        thumbnailPanel = new SlidesPanel(new Dimension(106, 60));
+        JScrollPane thumbnailScrollPane = new JScrollPane(thumbnailPanel);
+        thumbnailScrollPane.getVerticalScrollBar().setUnitIncrement(5);
+
         add(slidesScrollPane, BorderLayout.CENTER);
+        add(thumbnailScrollPane, BorderLayout.WEST);
 
         displayPresentation(presentation);
     }
@@ -47,20 +48,33 @@ public class PresentationView extends JPanel implements ISubscriber {
 
         lblAuthor.setText(presentation.getAuthor());
         loadImage();
-
-        slidesPanel.removeAll();
-        slidesPanel.revalidate();
-
+        resetSlidePanels();
         for (RuNode child : presentation.getChildren()) {
-            addSlideView((Slide) child);
+            addSlide((Slide) child);
         }
     }
 
-    private void addSlideView(Slide slide) {
-        slidesPanel.add(Box.createVerticalStrut(50));
-        SlideView newSlideView = new SlideView(slide, image);
-        slidesPanel.add(newSlideView);
-        slideViews.add(newSlideView);
+    private void resetSlidePanels() {
+        slidesPanel.removeAll();
+        thumbnailPanel.removeAll();
+
+        slidesPanel.revalidate();
+        thumbnailPanel.revalidate();
+    }
+
+    private void addSlide(Slide slide) {
+        slidesPanel.addSlideView(slide, image);
+        thumbnailPanel.addSlideView(slide, image);
+    }
+
+    private void removeSlide(Slide slide) {
+        slidesPanel.removeSlide(slide);
+        thumbnailPanel.removeSlide(slide);
+    }
+
+    private void changeThemeImage() {
+        slidesPanel.changeThemeImage(image);
+        thumbnailPanel.changeThemeImage(image);
     }
 
     private void loadImage() {
@@ -81,21 +95,7 @@ public class PresentationView extends JPanel implements ISubscriber {
 
         //remove slide
         if (notification instanceof Slide slide) {
-            int index = -1;
-            for (int i = 0; i < slideViews.size(); i++) {
-                var el = slideViews.get(i);
-                if (el.getSlide() == slide) {
-                    index = i;
-                    break;
-                }
-            }
-            if (index == -1) return; //removing nonexistent slide, should never happen
-
-            slidesPanel.remove(2 * index); //2*i because of vertical struts
-            slidesPanel.remove(2 * index);
-            validate();
-            repaint();
-            slideViews.remove(index);
+            removeSlide(slide);
 
             //select presentation
             MyTree tree = MainFrame.getInstance().getTree();
@@ -105,7 +105,8 @@ public class PresentationView extends JPanel implements ISubscriber {
         //add slide
         if (notification == Notifications.RUNODECOMPOSITE_ADD) {
             //add newest element from children
-            addSlideView((Slide) presentation.getChildren().get(presentation.getChildren().size() - 1));
+            addSlide((Slide) presentation.getChildren().get(presentation.getChildren().size() - 1));
+
             validate();
         }
 
@@ -123,10 +124,7 @@ public class PresentationView extends JPanel implements ISubscriber {
         //change theme image
         if (notification == Notifications.PRESENTATION_NEW_IMAGE_PATH) {
             loadImage();
-            for (SlideView slideView : slideViews) {
-                slideView.setImage(image);
-                slideView.repaint();
-            }
+            changeThemeImage();
         }
     }
 

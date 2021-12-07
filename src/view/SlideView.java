@@ -13,8 +13,9 @@ public class SlideView extends JPanel implements ISubscriber {
     private final JLabel nameLabel;
     private final Dimension dimension;
 
-    public SlideView(Slide slide, Image image) {
-        this.dimension = new Dimension(1066, 600);
+    public SlideView(Slide slide, Image image, Dimension dimension) {
+//        this.dimension = new Dimension(1066, 600);
+        this.dimension = dimension;
         this.image = image.getScaledInstance(dimension.width, dimension.height, Image.SCALE_SMOOTH);
         nameLabel = new JLabel();
         add(nameLabel);
