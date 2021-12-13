@@ -1,15 +1,20 @@
 package state.slotstate;
 
+import model.Slide;
+import model.Slot;
+
+import java.awt.event.MouseEvent;
+
 public abstract class SlotState {
-    public void mousePressed() {
+    public void mousePressed(Slide slide, MouseEvent e, Slot slot) {
 
     }
 
-    public void mouseDragged() {
+    public void mouseDragged(Slide slide, MouseEvent e, Slot slot) {
 
     }
 
-    public void mouseReleased() {
+    public void mouseReleased(Slide slide, MouseEvent e, Slot slot) {
 
     }
 }

@@ -1,18 +1,20 @@
 package view;
 
-import model.NotificationEvent;
-import model.NotificationTypes;
-import model.Slide;
+import controller.SlideViewMouseListener;
+import model.*;
 import observer.ISubscriber;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SlideView extends JPanel implements ISubscriber {
     private Slide slide;
     private Image image;
     private final JLabel nameLabel;
     private final Dimension dimension;
+    private final List<SlotView> slotViews = new ArrayList<>();
 
     public SlideView(Slide slide, Image image, Dimension dimension) {
 //        this.dimension = new Dimension(1066, 600);
@@ -24,6 +26,13 @@ public class SlideView extends JPanel implements ISubscriber {
         setMaximumSize(dimension);
         setAlignmentX(CENTER_ALIGNMENT);
         displaySlide(slide);
+
+//        Slot test = new Slot(new Point(10, 10), slide);
+//        slide.addSlot(test);
+//        slotViews.add(new SlotView(test));
+        SlideViewMouseListener listener = new SlideViewMouseListener(this);
+        addMouseListener(listener);
+        addMouseMotionListener(listener);
     }
 
     private void displaySlide(Slide slide) {
@@ -32,25 +41,52 @@ public class SlideView extends JPanel implements ISubscriber {
         this.slide.addSubscriber(this);
 
         nameLabel.setText(slide.getName());
+
+        for (Slot slot : slide.getSlots()) {
+            slotViews.add(new SlotView(slot));
+        }
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+        for (SlotView sv : slotViews) {
+            sv.paint((Graphics2D) g);
+        }
 //        g.drawImage(image, 0, 0, this);
     }
 
     @Override
     public void update(NotificationEvent notification) {
-//        //change slide
-//        if (notification instanceof Slide newSlide) {
-//            displaySlide(newSlide);
-//        }
 
         //change name
         if (notification.getType() == NotificationTypes.RUNODE_NAME_CHANGED) {
             nameLabel.setText(slide.getName());
+        }
+
+        if (notification.getType() == NotificationTypes.ADD_SLOT) {
+            slotViews.add(new SlotView((Slot) notification.getMessage()));
+            repaint();
+        }
+
+        if (notification.getType() == NotificationTypes.REMOVE_SLOT) {
+            Slot slot = (Slot) notification.getMessage();
+            int index = -1;
+            for (int i = 0; i < slotViews.size(); i++) {
+                //find the slotview with this slot
+                if (slotViews.get(i).getSlot() == slot) {
+                    index = i;
+                    break;
+                }
+            }
+            slotViews.get(index).getSlot().removeSubscriber(slotViews.get(index));
+            slotViews.remove(index);
+            repaint();
+        }
+
+        if (notification.getType() == NotificationTypes.REPAINT_SLIDEVIEWS) {
+            repaint();
         }
 
     }
@@ -61,5 +97,14 @@ public class SlideView extends JPanel implements ISubscriber {
 
     public Slide getSlide() {
         return slide;
+    }
+
+    public Slot slotAtPoint(Point point) {
+        for (int i = slotViews.size() - 1; i >= 0; i--) {
+            if (slotViews.get(i).elementAt(point)) {
+                return slotViews.get(i).getSlot();
+            }
+        }
+        return null;
     }
 }

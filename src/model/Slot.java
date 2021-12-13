@@ -12,7 +12,7 @@ public class Slot implements IPublisher {
     private Point pos;
     private Dimension size;
     private Stroke stroke;
-    private Paint paint;
+    private Color color;
     private final Slide parentSlide;
     private final List<ISubscriber> subscribers = new ArrayList<>();
 
@@ -21,44 +21,33 @@ public class Slot implements IPublisher {
         this(pos, new Dimension(100, 100), new BasicStroke(2f), new Color(255, 255, 255), parentSlide);
     }
 
-    public Slot(Point pos, Dimension size, Stroke stroke, Paint paint, Slide parentSlide) {
+    public Slot(Point pos, Dimension size, Stroke stroke, Color color, Slide parentSlide) {
         this.pos = pos;
         this.size = size;
         this.stroke = stroke;
-        this.paint = paint;
+        this.color = color;
         this.parentSlide = parentSlide;
+    }
+    
+    public void setPos(Point pos) {
+        this.pos = pos;
+        notify(new NotificationEvent(NotificationTypes.SLOT_SET_POS, pos));
     }
 
     public Point getPos() {
         return pos;
     }
 
-    public void setPos(Point pos) {
-        this.pos = pos;
-    }
-
     public Dimension getSize() {
         return size;
-    }
-
-    public void setSize(Dimension size) {
-        this.size = size;
     }
 
     public Stroke getStroke() {
         return stroke;
     }
 
-    public void setStroke(Stroke stroke) {
-        this.stroke = stroke;
-    }
-
-    public Paint getPaint() {
-        return paint;
-    }
-
-    public void setPaint(Paint paint) {
-        this.paint = paint;
+    public Color getColor() {
+        return color;
     }
 
     @Override
