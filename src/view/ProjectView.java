@@ -3,10 +3,7 @@ package view;
 import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
 import main.MainFrame;
-import model.Notifications;
-import model.Presentation;
-import model.Project;
-import model.RuNode;
+import model.*;
 import observer.ISubscriber;
 
 import javax.swing.*;
@@ -68,22 +65,24 @@ public class ProjectView extends JPanel implements ISubscriber {
     public void reset() {
         nameLabel.setText("");
         tabbedPane.removeAll();
+        project = null; //
     }
 
     @Override
-    public void update(Object notification) {
+    public void update(NotificationEvent notification) {
         //display new project
-        if (notification instanceof Project) {
-            displayProject((Project) notification);
-        }
+//        if (notification.getType() instanceof Project) {
+//            displayProject((Project) notification);
+//        }
 
         //change name
-        if (notification == Notifications.RUNODE_NAME_CHANGED) {
+        if (notification.getType() == NotificationTypes.RUNODE_NAME_CHANGED) {
             nameLabel.setText(project.getName());
         }
 
         //remove presentation
-        if (notification instanceof Presentation presentation) {
+        if (notification.getType() == NotificationTypes.RUNODECOMPOSITE_REMOVE) {
+            Presentation presentation = (Presentation) notification.getMessage();
             int index = -1;
             for (int i = 0; i < tabbedPane.getTabCount(); i++) {
                 //find the tab with this presentation
@@ -100,9 +99,10 @@ public class ProjectView extends JPanel implements ISubscriber {
         }
 
         //add presentation
-        if (notification == Notifications.RUNODECOMPOSITE_ADD) {
+        if (notification.getType() == NotificationTypes.RUNODECOMPOSITE_ADD) {
             //newest element from children
-            Presentation presentation = (Presentation) project.getChildren().get(project.getChildren().size() - 1);
+//            Presentation presentation = (Presentation) project.getChildren().get(project.getChildren().size() - 1);
+            Presentation presentation = (Presentation) notification.getMessage();
             tabbedPane.addTab(presentation.getName(), new PresentationView(presentation, tabbedPane));
             tabbedPane.validate();
         }

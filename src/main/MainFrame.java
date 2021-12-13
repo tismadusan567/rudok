@@ -4,6 +4,7 @@ import action.ActionManager;
 import error.ErrorFactory;
 import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
+import model.NotificationEvent;
 import model.Project;
 import model.Workspace;
 import gui.MyMenu;
@@ -102,7 +103,7 @@ public class MainFrame extends JFrame implements ISubscriber {
     }
 
     @Override
-    public void update(Object notification) {
-        JOptionPane.showMessageDialog(this, notification);
+    public void update(NotificationEvent notification) {
+        JOptionPane.showMessageDialog(this, notification.getMessage());
     }
 }

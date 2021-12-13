@@ -1,6 +1,8 @@
 package error;
 
 import main.MainFrame;
+import model.NotificationEvent;
+import model.NotificationTypes;
 import observer.IPublisher;
 import observer.ISubscriber;
 
@@ -36,7 +38,8 @@ public class ErrorFactory implements IPublisher {
             case NO_THEME_SELECTED -> "You have to select a theme";
         };
         MyError error = new MyError(message, errorType);
-        notify(error);
+//        notify(error);
+        notify(new NotificationEvent(NotificationTypes.ERROR, error));
     }
 
     @Override
@@ -51,7 +54,7 @@ public class ErrorFactory implements IPublisher {
     }
 
     @Override
-    public void notify(Object notification) {
+    public void notify(NotificationEvent notification) {
         for (ISubscriber subscriber : subscribers) {
             subscriber.update(notification);
         }

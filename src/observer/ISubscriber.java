@@ -1,5 +1,7 @@
 package observer;
 
+import model.NotificationEvent;
+
 public interface ISubscriber {
-    void update(Object notification);
+    void update(NotificationEvent notification);
 }

@@ -18,11 +18,14 @@ public abstract class RuNodeComposite extends RuNode {
     public void addChild(RuNode node) {
         add(node);
         maxChildIndex++;
+        notify(new NotificationEvent(NotificationTypes.RUNODECOMPOSITE_ADD, node));
     }
 
     public void remove(RuNode node) {
         children.remove(node);
-        notify(node);
+//        notify(node);
+        notify(new NotificationEvent(NotificationTypes.RUNODECOMPOSITE_REMOVE, node));
+
     }
 
     public List<RuNode> getChildren() {

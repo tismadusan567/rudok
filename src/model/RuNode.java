@@ -40,7 +40,7 @@ public abstract class RuNode implements IPublisher {
     }
 
     @Override
-    public void notify(Object notification) {
+    public void notify(NotificationEvent notification) {
         for (ISubscriber subscriber : subscribers) {
             subscriber.update(notification);
         }
@@ -48,7 +48,9 @@ public abstract class RuNode implements IPublisher {
 
     public void setName(String name) {
         this.name = name;
-        notify(Notifications.RUNODE_NAME_CHANGED);
+//        notify(NotificationTypes.RUNODE_NAME_CHANGED);
+        notify(new NotificationEvent(NotificationTypes.RUNODE_NAME_CHANGED, name));
+
     }
 
     public String getName() {

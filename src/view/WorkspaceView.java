@@ -2,6 +2,8 @@ package view;
 
 import gui.tree.MyTree;
 import main.MainFrame;
+import model.NotificationEvent;
+import model.NotificationTypes;
 import model.Project;
 import model.Workspace;
 import observer.ISubscriber;
@@ -23,9 +25,14 @@ public class WorkspaceView extends JPanel implements ISubscriber {
     }
 
     @Override
-    public void update(Object notification) {
+    public void update(NotificationEvent notification) {
         //remove project
-        if (notification instanceof Project) {
+//        if (notification instanceof Project) {
+//            projectView.reset();
+//            MyTree tree = MainFrame.getInstance().getTree();
+//            tree.selectNode(tree.getRootNode());
+//        }
+        if (notification.getType() == NotificationTypes.RUNODECOMPOSITE_REMOVE) {
             projectView.reset();
             MyTree tree = MainFrame.getInstance().getTree();
             tree.selectNode(tree.getRootNode());

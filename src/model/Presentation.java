@@ -24,7 +24,8 @@ public class Presentation extends RuNodeComposite {
             System.out.println("You have to add Slide to Presentation");
             return;
         }
-        notify(Notifications.RUNODECOMPOSITE_ADD);
+//        notify(NotificationTypes.RUNODECOMPOSITE_ADD);
+//        notify(new NotificationEvent(NotificationTypes.RUNODECOMPOSITE_ADD, node));
     }
 
     public String getAuthor() {
@@ -33,7 +34,8 @@ public class Presentation extends RuNodeComposite {
 
     public void setAuthor(String author) {
         this.author = author;
-        notify(Notifications.PRESENTATION_NEW_AUTHOR);
+//        notify(NotificationTypes.PRESENTATION_NEW_AUTHOR);
+        notify(new NotificationEvent(NotificationTypes.PRESENTATION_NEW_AUTHOR, author));
     }
 
     public String getImagePath() {
@@ -42,6 +44,7 @@ public class Presentation extends RuNodeComposite {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
-        notify(Notifications.PRESENTATION_NEW_IMAGE_PATH);
+//        notify(NotificationTypes.PRESENTATION_NEW_IMAGE_PATH);
+        notify(new NotificationEvent(NotificationTypes.PRESENTATION_NEW_IMAGE_PATH, imagePath));
     }
 }

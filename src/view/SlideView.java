@@ -1,6 +1,7 @@
 package view;
 
-import model.Notifications;
+import model.NotificationEvent;
+import model.NotificationTypes;
 import model.Slide;
 import observer.ISubscriber;
 
@@ -27,7 +28,7 @@ public class SlideView extends JPanel implements ISubscriber {
 
     private void displaySlide(Slide slide) {
         this.slide = slide;
-        slide.getSubscribers().removeIf(e -> e instanceof SlideView);
+//        slide.getSubscribers().removeIf(e -> e instanceof SlideView);
         this.slide.addSubscriber(this);
 
         nameLabel.setText(slide.getName());
@@ -41,14 +42,14 @@ public class SlideView extends JPanel implements ISubscriber {
     }
 
     @Override
-    public void update(Object notification) {
-        //change slide
-        if (notification instanceof Slide newSlide) {
-            displaySlide(newSlide);
-        }
+    public void update(NotificationEvent notification) {
+//        //change slide
+//        if (notification instanceof Slide newSlide) {
+//            displaySlide(newSlide);
+//        }
 
         //change name
-        if (notification == Notifications.RUNODE_NAME_CHANGED) {
+        if (notification.getType() == NotificationTypes.RUNODE_NAME_CHANGED) {
             nameLabel.setText(slide.getName());
         }
 

@@ -1,13 +1,9 @@
 package view;
 
-import gui.MyToolbar;
 import gui.PresViewToolbar;
 import gui.tree.MyTree;
 import main.MainFrame;
-import model.Notifications;
-import model.Presentation;
-import model.RuNode;
-import model.Slide;
+import model.*;
 import observer.ISubscriber;
 import state.slotstate.SlotStateManager;
 
@@ -98,14 +94,15 @@ public class PresentationView extends JPanel implements ISubscriber {
     }
 
     @Override
-    public void update(Object notification) {
+    public void update(NotificationEvent notification) {
         //change presentation
-        if (notification instanceof Presentation presentation) {
-            displayPresentation(presentation);
-        }
+//        if (notification instanceof Presentation presentation) {
+//            displayPresentation(presentation);
+//        }
 
         //remove slide
-        if (notification instanceof Slide slide) {
+        if (notification.getType() == NotificationTypes.RUNODECOMPOSITE_REMOVE) {
+            Slide slide = (Slide) notification.getMessage();
             removeSlide(slide);
 
             //select presentation
@@ -114,27 +111,28 @@ public class PresentationView extends JPanel implements ISubscriber {
         }
 
         //add slide
-        if (notification == Notifications.RUNODECOMPOSITE_ADD) {
+        if (notification.getType() == NotificationTypes.RUNODECOMPOSITE_ADD) {
             //add newest element from children
-            addSlide((Slide) presentation.getChildren().get(presentation.getChildren().size() - 1));
+//            addSlide((Slide) presentation.getChildren().get(presentation.getChildren().size() - 1));
 
+            addSlide((Slide) notification.getMessage());
             validate();
         }
 
         //change name
-        if (notification == Notifications.RUNODE_NAME_CHANGED) {
+        if (notification.getType() == NotificationTypes.RUNODE_NAME_CHANGED) {
             //find index of presentation in its parent and set this components parent(ProjectView)'s title at that index to the required name
 //            ((JTabbedPane) getParent()).setTitleAt(presentation.getIndexInParent(), presentation.getName());
             jTabbedPane.setTitleAt(presentation.getIndexInParent(), presentation.getName());
         }
 
         //change author name
-        if (notification == Notifications.PRESENTATION_NEW_AUTHOR) {
+        if (notification.getType() == NotificationTypes.PRESENTATION_NEW_AUTHOR) {
             lblAuthor.setText(presentation.getAuthor());
         }
 
         //change theme image
-        if (notification == Notifications.PRESENTATION_NEW_IMAGE_PATH) {
+        if (notification.getType() == NotificationTypes.PRESENTATION_NEW_IMAGE_PATH) {
             loadImage();
             changeThemeImage();
         }
