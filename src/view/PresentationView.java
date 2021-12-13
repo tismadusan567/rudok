@@ -1,5 +1,7 @@
 package view;
 
+import gui.MyToolbar;
+import gui.PresViewToolbar;
 import gui.tree.MyTree;
 import main.MainFrame;
 import model.Notifications;
@@ -7,6 +9,7 @@ import model.Presentation;
 import model.RuNode;
 import model.Slide;
 import observer.ISubscriber;
+import state.slotstate.SlotStateManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,14 +21,22 @@ public class PresentationView extends JPanel implements ISubscriber {
     private Image image;
     private final SlidesPanel slidesPanel;
     private final SlidesPanel thumbnailPanel;
+    private final JTabbedPane jTabbedPane;
 
-    public PresentationView(Presentation presentation) {
+    private final SlotStateManager slotStateManager = new SlotStateManager();
 
+    public PresentationView(Presentation presentation, JTabbedPane jTabbedPane) {
+        this.jTabbedPane = jTabbedPane;
         setLayout(new BorderLayout(0, 30));
 
+
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BorderLayout());
+        topPanel.add(new PresViewToolbar(), BorderLayout.NORTH);
         lblAuthor = new JLabel(presentation.getAuthor(), SwingConstants.CENTER);
         lblAuthor.setFont(new Font("Dialog", Font.BOLD, 20));
-        add(lblAuthor, BorderLayout.NORTH);
+        topPanel.add(lblAuthor, BorderLayout.CENTER);
+        add(topPanel, BorderLayout.NORTH);
 
         slidesPanel = new SlidesPanel(new Dimension(1066, 600));
         JScrollPane slidesScrollPane = new JScrollPane(slidesPanel);
@@ -113,7 +124,8 @@ public class PresentationView extends JPanel implements ISubscriber {
         //change name
         if (notification == Notifications.RUNODE_NAME_CHANGED) {
             //find index of presentation in its parent and set this components parent(ProjectView)'s title at that index to the required name
-            ((JTabbedPane) getParent()).setTitleAt(presentation.getIndexInParent(), presentation.getName());
+//            ((JTabbedPane) getParent()).setTitleAt(presentation.getIndexInParent(), presentation.getName());
+            jTabbedPane.setTitleAt(presentation.getIndexInParent(), presentation.getName());
         }
 
         //change author name
@@ -130,5 +142,9 @@ public class PresentationView extends JPanel implements ISubscriber {
 
     public Presentation getPresentation() {
         return presentation;
+    }
+
+    public SlotStateManager getSlotStateManager() {
+        return slotStateManager;
     }
 }

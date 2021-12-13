@@ -97,6 +97,10 @@ public class MainFrame extends JFrame implements ISubscriber {
         return tree;
     }
 
+    public ProjectView getProjectView() {
+        return projectView;
+    }
+
     @Override
     public void update(Object notification) {
         JOptionPane.showMessageDialog(this, notification);

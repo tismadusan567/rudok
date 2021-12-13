@@ -61,7 +61,7 @@ public class ProjectView extends JPanel implements ISubscriber {
         tabbedPane.removeAll();
         for (RuNode node : project.getChildren()) {
             Presentation presentation = (Presentation) node;
-            tabbedPane.addTab(presentation.getName(), new PresentationView(presentation)); //new PresentationView
+            tabbedPane.addTab(presentation.getName(), new PresentationView(presentation, tabbedPane)); //new PresentationView
         }
     }
 
@@ -103,7 +103,7 @@ public class ProjectView extends JPanel implements ISubscriber {
         if (notification == Notifications.RUNODECOMPOSITE_ADD) {
             //newest element from children
             Presentation presentation = (Presentation) project.getChildren().get(project.getChildren().size() - 1);
-            tabbedPane.addTab(presentation.getName(), new PresentationView(presentation));
+            tabbedPane.addTab(presentation.getName(), new PresentationView(presentation, tabbedPane));
             tabbedPane.validate();
         }
     }
@@ -126,5 +126,10 @@ public class ProjectView extends JPanel implements ISubscriber {
 
     public int getTabCount() {
         return tabbedPane.getTabCount();
+    }
+
+    public PresentationView getPresentationView() {
+//        System.out.println(tabbedPane.getSelectedComponent());
+        return (PresentationView) tabbedPane.getSelectedComponent();
     }
 }
