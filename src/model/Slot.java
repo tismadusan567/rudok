@@ -13,6 +13,7 @@ public class Slot implements IPublisher {
     private Dimension size;
     private Stroke stroke;
     private Color color;
+    private boolean selected = false;
     private final Slide parentSlide;
     private final List<ISubscriber> subscribers = new ArrayList<>();
 
@@ -48,6 +49,14 @@ public class Slot implements IPublisher {
 
     public Color getColor() {
         return color;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public boolean isSelected() {
+        return selected;
     }
 
     @Override

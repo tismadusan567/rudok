@@ -14,7 +14,11 @@ public class MoveSlotState extends SlotState {
 
     @Override
     public void mousePressed(Slide slide, MouseEvent e, Slot slot) {
-        if(slot == null) return;
+        if(slot == null) {
+            slide.setSelectedSlot(null);
+            return;
+        }
+        slide.setSelectedSlot(slot);
         current = slot;
         offsetY = e.getPoint().y - slot.getPos().y;
         offsetX = e.getPoint().x - slot.getPos().x;
