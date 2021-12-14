@@ -29,7 +29,7 @@ public class MoveSlotState extends SlotState {
         if (current == null) return;
 //        current.setPos(e.getPoint());
         current.setPos(new Point(e.getPoint().x - offsetX, e.getPoint().y - offsetY));
-        slide.repaintViews();
+//        slide.repaintViews();
     }
 
     @Override

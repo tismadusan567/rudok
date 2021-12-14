@@ -19,12 +19,10 @@ public class Slide extends RuNode {
     }
 
     public void removeSlot(Slot slot) {
+        if(slot.isSelected()) slot.setSelected(false);
+        selectedSlot = null;
         slots.remove(slot);
         notify(new NotificationEvent(NotificationTypes.REMOVE_SLOT, slot));
-    }
-
-    public void repaintViews() {
-        notify(new NotificationEvent(NotificationTypes.REPAINT_SLIDEVIEWS, null));
     }
 
     public int getRedniBroj() {
@@ -40,7 +38,7 @@ public class Slide extends RuNode {
         this.selectedSlot = selectedSlot;
         if(this.selectedSlot != null) this.selectedSlot.setSelected(true);
 
-        repaintViews();
+        notify(new NotificationEvent(NotificationTypes.REPAINT_SLIDEVIEWS, null));
 
     }
 

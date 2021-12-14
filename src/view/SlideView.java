@@ -26,13 +26,15 @@ public class SlideView extends JPanel implements ISubscriber {
         setMaximumSize(dimension);
         setAlignmentX(CENTER_ALIGNMENT);
         displaySlide(slide);
-
-//        Slot test = new Slot(new Point(10, 10), slide);
-//        slide.addSlot(test);
-//        slotViews.add(new SlotView(test));
+        
         SlideViewMouseListener listener = new SlideViewMouseListener(this);
         addMouseListener(listener);
         addMouseMotionListener(listener);
+    }
+
+    private void addSlotView(Slot slot) {
+        slotViews.add(new SlotView(slot));
+        slot.addSubscriber(this);
     }
 
     private void displaySlide(Slide slide) {
@@ -43,7 +45,8 @@ public class SlideView extends JPanel implements ISubscriber {
         nameLabel.setText(slide.getName());
 
         for (Slot slot : slide.getSlots()) {
-            slotViews.add(new SlotView(slot));
+//            slotViews.add(new SlotView(slot));
+            addSlotView(slot);
         }
     }
 
@@ -66,7 +69,8 @@ public class SlideView extends JPanel implements ISubscriber {
         }
 
         if (notification.getType() == NotificationTypes.ADD_SLOT) {
-            slotViews.add(new SlotView((Slot) notification.getMessage()));
+//            slotViews.add(new SlotView((Slot) notification.getMessage()));
+            addSlotView((Slot) notification.getMessage());
             repaint();
         }
 

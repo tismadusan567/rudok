@@ -32,7 +32,7 @@ public class Slot implements IPublisher {
     
     public void setPos(Point pos) {
         this.pos = pos;
-        notify(new NotificationEvent(NotificationTypes.SLOT_SET_POS, pos));
+        notify(new NotificationEvent(NotificationTypes.REPAINT_SLIDEVIEWS, pos));
     }
 
     public Point getPos() {
