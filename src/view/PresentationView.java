@@ -15,6 +15,8 @@ public class PresentationView extends JPanel implements ISubscriber {
     private Presentation presentation;
     private final JLabel lblAuthor;
     private Image image;
+    private final JPanel editPanel = new JPanel();
+    private final JPanel slideShowPanel = new JPanel();
     private final SlidesPanel slidesPanel;
     private final SlidesPanel thumbnailPanel;
     private final JTabbedPane jTabbedPane;
@@ -23,7 +25,8 @@ public class PresentationView extends JPanel implements ISubscriber {
 
     public PresentationView(Presentation presentation, JTabbedPane jTabbedPane) {
         this.jTabbedPane = jTabbedPane;
-        setLayout(new BorderLayout(0, 30));
+        setLayout(new BorderLayout());
+        editPanel.setLayout(new BorderLayout(0, 30));
 
 
         JPanel topPanel = new JPanel();
@@ -32,7 +35,7 @@ public class PresentationView extends JPanel implements ISubscriber {
         lblAuthor = new JLabel(presentation.getAuthor(), SwingConstants.CENTER);
         lblAuthor.setFont(new Font("Dialog", Font.BOLD, 20));
         topPanel.add(lblAuthor, BorderLayout.CENTER);
-        add(topPanel, BorderLayout.NORTH);
+        editPanel.add(topPanel, BorderLayout.NORTH);
 
         slidesPanel = new SlidesPanel(new Dimension(1066, 600));
         JScrollPane slidesScrollPane = new JScrollPane(slidesPanel);
@@ -42,10 +45,14 @@ public class PresentationView extends JPanel implements ISubscriber {
         JScrollPane thumbnailScrollPane = new JScrollPane(thumbnailPanel);
         thumbnailScrollPane.getVerticalScrollBar().setUnitIncrement(5);
 
-        add(slidesScrollPane, BorderLayout.CENTER);
-        add(thumbnailScrollPane, BorderLayout.WEST);
+        editPanel.add(slidesScrollPane, BorderLayout.CENTER);
+        editPanel.add(thumbnailScrollPane, BorderLayout.WEST);
+
+        add(editPanel, BorderLayout.CENTER);
 
         displayPresentation(presentation);
+
+
     }
 
     private void displayPresentation(Presentation presentation) {
