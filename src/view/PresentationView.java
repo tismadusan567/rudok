@@ -5,7 +5,10 @@ import gui.tree.MyTree;
 import main.MainFrame;
 import model.*;
 import observer.ISubscriber;
+import state.presstate.PresentationViewStateManager;
 import state.slotstate.SlotStateManager;
+import view.presviewpanels.SlidesCardPanel;
+import view.presviewpanels.SlidesPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,46 +16,81 @@ import java.net.URL;;
 
 public class PresentationView extends JPanel implements ISubscriber {
     private Presentation presentation;
-    private final JLabel lblAuthor;
     private Image image;
+
     private final JPanel editPanel = new JPanel();
-    private final JPanel slideShowPanel = new JPanel();
-    private final SlidesPanel slidesPanel;
-    private final SlidesPanel thumbnailPanel;
+    private final JLabel lblAuthor;
+    private final SlidesPanel slidesPanel = new SlidesPanel(new Dimension(1066, 600), true);
+    private final SlidesPanel thumbnailPanel = new SlidesPanel(new Dimension(106, 60), false);
+
     private final JTabbedPane jTabbedPane;
 
+    private final JPanel slideShowPanel = new JPanel();
+//    private final JButton btnPrev = new JButton("Prev");
+//    private final JButton btnNext = new JButton("Next");
+    private final CardLayout cardLayout = new CardLayout();
+    private final SlidesCardPanel slidesCardPanel = new SlidesCardPanel(cardLayout);
+
     private final SlotStateManager slotStateManager = new SlotStateManager();
+    private final PresentationViewStateManager presentationViewStateManager = new PresentationViewStateManager();
 
     public PresentationView(Presentation presentation, JTabbedPane jTabbedPane) {
         this.jTabbedPane = jTabbedPane;
         setLayout(new BorderLayout());
-        editPanel.setLayout(new BorderLayout(0, 30));
 
+        lblAuthor = new JLabel(presentation.getAuthor(), SwingConstants.CENTER);
+        lblAuthor.setFont(new Font("Dialog", Font.BOLD, 20));
+
+        initEditPanel();
+        initSlideShowPanel();
+
+        add(editPanel, BorderLayout.CENTER);
+//        add(slideShowPanel, BorderLayout.CENTER);
+
+        displayPresentation(presentation);
+
+    }
+
+    private void initSlideShowPanel() {
+        slideShowPanel.setLayout(new BorderLayout());
+        slideShowPanel.add(slidesCardPanel, BorderLayout.CENTER);
+        JPanel buttonPanel = new JPanel();
+        JButton btnPrev = new JButton("Prev");
+        JButton btnNext = new JButton("Next");
+        JButton btnEdit = new JButton(MainFrame.getInstance().getActionManager().getEditModeStateAction());
+        buttonPanel.add(btnPrev);
+        buttonPanel.add(btnNext);
+        buttonPanel.add(btnEdit);
+        slideShowPanel.add(buttonPanel, BorderLayout.NORTH);
+
+        btnPrev.addActionListener(e -> {
+            cardLayout.previous(slidesCardPanel);
+        });
+
+        btnNext.addActionListener(e -> {
+            cardLayout.next(slidesCardPanel);
+        });
+    }
+
+    private void initEditPanel() {
+        editPanel.setLayout(new BorderLayout(0, 30));
 
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
+
         topPanel.add(new PresViewToolbar(), BorderLayout.NORTH);
-        lblAuthor = new JLabel(presentation.getAuthor(), SwingConstants.CENTER);
-        lblAuthor.setFont(new Font("Dialog", Font.BOLD, 20));
         topPanel.add(lblAuthor, BorderLayout.CENTER);
+
         editPanel.add(topPanel, BorderLayout.NORTH);
 
-        slidesPanel = new SlidesPanel(new Dimension(1066, 600));
         JScrollPane slidesScrollPane = new JScrollPane(slidesPanel);
         slidesScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
-        thumbnailPanel = new SlidesPanel(new Dimension(106, 60));
         JScrollPane thumbnailScrollPane = new JScrollPane(thumbnailPanel);
         thumbnailScrollPane.getVerticalScrollBar().setUnitIncrement(5);
 
         editPanel.add(slidesScrollPane, BorderLayout.CENTER);
         editPanel.add(thumbnailScrollPane, BorderLayout.WEST);
-
-        add(editPanel, BorderLayout.CENTER);
-
-        displayPresentation(presentation);
-
-
     }
 
     private void displayPresentation(Presentation presentation) {
@@ -71,24 +109,29 @@ public class PresentationView extends JPanel implements ISubscriber {
     private void resetSlidePanels() {
         slidesPanel.removeAll();
         thumbnailPanel.removeAll();
+        slidesCardPanel.removeAll();
 
         slidesPanel.revalidate();
         thumbnailPanel.revalidate();
+        slidesCardPanel.revalidate();
     }
 
     private void addSlide(Slide slide) {
         slidesPanel.addSlideView(slide, image);
         thumbnailPanel.addSlideView(slide, image);
+        slidesCardPanel.addSlideView(slide, image);
     }
 
     private void removeSlide(Slide slide) {
         slidesPanel.removeSlide(slide);
         thumbnailPanel.removeSlide(slide);
+        slidesCardPanel.removeSlide(slide);
     }
 
     private void changeThemeImage() {
         slidesPanel.changeThemeImage(image);
         thumbnailPanel.changeThemeImage(image);
+        slidesCardPanel.changeThemeImage(image);
     }
 
     private void loadImage() {
@@ -102,11 +145,6 @@ public class PresentationView extends JPanel implements ISubscriber {
 
     @Override
     public void update(NotificationEvent notification) {
-        //change presentation
-//        if (notification instanceof Presentation presentation) {
-//            displayPresentation(presentation);
-//        }
-
         //remove slide
         if (notification.getType() == NotificationTypes.RUNODECOMPOSITE_REMOVE) {
             Slide slide = (Slide) notification.getMessage();
@@ -151,5 +189,23 @@ public class PresentationView extends JPanel implements ISubscriber {
 
     public SlotStateManager getSlotStateManager() {
         return slotStateManager;
+    }
+
+    public PresentationViewStateManager getPresentationViewStateManager() {
+        return presentationViewStateManager;
+    }
+
+    public void setEditMode() {
+        removeAll();
+        add(editPanel, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    }
+
+    public void setSlideShowMode() {
+        removeAll();
+        add(slideShowPanel, BorderLayout.CENTER);
+        revalidate();
+        repaint();
     }
 }

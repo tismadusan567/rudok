@@ -11,6 +11,7 @@ public class PresViewToolbar extends JToolBar {
         add(MainFrame.getInstance().getActionManager().getMoveStateAction());
         add(MainFrame.getInstance().getActionManager().getSelectStateAction());
         addSeparator();
+        add(MainFrame.getInstance().getActionManager().getSlideShowStateAction());
 
         setFloatable(false);
         setBackground(MainFrame.MAIN_COLOR);

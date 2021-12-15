@@ -1,39 +1,21 @@
 package action;
 
-import action.state.AddStateAction;
-import action.state.MoveStateAction;
-import action.state.RemoveStateAction;
-import action.state.SelectStateAction;
+import action.state.*;
 
 public class ActionManager {
 
-    private InfoAction infoAction;
-    private NewAction newAction;
-    private ChangeAuthorAction changeAuthorAction;
-    private ChangeThemeAction changeThemeAction;
-    private RenameAction renameAction;
-    private RemoveAction removeAction;
-    private AddStateAction addStateAction;
-    private MoveStateAction moveStateAction;
-    private RemoveStateAction removeStateAction;
-    private SelectStateAction selectStateAction;
-
-    public ActionManager() {
-        initActions();
-    }
-
-    private void initActions() {
-        infoAction = new InfoAction();
-        newAction = new NewAction();
-        changeAuthorAction = new ChangeAuthorAction();
-        changeThemeAction = new ChangeThemeAction();
-        renameAction = new RenameAction();
-        removeAction = new RemoveAction();
-        addStateAction = new AddStateAction();
-        moveStateAction = new MoveStateAction();
-        removeStateAction = new RemoveStateAction();
-        selectStateAction = new SelectStateAction();
-    }
+    private final InfoAction infoAction = new InfoAction();
+    private final NewAction newAction = new NewAction();
+    private final ChangeAuthorAction changeAuthorAction = new ChangeAuthorAction();
+    private final ChangeThemeAction changeThemeAction = new ChangeThemeAction();
+    private final RenameAction renameAction = new RenameAction();
+    private final RemoveAction removeAction = new RemoveAction();
+    private final AddStateAction addStateAction = new AddStateAction();
+    private final MoveStateAction moveStateAction = new MoveStateAction();
+    private final RemoveStateAction removeStateAction = new RemoveStateAction();
+    private final SelectStateAction selectStateAction = new SelectStateAction();
+    private final EditModeStateAction editModeStateAction = new EditModeStateAction();
+    private final SlideShowStateAction slideShowStateAction = new SlideShowStateAction();
 
     public InfoAction getInfoAction() {
         return infoAction;
@@ -73,5 +55,13 @@ public class ActionManager {
 
     public SelectStateAction getSelectStateAction() {
         return selectStateAction;
+    }
+
+    public EditModeStateAction getEditModeStateAction() {
+        return editModeStateAction;
+    }
+
+    public SlideShowStateAction getSlideShowStateAction() {
+        return slideShowStateAction;
     }
 }

@@ -2,20 +2,20 @@ package state.presstate;
 
 public class PresentationViewStateManager {
 
-    private EditState editState = new EditState();
-    private SlideShowState slideShowState = new SlideShowState();
-    private PresentationViewState currentState = editState;
+    private final EditState editState = new EditState();
+    private final SlideShowState slideShowState = new SlideShowState();
+    private PresentationViewState current = editState;
 
 
-    public void setEditState() {
-        currentState = editState;
+    public void startEditState() {
+        current = editState;
     }
 
-    public void setSlideShowState() {
-        currentState = slideShowState;
+    public void startSlideShowState() {
+        current = slideShowState;
     }
 
-    public PresentationViewState getCurrentState() {
-        return currentState;
+    public PresentationViewState getCurrent() {
+        return current;
     }
 }

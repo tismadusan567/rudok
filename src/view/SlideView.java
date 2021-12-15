@@ -16,7 +16,7 @@ public class SlideView extends JPanel implements ISubscriber {
     private final Dimension dimension;
     private final List<SlotView> slotViews = new ArrayList<>();
 
-    public SlideView(Slide slide, Image image, Dimension dimension) {
+    public SlideView(Slide slide, Image image, Dimension dimension, boolean hasListeners) {
 //        this.dimension = new Dimension(1066, 600);
         this.dimension = dimension;
         this.image = image.getScaledInstance(dimension.width, dimension.height, Image.SCALE_SMOOTH);
@@ -24,12 +24,15 @@ public class SlideView extends JPanel implements ISubscriber {
         add(nameLabel);
         setPreferredSize(dimension);
         setMaximumSize(dimension);
+        setMinimumSize(dimension);
         setAlignmentX(CENTER_ALIGNMENT);
         displaySlide(slide);
         
         SlideViewMouseListener listener = new SlideViewMouseListener(this);
-        addMouseListener(listener);
-        addMouseMotionListener(listener);
+        if(hasListeners) {
+            addMouseListener(listener);
+            addMouseMotionListener(listener);
+        }
     }
 
     private void addSlotView(Slot slot) {

@@ -1,6 +1,7 @@
-package view;
+package view.presviewpanels;
 
 import model.Slide;
+import view.SlideView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,16 +11,18 @@ import java.util.List;
 public class SlidesPanel extends JPanel {
     private final Dimension dimension;
     private final List<SlideView> slideViews = new ArrayList<>();
+    private final boolean hasListeners;
 
-    public SlidesPanel(Dimension dimension) {
+    public SlidesPanel(Dimension dimension, boolean hasListeners) {
         this.dimension = dimension;
+        this.hasListeners = hasListeners;
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
     }
 
     public void addSlideView(Slide slide, Image image) {
         add(Box.createVerticalStrut(dimension.height / 10));
-        SlideView newSlideView = new SlideView(slide, image, dimension);
+        SlideView newSlideView = new SlideView(slide, image, dimension, hasListeners);
         add(newSlideView);
         slideViews.add(newSlideView);
     }
