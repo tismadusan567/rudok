@@ -14,6 +14,6 @@ public class MoveStateAction extends AbstractRudokAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        MainFrame.getInstance().getProjectView().getPresentationView().getSlotStateManager().startMoveState();
+        MainFrame.getInstance().getProjectView().getPresentationView().startMoveState();
     }
 }

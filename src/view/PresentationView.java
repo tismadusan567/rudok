@@ -12,34 +12,39 @@ import view.presviewpanels.SlidesPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.net.URL;;
 
 public class PresentationView extends JPanel implements ISubscriber {
     private Presentation presentation;
     private Image image;
 
+    //edit panel components
     private final JPanel editPanel = new JPanel();
-    private final JLabel lblAuthor;
-    private final SlidesPanel slidesPanel = new SlidesPanel(new Dimension(1066, 600), true);
-    private final SlidesPanel thumbnailPanel = new SlidesPanel(new Dimension(106, 60), false);
-
+    private JLabel lblAuthor;
+    private final SlidesPanel slidesPanel = new SlidesPanel(1f, true);
+    private final SlidesPanel thumbnailPanel = new SlidesPanel(0.1f, false);
     private final JTabbedPane jTabbedPane;
 
+    //slideshow panel components
     private final JPanel slideShowPanel = new JPanel();
-//    private final JButton btnPrev = new JButton("Prev");
-//    private final JButton btnNext = new JButton("Next");
     private final CardLayout cardLayout = new CardLayout();
     private final SlidesCardPanel slidesCardPanel = new SlidesCardPanel(cardLayout);
 
+    //state managers
     private final SlotStateManager slotStateManager = new SlotStateManager();
     private final PresentationViewStateManager presentationViewStateManager = new PresentationViewStateManager();
 
+    //color and stroke components
+    private Color color = new Color(255, 255, 255);
+    private Stroke stroke = new BasicStroke(2f);
+    private final SpinnerNumberModel spinnerModel = new SpinnerNumberModel(2, 1, 20, 1);
+    private final JSpinner jSpinner = new JSpinner(spinnerModel);
+
     public PresentationView(Presentation presentation, JTabbedPane jTabbedPane) {
+        this.presentation = presentation;
         this.jTabbedPane = jTabbedPane;
         setLayout(new BorderLayout());
-
-        lblAuthor = new JLabel(presentation.getAuthor(), SwingConstants.CENTER);
-        lblAuthor.setFont(new Font("Dialog", Font.BOLD, 20));
 
         initEditPanel();
         initSlideShowPanel();
@@ -53,6 +58,7 @@ public class PresentationView extends JPanel implements ISubscriber {
 
     private void initSlideShowPanel() {
         slideShowPanel.setLayout(new BorderLayout());
+//        slideShowPanel.setMaximumSize();
         slideShowPanel.add(slidesCardPanel, BorderLayout.CENTER);
         JPanel buttonPanel = new JPanel();
         JButton btnPrev = new JButton("Prev");
@@ -78,7 +84,14 @@ public class PresentationView extends JPanel implements ISubscriber {
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
 
-        topPanel.add(new PresViewToolbar(), BorderLayout.NORTH);
+        lblAuthor = new JLabel(presentation.getAuthor(), SwingConstants.CENTER);
+        lblAuthor.setFont(new Font("Dialog", Font.BOLD, 20));
+
+        ((JSpinner.DefaultEditor)jSpinner.getEditor()).getTextField().setEditable(false);
+        jSpinner.addChangeListener(e -> {
+            stroke = new BasicStroke(spinnerModel.getNumber().floatValue());
+        });
+        topPanel.add(new PresViewToolbar(jSpinner), BorderLayout.NORTH);
         topPanel.add(lblAuthor, BorderLayout.CENTER);
 
         editPanel.add(topPanel, BorderLayout.NORTH);
@@ -191,10 +204,6 @@ public class PresentationView extends JPanel implements ISubscriber {
         return slotStateManager;
     }
 
-    public PresentationViewStateManager getPresentationViewStateManager() {
-        return presentationViewStateManager;
-    }
-
     public void setEditMode() {
         removeAll();
         add(editPanel, BorderLayout.CENTER);
@@ -207,5 +216,55 @@ public class PresentationView extends JPanel implements ISubscriber {
         add(slideShowPanel, BorderLayout.CENTER);
         revalidate();
         repaint();
+    }
+
+    public void startEditState() {
+        presentationViewStateManager.startEditState();
+        presentationViewStateManager.getCurrent().buildGUI();
+    }
+
+    public void startSlideShowState() {
+        presentationViewStateManager.startSlideShowState();
+        presentationViewStateManager.getCurrent().buildGUI();
+    }
+
+    public void startAddState() {
+        slotStateManager.startAddState();
+    }
+
+    public void startRemoveState() {
+        slotStateManager.startRemoveState();
+    }
+
+    public void startMoveState() {
+        slotStateManager.startMoveState();
+    }
+
+    public void startSelectState() {
+        slotStateManager.startSelectState();
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void chooseColor() {
+        color = JColorChooser.showDialog(this, "Choose color", color);
+    }
+
+    public Stroke getStroke() {
+        return stroke;
+    }
+
+    public void mousePressed(Slide slide, MouseEvent e, Slot slot) {
+        slotStateManager.getCurrent().mousePressed(slide, e, slot);
+    }
+
+    public void mouseDragged(Slide slide, MouseEvent e, Slot slot) {
+        slotStateManager.getCurrent().mouseDragged(slide, e, slot);
+    }
+
+    public void mouseReleased(Slide slide, MouseEvent e, Slot slot) {
+        slotStateManager.getCurrent().mouseReleased(slide, e, slot);
     }
 }

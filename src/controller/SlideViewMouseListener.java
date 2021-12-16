@@ -23,13 +23,13 @@ public class SlideViewMouseListener implements MouseListener, MouseMotionListene
     @Override
     public void mousePressed(MouseEvent e) {
         Slot slot = slideView.slotAtPoint(e.getPoint());
-        MainFrame.getInstance().getProjectView().getPresentationView().getSlotStateManager().getCurrent().mousePressed(slideView.getSlide(), e, slot);
+        MainFrame.getInstance().getProjectView().getPresentationView().mousePressed(slideView.getSlide(), e, slot);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         Slot slot = slideView.slotAtPoint(e.getPoint());
-        MainFrame.getInstance().getProjectView().getPresentationView().getSlotStateManager().getCurrent().mouseReleased(slideView.getSlide(), e, slot);
+        MainFrame.getInstance().getProjectView().getPresentationView().mouseReleased(slideView.getSlide(), e, slot);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class SlideViewMouseListener implements MouseListener, MouseMotionListene
     @Override
     public void mouseDragged(MouseEvent e) {
         Slot slot = slideView.slotAtPoint(e.getPoint());
-        MainFrame.getInstance().getProjectView().getPresentationView().getSlotStateManager().getCurrent().mouseDragged(slideView.getSlide(), e, slot);
+        MainFrame.getInstance().getProjectView().getPresentationView().mouseDragged(slideView.getSlide(), e, slot);
     }
 
     @Override

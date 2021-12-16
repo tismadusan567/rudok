@@ -22,6 +22,10 @@ public class Slot implements IPublisher {
         this(pos, new Dimension(100, 100), new BasicStroke(2f), new Color(255, 255, 255), parentSlide);
     }
 
+    public Slot(Point pos, Stroke stroke, Color color, Slide slide) {
+        this(pos, new Dimension(100, 100), stroke, color, slide);
+    }
+
     public Slot(Point pos, Dimension size, Stroke stroke, Color color, Slide parentSlide) {
         this.pos = pos;
         this.size = size;

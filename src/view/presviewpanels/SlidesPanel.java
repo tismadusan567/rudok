@@ -9,20 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SlidesPanel extends JPanel {
-    private final Dimension dimension;
+//    private final Dimension dimension;
+    private final float scale;
     private final List<SlideView> slideViews = new ArrayList<>();
     private final boolean hasListeners;
 
-    public SlidesPanel(Dimension dimension, boolean hasListeners) {
-        this.dimension = dimension;
+    public SlidesPanel(float scale, boolean hasListeners) {
+        this.scale = scale;
         this.hasListeners = hasListeners;
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
     }
 
     public void addSlideView(Slide slide, Image image) {
-        add(Box.createVerticalStrut(dimension.height / 10));
-        SlideView newSlideView = new SlideView(slide, image, dimension, hasListeners);
+        add(Box.createVerticalStrut((int) (scale * 600 / 10)));
+        SlideView newSlideView = new SlideView(slide, image, scale, hasListeners);
         add(newSlideView);
         slideViews.add(newSlideView);
     }

@@ -18,7 +18,7 @@ public class SlidesCardPanel extends JPanel {
         setLayout(cardLayout);
     }
     public void addSlideView(Slide slide, Image image) {
-        SlideView newSlideView = new SlideView(slide, image, new Dimension(1066, 600), false);
+        SlideView newSlideView = new SlideView(slide, image, 1f, false);
         add(newSlideView, slide.getName());
         slideViews.add(newSlideView);
     }

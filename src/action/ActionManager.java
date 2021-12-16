@@ -16,6 +16,7 @@ public class ActionManager {
     private final SelectStateAction selectStateAction = new SelectStateAction();
     private final EditModeStateAction editModeStateAction = new EditModeStateAction();
     private final SlideShowStateAction slideShowStateAction = new SlideShowStateAction();
+    private final ChooseColorAction chooseColorAction = new ChooseColorAction();
 
     public InfoAction getInfoAction() {
         return infoAction;
@@ -63,5 +64,9 @@ public class ActionManager {
 
     public SlideShowStateAction getSlideShowStateAction() {
         return slideShowStateAction;
+    }
+
+    public ChooseColorAction getChooseColorAction() {
+        return chooseColorAction;
     }
 }

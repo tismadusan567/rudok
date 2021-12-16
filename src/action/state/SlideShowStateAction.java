@@ -14,8 +14,7 @@ public class SlideShowStateAction extends AbstractRudokAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        var stateManager = MainFrame.getInstance().getProjectView().getPresentationView().getPresentationViewStateManager();
-        stateManager.startSlideShowState();
-        stateManager.getCurrent().buildGUI();
+        MainFrame.getInstance().getProjectView().getPresentationView().startSlideShowState();
+
     }
 }

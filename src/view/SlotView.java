@@ -5,26 +5,33 @@ import model.Slot;
 import observer.ISubscriber;
 
 import java.awt.*;
-import java.text.spi.BreakIteratorProvider;
 
 public class SlotView implements ISubscriber {
     private Rectangle rectangle;
     private final Slot slot;
+    private final float scale;
 
-    public SlotView(Slot slot) {
+    public SlotView(Slot slot, float scale) {
         this.slot = slot;
+        this.scale = scale;
         slot.addSubscriber(this);
-        rectangle = new Rectangle(slot.getPos(), slot.getSize());
+        updateRectangle();
+    }
+
+    private void updateRectangle() {
+        Point pos = new Point((int) (slot.getPos().x * scale), (int) (slot.getPos().y * scale));
+        Dimension size = new Dimension((int) (slot.getSize().width * scale), (int) (slot.getSize().height * scale));
+        rectangle = new Rectangle(pos, size);
     }
 
     public void paint(Graphics2D g2d) {
         if(slot.isSelected()) {
             g2d.setPaint(Color.ORANGE);
-            g2d.setStroke(new BasicStroke(((BasicStroke) slot.getStroke()).getLineWidth() + 8f));
+            g2d.setStroke(new BasicStroke(((BasicStroke) slot.getStroke()).getLineWidth() * scale + 8f));
 
         } else {
             g2d.setPaint(Color.BLACK);
-            g2d.setStroke(slot.getStroke());
+            g2d.setStroke(new BasicStroke(((BasicStroke) slot.getStroke()).getLineWidth() * scale));
 
         }
         g2d.draw(rectangle);
@@ -38,7 +45,8 @@ public class SlotView implements ISubscriber {
 
     @Override
     public void update(NotificationEvent notification) {
-        rectangle = new Rectangle(slot.getPos(), slot.getSize());
+//        rectangle = new Rectangle(slot.getPos(), slot.getSize());
+        updateRectangle();
     }
 
     public Slot getSlot() {

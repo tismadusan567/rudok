@@ -14,6 +14,6 @@ public class SelectStateAction extends AbstractRudokAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        MainFrame.getInstance().getProjectView().getPresentationView().getSlotStateManager().startSelectState();
+        MainFrame.getInstance().getProjectView().getPresentationView().startSelectState();
     }
 }

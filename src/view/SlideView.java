@@ -15,10 +15,11 @@ public class SlideView extends JPanel implements ISubscriber {
     private final JLabel nameLabel;
     private final Dimension dimension;
     private final List<SlotView> slotViews = new ArrayList<>();
+    private final float scale;
 
-    public SlideView(Slide slide, Image image, Dimension dimension, boolean hasListeners) {
-//        this.dimension = new Dimension(1066, 600);
-        this.dimension = dimension;
+    public SlideView(Slide slide, Image image, float scale, boolean hasListeners) {
+        this.scale = scale;
+        this.dimension = new Dimension((int) (1066 * scale), (int) (600 * scale));
         this.image = image.getScaledInstance(dimension.width, dimension.height, Image.SCALE_SMOOTH);
         nameLabel = new JLabel();
         add(nameLabel);
@@ -36,19 +37,17 @@ public class SlideView extends JPanel implements ISubscriber {
     }
 
     private void addSlotView(Slot slot) {
-        slotViews.add(new SlotView(slot));
+        slotViews.add(new SlotView(slot, scale));
         slot.addSubscriber(this);
     }
 
     private void displaySlide(Slide slide) {
         this.slide = slide;
-//        slide.getSubscribers().removeIf(e -> e instanceof SlideView);
         this.slide.addSubscriber(this);
 
         nameLabel.setText(slide.getName());
 
         for (Slot slot : slide.getSlots()) {
-//            slotViews.add(new SlotView(slot));
             addSlotView(slot);
         }
     }
@@ -72,7 +71,6 @@ public class SlideView extends JPanel implements ISubscriber {
         }
 
         if (notification.getType() == NotificationTypes.ADD_SLOT) {
-//            slotViews.add(new SlotView((Slot) notification.getMessage()));
             addSlotView((Slot) notification.getMessage());
             repaint();
         }

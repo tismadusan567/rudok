@@ -15,6 +15,6 @@ public class AddStateAction extends AbstractRudokAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        MainFrame.getInstance().getProjectView().getPresentationView().getSlotStateManager().startAddState();
+        MainFrame.getInstance().getProjectView().getPresentationView().startAddState();
     }
 }

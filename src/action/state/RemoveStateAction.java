@@ -14,6 +14,6 @@ public class RemoveStateAction extends AbstractRudokAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        MainFrame.getInstance().getProjectView().getPresentationView().getSlotStateManager().startRemoveState();
+        MainFrame.getInstance().getProjectView().getPresentationView().startRemoveState();
     }
 }
