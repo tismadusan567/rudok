@@ -38,7 +38,6 @@ public class ErrorFactory implements IPublisher {
             case NO_THEME_SELECTED -> "You have to select a theme";
         };
         MyError error = new MyError(message, errorType);
-//        notify(error);
         notify(new NotificationEvent(NotificationTypes.ERROR, error));
     }
 

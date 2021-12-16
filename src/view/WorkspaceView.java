@@ -27,11 +27,6 @@ public class WorkspaceView extends JPanel implements ISubscriber {
     @Override
     public void update(NotificationEvent notification) {
         //remove project
-//        if (notification instanceof Project) {
-//            projectView.reset();
-//            MyTree tree = MainFrame.getInstance().getTree();
-//            tree.selectNode(tree.getRootNode());
-//        }
         if (notification.getType() == NotificationTypes.RUNODECOMPOSITE_REMOVE) {
             projectView.reset();
             MyTree tree = MainFrame.getInstance().getTree();

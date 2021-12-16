@@ -25,14 +25,21 @@ public class SlotView implements ISubscriber {
     }
 
     public void paint(Graphics2D g2d) {
-        if(slot.isSelected()) {
+        BasicStroke b = (BasicStroke) slot.getStroke();
+        if (slot.isSelected()) {
             g2d.setPaint(Color.ORANGE);
-            g2d.setStroke(new BasicStroke(((BasicStroke) slot.getStroke()).getLineWidth() * scale + 8f));
+            g2d.setStroke(new BasicStroke((b.getLineWidth() * scale + 8f)));
 
         } else {
             g2d.setPaint(Color.BLACK);
-            g2d.setStroke(new BasicStroke(((BasicStroke) slot.getStroke()).getLineWidth() * scale));
-
+            g2d.setStroke(new BasicStroke(
+                    b.getLineWidth() * scale,
+                    BasicStroke.CAP_SQUARE,
+                    BasicStroke.JOIN_MITER,
+                    10.0f,
+                    b.getDashArray(),
+                    0.0f
+            ));
         }
         g2d.draw(rectangle);
         g2d.setPaint(slot.getColor());
@@ -45,7 +52,6 @@ public class SlotView implements ISubscriber {
 
     @Override
     public void update(NotificationEvent notification) {
-//        rectangle = new Rectangle(slot.getPos(), slot.getSize());
         updateRectangle();
     }
 

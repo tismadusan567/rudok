@@ -9,11 +9,14 @@ import state.presstate.PresentationViewStateManager;
 import state.slotstate.SlotStateManager;
 import view.presviewpanels.SlidesCardPanel;
 import view.presviewpanels.SlidesPanel;
+import view.presviewpanels.SlidesVerticalPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.net.URL;;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PresentationView extends JPanel implements ISubscriber {
     private Presentation presentation;
@@ -22,8 +25,8 @@ public class PresentationView extends JPanel implements ISubscriber {
     //edit panel components
     private final JPanel editPanel = new JPanel();
     private JLabel lblAuthor;
-    private final SlidesPanel slidesPanel = new SlidesPanel(1f, true);
-    private final SlidesPanel thumbnailPanel = new SlidesPanel(0.1f, false);
+    private final SlidesVerticalPanel slidesVerticalPanel = new SlidesVerticalPanel(1f, true);
+    private final SlidesVerticalPanel thumbnailPanel = new SlidesVerticalPanel(0.1f, false);
     private final JTabbedPane jTabbedPane;
 
     //slideshow panel components
@@ -31,29 +34,37 @@ public class PresentationView extends JPanel implements ISubscriber {
     private final CardLayout cardLayout = new CardLayout();
     private final SlidesCardPanel slidesCardPanel = new SlidesCardPanel(cardLayout);
 
+    private final List<SlidesPanel> slidesPanels = new ArrayList<>();
+
     //state managers
     private final SlotStateManager slotStateManager = new SlotStateManager();
     private final PresentationViewStateManager presentationViewStateManager = new PresentationViewStateManager();
 
     //color and stroke components
     private Color color = new Color(255, 255, 255);
-    private Stroke stroke = new BasicStroke(2f);
+//    private Stroke stroke = new BasicStroke(2f);
+    private float strokeWidth = 2f;
+    private boolean isStrokeDashed = false;
     private final SpinnerNumberModel spinnerModel = new SpinnerNumberModel(2, 1, 20, 1);
     private final JSpinner jSpinner = new JSpinner(spinnerModel);
+    private final JCheckBox cbDashedStroke = new JCheckBox("Dashed stroke");
 
     public PresentationView(Presentation presentation, JTabbedPane jTabbedPane) {
         this.presentation = presentation;
         this.jTabbedPane = jTabbedPane;
         setLayout(new BorderLayout());
 
+        //components that contain and manage slides
+        slidesPanels.add(slidesVerticalPanel);
+        slidesPanels.add(thumbnailPanel);
+        slidesPanels.add(slidesCardPanel);
+
         initEditPanel();
         initSlideShowPanel();
 
         add(editPanel, BorderLayout.CENTER);
-//        add(slideShowPanel, BorderLayout.CENTER);
 
         displayPresentation(presentation);
-
     }
 
     private void initSlideShowPanel() {
@@ -89,14 +100,19 @@ public class PresentationView extends JPanel implements ISubscriber {
 
         ((JSpinner.DefaultEditor)jSpinner.getEditor()).getTextField().setEditable(false);
         jSpinner.addChangeListener(e -> {
-            stroke = new BasicStroke(spinnerModel.getNumber().floatValue());
+            strokeWidth = spinnerModel.getNumber().floatValue();
         });
-        topPanel.add(new PresViewToolbar(jSpinner), BorderLayout.NORTH);
+
+        cbDashedStroke.addChangeListener(e -> {
+            isStrokeDashed = cbDashedStroke.isSelected();
+        });
+
+        topPanel.add(new PresViewToolbar(jSpinner, cbDashedStroke), BorderLayout.NORTH);
         topPanel.add(lblAuthor, BorderLayout.CENTER);
 
         editPanel.add(topPanel, BorderLayout.NORTH);
 
-        JScrollPane slidesScrollPane = new JScrollPane(slidesPanel);
+        JScrollPane slidesScrollPane = new JScrollPane(slidesVerticalPanel);
         slidesScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
         JScrollPane thumbnailScrollPane = new JScrollPane(thumbnailPanel);
@@ -120,31 +136,22 @@ public class PresentationView extends JPanel implements ISubscriber {
     }
 
     private void resetSlidePanels() {
-        slidesPanel.removeAll();
-        thumbnailPanel.removeAll();
-        slidesCardPanel.removeAll();
+        slidesPanels.forEach(SlidesPanel::reset);
 
-        slidesPanel.revalidate();
-        thumbnailPanel.revalidate();
-        slidesCardPanel.revalidate();
     }
 
     private void addSlide(Slide slide) {
-        slidesPanel.addSlideView(slide, image);
-        thumbnailPanel.addSlideView(slide, image);
-        slidesCardPanel.addSlideView(slide, image);
+        slidesPanels.forEach(slidesPanel -> slidesPanel.addSlideView(slide, image));
+
     }
 
     private void removeSlide(Slide slide) {
-        slidesPanel.removeSlide(slide);
-        thumbnailPanel.removeSlide(slide);
-        slidesCardPanel.removeSlide(slide);
+        slidesPanels.forEach(slidesPanel -> slidesPanel.removeSlide(slide));
+
     }
 
     private void changeThemeImage() {
-        slidesPanel.changeThemeImage(image);
-        thumbnailPanel.changeThemeImage(image);
-        slidesCardPanel.changeThemeImage(image);
+        slidesPanels.forEach(slidesPanel -> slidesPanel.changeThemeImage(image));
     }
 
     private void loadImage() {
@@ -252,8 +259,12 @@ public class PresentationView extends JPanel implements ISubscriber {
         color = JColorChooser.showDialog(this, "Choose color", color);
     }
 
-    public Stroke getStroke() {
-        return stroke;
+    public float getStrokeWidth() {
+        return strokeWidth;
+    }
+
+    public boolean isStrokeDashed() {
+        return isStrokeDashed;
     }
 
     public void mousePressed(Slide slide, MouseEvent e, Slot slot) {
