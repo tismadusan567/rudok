@@ -194,6 +194,7 @@ public class PresentationView extends JPanel implements ISubscriber {
     public void setSlideShowMode() {
         removeAll();
         add(slideShowPanel, BorderLayout.CENTER);
+        cardLayout.first(slidesCardPanel);
         revalidate();
         repaint();
     }

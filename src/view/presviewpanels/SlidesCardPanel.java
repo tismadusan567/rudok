@@ -6,9 +6,6 @@ import view.SlideView;
 import javax.swing.*;
 import java.awt.*;
 
-
-
-
 public class SlidesCardPanel extends SlidesPanel {
     public SlidesCardPanel(CardLayout cardLayout) {
         setLayout(cardLayout);
