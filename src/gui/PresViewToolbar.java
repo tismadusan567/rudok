@@ -12,14 +12,18 @@ public class PresViewToolbar extends JToolBar {
         add(MainFrame.getInstance().getActionManager().getMoveStateAction());
         add(MainFrame.getInstance().getActionManager().getSelectStateAction());
         addSeparator();
+
         add(MainFrame.getInstance().getActionManager().getSlideShowStateAction());
         addSeparator();
+
         add(MainFrame.getInstance().getActionManager().getChooseColorAction());
         addSeparator();
+
         add(new JLabel("Stroke width:"));
         jSpinner.setMaximumSize(new Dimension(50, 50));
         add(jSpinner);
         addSeparator();
+
         add(jCheckBox);
 
         setFloatable(false);

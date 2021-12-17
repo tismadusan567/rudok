@@ -5,7 +5,7 @@ public class SlotStateManager {
     private final RemoveSlotState removeSlotState = new RemoveSlotState();
     private final MoveSlotState moveSlotState = new MoveSlotState();
     private final SelectSlotState selectSlotState = new SelectSlotState();
-    private SlotState current = selectSlotState;
+    private SlotState current = addSlotState;
 
     public void startAddState() {
         current = addSlotState;

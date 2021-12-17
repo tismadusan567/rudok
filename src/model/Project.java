@@ -13,9 +13,6 @@ public class Project extends RuNodeComposite {
         } else {
             //error
             System.err.println("You have to add Presentation to Project");
-            return;
         }
-//        notify(NotificationTypes.RUNODECOMPOSITE_ADD);
-//        notify(new NotificationEvent(NotificationTypes.RUNODECOMPOSITE_ADD, node));
     }
 }

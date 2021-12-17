@@ -59,7 +59,6 @@ public class SlideView extends JPanel implements ISubscriber {
         for (SlotView sv : slotViews) {
             sv.paint((Graphics2D) g);
         }
-//        g.drawImage(image, 0, 0, this);
     }
 
     @Override

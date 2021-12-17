@@ -80,13 +80,9 @@ public class PresentationView extends JPanel implements ISubscriber {
         buttonPanel.add(btnEdit);
         slideShowPanel.add(buttonPanel, BorderLayout.NORTH);
 
-        btnPrev.addActionListener(e -> {
-            cardLayout.previous(slidesCardPanel);
-        });
+        btnPrev.addActionListener(e -> cardLayout.previous(slidesCardPanel));
 
-        btnNext.addActionListener(e -> {
-            cardLayout.next(slidesCardPanel);
-        });
+        btnNext.addActionListener(e -> cardLayout.next(slidesCardPanel));
     }
 
     private void initEditPanel() {
@@ -99,13 +95,9 @@ public class PresentationView extends JPanel implements ISubscriber {
         lblAuthor.setFont(new Font("Dialog", Font.BOLD, 20));
 
         ((JSpinner.DefaultEditor)jSpinner.getEditor()).getTextField().setEditable(false);
-        jSpinner.addChangeListener(e -> {
-            strokeWidth = spinnerModel.getNumber().floatValue();
-        });
+        jSpinner.addChangeListener(e -> strokeWidth = spinnerModel.getNumber().floatValue());
 
-        cbDashedStroke.addChangeListener(e -> {
-            isStrokeDashed = cbDashedStroke.isSelected();
-        });
+        cbDashedStroke.addChangeListener(e -> isStrokeDashed = cbDashedStroke.isSelected());
 
         topPanel.add(new PresViewToolbar(jSpinner, cbDashedStroke), BorderLayout.NORTH);
         topPanel.add(lblAuthor, BorderLayout.CENTER);
@@ -205,10 +197,6 @@ public class PresentationView extends JPanel implements ISubscriber {
 
     public Presentation getPresentation() {
         return presentation;
-    }
-
-    public SlotStateManager getSlotStateManager() {
-        return slotStateManager;
     }
 
     public void setEditMode() {

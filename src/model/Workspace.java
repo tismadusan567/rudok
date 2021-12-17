@@ -2,8 +2,8 @@ package model;
 
 public class Workspace extends RuNodeComposite {
 
-    public Workspace(String name, RuNodeComposite parent) {
-        super(name, parent); // (name, null) if workspace cant have parent
+    public Workspace(String name) {
+        super(name, null); // (name, null) if workspace cant have parent
     }
 
     @Override
@@ -14,8 +14,5 @@ public class Workspace extends RuNodeComposite {
             //error
             System.err.println("You have to add Project to Workspace");
         }
-//        notify(NotificationTypes.RUNODECOMPOSITE_ADD);
-//        notify(new NotificationEvent(NotificationTypes.RUNODECOMPOSITE_ADD, node));
-
     }
 }

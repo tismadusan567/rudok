@@ -57,7 +57,7 @@ public class MainFrame extends JFrame implements ISubscriber {
         myToolbar = new MyToolbar();
         add(myToolbar, BorderLayout.NORTH);
 
-        Workspace workspace = new Workspace("workspace1", null);
+        Workspace workspace = new Workspace("workspace1");
 
         tree = new MyTree(new MyTreeNode(workspace));
         JScrollPane treeScrollPane = new JScrollPane(tree);

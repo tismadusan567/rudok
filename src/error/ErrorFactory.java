@@ -17,14 +17,9 @@ public class ErrorFactory implements IPublisher {
     private static ErrorFactory instance = null;
     private final List<ISubscriber> subscribers = new ArrayList<>();
 
-    private ErrorFactory() {
-
-    }
-
     public static ErrorFactory getInstance() {
         if (instance == null) {
             instance = new ErrorFactory();
-//            instance.init();
         }
         return instance;
     }

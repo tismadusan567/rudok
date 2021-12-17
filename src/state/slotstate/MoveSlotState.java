@@ -27,9 +27,7 @@ public class MoveSlotState extends SlotState {
     @Override
     public void mouseDragged(Slide slide, MouseEvent e, Slot slot) {
         if (current == null) return;
-//        current.setPos(e.getPoint());
         current.setPos(new Point(e.getPoint().x - offsetX, e.getPoint().y - offsetY));
-//        slide.repaintViews();
     }
 
     @Override

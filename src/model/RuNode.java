@@ -48,7 +48,6 @@ public abstract class RuNode implements IPublisher {
 
     public void setName(String name) {
         this.name = name;
-//        notify(NotificationTypes.RUNODE_NAME_CHANGED);
         notify(new NotificationEvent(NotificationTypes.RUNODE_NAME_CHANGED, name));
 
     }

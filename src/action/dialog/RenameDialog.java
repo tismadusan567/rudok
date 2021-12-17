@@ -10,7 +10,6 @@ import java.awt.*;
 
 public class RenameDialog extends JDialog {
     private final JTextField textField;
-    private final JButton okButton;
 
     public RenameDialog() {
         super(MainFrame.getInstance(), "Rename", true);
@@ -24,7 +23,7 @@ public class RenameDialog extends JDialog {
         JPanel textFieldPanel = new JPanel();
         textFieldPanel.add(textField);
 
-        okButton = new JButton("OK");
+        JButton okButton = new JButton("OK");
 
         add(new JLabel("Enter name"), BorderLayout.NORTH);
         add(textFieldPanel, BorderLayout.CENTER);

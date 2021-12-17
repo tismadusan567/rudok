@@ -4,7 +4,6 @@ import gui.tree.MyTree;
 import main.MainFrame;
 import model.NotificationEvent;
 import model.NotificationTypes;
-import model.Project;
 import model.Workspace;
 import observer.ISubscriber;
 

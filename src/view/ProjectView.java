@@ -70,11 +70,6 @@ public class ProjectView extends JPanel implements ISubscriber {
 
     @Override
     public void update(NotificationEvent notification) {
-        //display new project
-//        if (notification.getType() instanceof Project) {
-//            displayProject((Project) notification);
-//        }
-
         //change name
         if (notification.getType() == NotificationTypes.RUNODE_NAME_CHANGED) {
             nameLabel.setText(project.getName());
@@ -100,8 +95,6 @@ public class ProjectView extends JPanel implements ISubscriber {
 
         //add presentation
         if (notification.getType() == NotificationTypes.RUNODECOMPOSITE_ADD) {
-            //newest element from children
-//            Presentation presentation = (Presentation) project.getChildren().get(project.getChildren().size() - 1);
             Presentation presentation = (Presentation) notification.getMessage();
             tabbedPane.addTab(presentation.getName(), new PresentationView(presentation, tabbedPane));
             tabbedPane.validate();
@@ -116,10 +109,6 @@ public class ProjectView extends JPanel implements ISubscriber {
         return project;
     }
 
-    public JTabbedPane getTabbedPane() {
-        return tabbedPane;
-    }
-
     public void setSelectedIndex(int indexOfThis) {
         tabbedPane.setSelectedIndex(indexOfThis);
     }
@@ -129,7 +118,6 @@ public class ProjectView extends JPanel implements ISubscriber {
     }
 
     public PresentationView getPresentationView() {
-//        System.out.println(tabbedPane.getSelectedComponent());
         return (PresentationView) tabbedPane.getSelectedComponent();
     }
 }
