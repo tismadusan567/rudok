@@ -47,36 +47,30 @@ public class ProjectView extends JPanel implements ISubscriber {
 
     @Override
     public void update(NotificationEvent notification) {
-        //change name
-        if (notification.getType() == NotificationTypes.RUNODE_NAME_CHANGED) {
-            nameLabel.setText(project.getName());
-        }
-
-        //remove presentation
-        if (notification.getType() == NotificationTypes.RUNODECOMPOSITE_REMOVE) {
-            Presentation presentation = (Presentation) notification.getMessage();
-            int index = -1;
-            for (int i = 0; i < tabbedPane.getTabCount(); i++) {
-                //find the tab with this presentation
-                if (tabbedPane.getComponentAt(i) instanceof PresentationView curr && curr.getPresentation() == presentation) {
-                    index = i;
-                    break;
+        switch (notification.getType()) {
+            case RUNODE_NAME_CHANGED -> nameLabel.setText(project.getName());
+            case RUNODECOMPOSITE_REMOVE -> {
+                Presentation presentation = (Presentation) notification.getMessage();
+                int index = -1;
+                for (int i = 0; i < tabbedPane.getTabCount(); i++) {
+                    //find the tab with this presentation
+                    if (tabbedPane.getComponentAt(i) instanceof PresentationView curr && curr.getPresentation() == presentation) {
+                        index = i;
+                        break;
+                    }
                 }
+                tabbedPane.removeTabAt(index);
+
+                //select project
+                MyTree tree = MainFrame.getInstance().getTree();
+                tree.selectNode(tree.getActiveProjectNode());
             }
-            tabbedPane.removeTabAt(index);
-
-            //select project
-            MyTree tree = MainFrame.getInstance().getTree();
-            tree.selectNode(tree.getActiveProjectNode());
-        }
-
-        //add presentation
-        if (notification.getType() == NotificationTypes.RUNODECOMPOSITE_ADD) {
-            Presentation presentation = (Presentation) notification.getMessage();
-            tabbedPane.addTab(presentation.getName(), new PresentationView(presentation, tabbedPane));
-            tabbedPane.validate();
-            tabbedPane.setSelectedIndex(tabbedPane.getTabCount() - 1);
-
+            case RUNODECOMPOSITE_ADD -> {
+                Presentation presentation = (Presentation) notification.getMessage();
+                tabbedPane.addTab(presentation.getName(), new PresentationView(presentation, tabbedPane));
+                tabbedPane.validate();
+                tabbedPane.setSelectedIndex(tabbedPane.getTabCount() - 1);
+            }
         }
     }
 

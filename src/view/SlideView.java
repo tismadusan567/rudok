@@ -28,9 +28,9 @@ public class SlideView extends JPanel implements ISubscriber {
         setMinimumSize(dimension);
         setAlignmentX(CENTER_ALIGNMENT);
         displaySlide(slide);
-        
+
         SlideViewMouseListener listener = new SlideViewMouseListener(this);
-        if(hasListeners) {
+        if (hasListeners) {
             addMouseListener(listener);
             addMouseMotionListener(listener);
         }
@@ -63,36 +63,28 @@ public class SlideView extends JPanel implements ISubscriber {
 
     @Override
     public void update(NotificationEvent notification) {
-
-        //change name
-        if (notification.getType() == NotificationTypes.RUNODE_NAME_CHANGED) {
-            nameLabel.setText(slide.getName());
-        }
-
-        if (notification.getType() == NotificationTypes.ADD_SLOT) {
-            addSlotView((Slot) notification.getMessage());
-            repaint();
-        }
-
-        if (notification.getType() == NotificationTypes.REMOVE_SLOT) {
-            Slot slot = (Slot) notification.getMessage();
-            int index = -1;
-            for (int i = 0; i < slotViews.size(); i++) {
-                //find the slotview with this slot
-                if (slotViews.get(i).getSlot() == slot) {
-                    index = i;
-                    break;
-                }
+        switch (notification.getType()) {
+            case RUNODE_NAME_CHANGED -> nameLabel.setText(slide.getName());
+            case ADD_SLOT -> {
+                addSlotView((Slot) notification.getMessage());
+                repaint();
             }
-            slotViews.get(index).getSlot().removeSubscriber(slotViews.get(index));
-            slotViews.remove(index);
-            repaint();
+            case REMOVE_SLOT -> {
+                Slot slot = (Slot) notification.getMessage();
+                int index = -1;
+                for (int i = 0; i < slotViews.size(); i++) {
+                    //find the slotview with this slot
+                    if (slotViews.get(i).getSlot() == slot) {
+                        index = i;
+                        break;
+                    }
+                }
+                slotViews.get(index).getSlot().removeSubscriber(slotViews.get(index));
+                slotViews.remove(index);
+                repaint();
+            }
+            case REPAINT_SLIDEVIEWS -> repaint();
         }
-
-        if (notification.getType() == NotificationTypes.REPAINT_SLIDEVIEWS) {
-            repaint();
-        }
-
     }
 
     public void setImage(Image image) {

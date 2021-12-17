@@ -42,7 +42,7 @@ public class PresentationView extends JPanel implements ISubscriber {
 
     //color and stroke components
     private Color color = new Color(255, 255, 255);
-//    private Stroke stroke = new BasicStroke(2f);
+    //    private Stroke stroke = new BasicStroke(2f);
     private float strokeWidth = 2f;
     private boolean isStrokeDashed = false;
     private final SpinnerNumberModel spinnerModel = new SpinnerNumberModel(2, 1, 20, 1);
@@ -94,7 +94,7 @@ public class PresentationView extends JPanel implements ISubscriber {
         lblAuthor = new JLabel(presentation.getAuthor(), SwingConstants.CENTER);
         lblAuthor.setFont(new Font("Dialog", Font.BOLD, 20));
 
-        ((JSpinner.DefaultEditor)jSpinner.getEditor()).getTextField().setEditable(false);
+        ((JSpinner.DefaultEditor) jSpinner.getEditor()).getTextField().setEditable(false);
         jSpinner.addChangeListener(e -> strokeWidth = spinnerModel.getNumber().floatValue());
 
         cbDashedStroke.addChangeListener(e -> isStrokeDashed = cbDashedStroke.isSelected());
@@ -157,41 +157,25 @@ public class PresentationView extends JPanel implements ISubscriber {
 
     @Override
     public void update(NotificationEvent notification) {
-        //remove slide
-        if (notification.getType() == NotificationTypes.RUNODECOMPOSITE_REMOVE) {
-            Slide slide = (Slide) notification.getMessage();
-            removeSlide(slide);
+        switch (notification.getType()) {
+            case RUNODECOMPOSITE_REMOVE -> {
+                Slide slide = (Slide) notification.getMessage();
+                removeSlide(slide);
 
-            //select presentation
-            MyTree tree = MainFrame.getInstance().getTree();
-            tree.selectNode(tree.getActivePresentationNode());
-        }
-
-        //add slide
-        if (notification.getType() == NotificationTypes.RUNODECOMPOSITE_ADD) {
-            //add newest element from children
-//            addSlide((Slide) presentation.getChildren().get(presentation.getChildren().size() - 1));
-
-            addSlide((Slide) notification.getMessage());
-            validate();
-        }
-
-        //change name
-        if (notification.getType() == NotificationTypes.RUNODE_NAME_CHANGED) {
-            //find index of presentation in its parent and set this components parent(ProjectView)'s title at that index to the required name
-//            ((JTabbedPane) getParent()).setTitleAt(presentation.getIndexInParent(), presentation.getName());
-            jTabbedPane.setTitleAt(presentation.getIndexInParent(), presentation.getName());
-        }
-
-        //change author name
-        if (notification.getType() == NotificationTypes.PRESENTATION_NEW_AUTHOR) {
-            lblAuthor.setText(presentation.getAuthor());
-        }
-
-        //change theme image
-        if (notification.getType() == NotificationTypes.PRESENTATION_NEW_IMAGE_PATH) {
-            loadImage();
-            changeThemeImage();
+                //select presentation
+                MyTree tree = MainFrame.getInstance().getTree();
+                tree.selectNode(tree.getActivePresentationNode());
+            }
+            case RUNODECOMPOSITE_ADD -> {
+                addSlide((Slide) notification.getMessage());
+                validate();
+            }
+            case RUNODE_NAME_CHANGED -> jTabbedPane.setTitleAt(presentation.getIndexInParent(), presentation.getName());
+            case PRESENTATION_NEW_AUTHOR -> lblAuthor.setText(presentation.getAuthor());
+            case PRESENTATION_NEW_IMAGE_PATH -> {
+                loadImage();
+                changeThemeImage();
+            }
         }
     }
 
