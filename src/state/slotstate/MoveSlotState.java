@@ -1,5 +1,6 @@
 package state.slotstate;
 
+import model.Presentation;
 import model.Slide;
 import model.Slot;
 
@@ -14,11 +15,12 @@ public class MoveSlotState extends SlotState {
 
     @Override
     public void mousePressed(Slide slide, MouseEvent e, Slot slot) {
+        Presentation presentation = (Presentation) slide.getParent();
         if(slot == null) {
-            slide.setSelectedSlot(null);
+            presentation.setSelectedSlot(null);
             return;
         }
-        slide.setSelectedSlot(slot);
+        presentation.setSelectedSlot(slot);
         current = slot;
         offsetY = e.getPoint().y - slot.getPos().y;
         offsetX = e.getPoint().x - slot.getPos().x;

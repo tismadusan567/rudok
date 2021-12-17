@@ -4,6 +4,7 @@ public class Presentation extends RuNodeComposite {
 
     private String author;
     private String imagePath;
+    private Slot selectedSlot = null;
 
     public Presentation(String name, RuNodeComposite parent, String author, String imagePath) {
         super(name, parent);
@@ -41,5 +42,13 @@ public class Presentation extends RuNodeComposite {
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
         notify(new NotificationEvent(NotificationTypes.PRESENTATION_NEW_IMAGE_PATH, imagePath));
+    }
+
+    public void setSelectedSlot(Slot selectedSlot) {
+        if (this.selectedSlot != null) this.selectedSlot.setSelected(false);
+        this.selectedSlot = selectedSlot;
+        if(this.selectedSlot != null) this.selectedSlot.setSelected(true);
+
+        notify(new NotificationEvent(NotificationTypes.REPAINT_SLIDEVIEWS, null));
     }
 }

@@ -176,6 +176,7 @@ public class PresentationView extends JPanel implements ISubscriber {
                 loadImage();
                 changeThemeImage();
             }
+            case REPAINT_SLIDEVIEWS -> repaint();
         }
     }
 
