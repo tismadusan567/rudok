@@ -230,7 +230,8 @@ public class PresentationView extends JPanel implements ISubscriber {
     }
 
     public void chooseColor() {
-        color = JColorChooser.showDialog(this, "Choose color", color);
+        Color newColor = JColorChooser.showDialog(this, "Choose color", color);
+        if(newColor != null) color = newColor;
     }
 
     public float getStrokeWidth() {
