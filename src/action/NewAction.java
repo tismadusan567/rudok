@@ -5,6 +5,7 @@ import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
 import main.MainFrame;
 import model.*;
+import model.factory.RuNodeFactoryManager;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -30,24 +31,9 @@ public class NewAction extends AbstractRudokAction {
         }
 
         RuNodeComposite targetRuNodeComposite = (RuNodeComposite) targetRuNode;
+        RuNode newNode = RuNodeFactoryManager.returnNodeFactory(targetRuNodeComposite).getNewNode(targetRuNodeComposite);
+        target.addChild(newNode);
 
-        int index = targetRuNodeComposite.getMaxChildIndex();
-
-        RuNode newNode = null;
-
-        if (targetRuNode instanceof Presentation) {
-            newNode = new Slide("Slide" + index, targetRuNodeComposite, index);
-        } else if (targetRuNode instanceof Project) {
-            newNode = new Presentation("Presentation" + index, targetRuNodeComposite, "Author", "/backgrounds/background.jpeg");
-//            new ChangeAuthorDialog(newPresentation); //optional for setting author name at creation
-        } else {
-            newNode = new Project("Project" + index, targetRuNodeComposite);
-        }
-
-        targetRuNodeComposite.addChild(newNode);
-        target.add(new MyTreeNode(newNode));
-        if (targetRuNode instanceof Project) MainFrame.getInstance().selectProjectViewLastTab();
-
-        SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getTree());
+        SwingUtilities.updateComponentTreeUI(tree);
     }
 }

@@ -10,8 +10,6 @@ import java.util.List;
 public class SelectImageDialog extends JDialog {
     private String selectedImage = null;
     private final String imageDirectory = "/backgrounds";
-    private final String imageDirectoryPath = "./src/res" + imageDirectory;
-    private JButton button;
     private final List<JRadioButton> jRadioButtonList = new ArrayList<>();
 
     public SelectImageDialog(JDialog parent) {
@@ -39,6 +37,7 @@ public class SelectImageDialog extends JDialog {
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
         ButtonGroup buttonGroup = new ButtonGroup();
 
+        String imageDirectoryPath = "./src/res" + imageDirectory;
         File dir = new File(imageDirectoryPath);
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
@@ -57,7 +56,7 @@ public class SelectImageDialog extends JDialog {
 
         add(scrollPane, BorderLayout.CENTER);
 
-        button = new JButton("Select");
+        JButton button = new JButton("Select");
         button.addActionListener(e -> {
             for (var el : jRadioButtonList) {
                 if (el.isSelected()) {

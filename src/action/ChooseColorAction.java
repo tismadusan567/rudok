@@ -1,10 +1,6 @@
 package action;
 
-import action.dialog.ChangeAuthorDialog;
-import error.ErrorFactory;
-import gui.tree.MyTreeNode;
 import main.MainFrame;
-import model.Presentation;
 
 import java.awt.event.ActionEvent;
 

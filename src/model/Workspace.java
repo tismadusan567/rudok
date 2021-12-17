@@ -3,7 +3,7 @@ package model;
 public class Workspace extends RuNodeComposite {
 
     public Workspace(String name) {
-        super(name, null); // (name, null) if workspace cant have parent
+        super(name, null);
     }
 
     @Override

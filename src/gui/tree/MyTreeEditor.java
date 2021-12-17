@@ -15,7 +15,6 @@ import java.util.EventObject;
 public class MyTreeEditor extends DefaultTreeCellEditor implements ActionListener {
 
     private Object clickedOn = null;
-    private JTextField editTF = null;
 
     public MyTreeEditor(JTree tree, DefaultTreeCellRenderer renderer) {
         super(tree, renderer);
@@ -25,7 +24,7 @@ public class MyTreeEditor extends DefaultTreeCellEditor implements ActionListene
     public Component getTreeCellEditorComponent(JTree tree, Object value, boolean isSelected, boolean expanded, boolean leaf, int row) {
 //        super.getTreeCellEditorComponent(tree, value, isSelected, expanded, leaf, row);
         clickedOn = value;
-        editTF = new JTextField(value.toString());
+        JTextField editTF = new JTextField(value.toString());
         editTF.addActionListener(this);
         return editTF;
     }

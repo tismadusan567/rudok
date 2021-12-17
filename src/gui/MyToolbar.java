@@ -3,7 +3,6 @@ package gui;
 import main.MainFrame;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class MyToolbar extends JToolBar {
 

@@ -46,8 +46,6 @@ public class MainFrame extends JFrame implements ISubscriber {
         int screenWidth = screenSize.width;
 
         setSize(screenWidth / 2, screenHeight / 2);
-//        Image img = kit.getImage("images/iko.jpg");
-//        setIconImage(img);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Rudok");
 
@@ -75,19 +73,12 @@ public class MainFrame extends JFrame implements ISubscriber {
     public void setViewToTreeSelection() {
         //change view
         if (tree.getActiveProjectNode() != null && tree.getActiveProjectNode().getRuNode() != projectView.getProject()) {
-            projectView.setChangeListenerPaused(true);
             projectView.displayProject((Project) tree.getActiveProjectNode().getRuNode());
-            projectView.setChangeListenerPaused(false);
         }
         //select tab
         if (tree.getActivePresentationNode() != null) {
             projectView.setSelectedIndex(tree.getActivePresentationNode().getIndexOfThis());
         }
-        //todo: scroll to slide
-    }
-
-    public void selectProjectViewLastTab() {
-        projectView.setSelectedIndex(projectView.getTabCount() - 1);
     }
 
     public ActionManager getActionManager() {

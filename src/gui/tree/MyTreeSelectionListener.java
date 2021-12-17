@@ -1,10 +1,8 @@
 package gui.tree;
 
-import main.Main;
 import main.MainFrame;
 import model.Presentation;
 import model.Project;
-import model.RuNode;
 import model.Slide;
 
 import javax.swing.event.TreeSelectionEvent;

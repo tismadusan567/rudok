@@ -1,6 +1,5 @@
 package error;
 
-import main.MainFrame;
 import model.NotificationEvent;
 import model.NotificationTypes;
 import observer.IPublisher;

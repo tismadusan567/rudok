@@ -39,9 +39,7 @@ public class ChangeThemeDialog extends JDialog {
 
     private void addListeners() {
         browseButton.addActionListener(e -> {
-            SelectImageDialog selectImageDialog = new SelectImageDialog(this);
-            newThemePath = selectImageDialog.showDialog();
-//            System.out.println(newThemePath);
+            newThemePath = new SelectImageDialog(this).showDialog();
             if (newThemePath != null) pathLabel.setText(newThemePath);
         });
 

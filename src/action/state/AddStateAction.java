@@ -3,7 +3,6 @@ package action.state;
 import action.AbstractRudokAction;
 import main.MainFrame;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class AddStateAction extends AbstractRudokAction {

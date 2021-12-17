@@ -47,8 +47,4 @@ public class ChangeAuthorDialog extends JDialog {
             dispose();
         });
     }
-
-    public String getDialogText() {
-        return textField.getText();
-    }
 }
