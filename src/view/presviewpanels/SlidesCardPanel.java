@@ -3,6 +3,7 @@ package view.presviewpanels;
 import model.Slide;
 import view.SlideView;
 
+import javax.swing.*;
 import java.awt.*;
 
 
@@ -16,7 +17,9 @@ public class SlidesCardPanel extends SlidesPanel {
     @Override
     public void addSlideView(Slide slide, Image image) {
         SlideView newSlideView = new SlideView(slide, image, 1f, false);
-        add(newSlideView, slide.getName());
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.add(newSlideView);
+        add(panel, slide.getName());
         slideViews.add(newSlideView);
     }
 
