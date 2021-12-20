@@ -14,7 +14,7 @@ public class RuNodeFactoryManager {
         if (parent instanceof Presentation) {
             factory = slideFactory;
         } else if (parent instanceof Project) {
-            factory =  presentationFactory;
+            factory = presentationFactory;
         } else {
             factory = projectFactory;
         }
