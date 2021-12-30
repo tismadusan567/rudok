@@ -1,5 +1,7 @@
 package action.dialog;
 
+import command.RemoveCommand;
+import command.RenameCommand;
 import error.ErrorFactory;
 import gui.tree.MyTree;
 import main.MainFrame;
@@ -40,7 +42,9 @@ public class RenameDialog extends JDialog {
 
             RuNode target = tree.getActiveNode().getRuNode();
 
-            target.setName(textField.getText());
+//            target.setName(textField.getText());
+            MainFrame.getInstance().getCommandManager()
+                    .addCommand(new RenameCommand(target, target.getName(), textField.getText()));
 
             SwingUtilities.updateComponentTreeUI(tree);
 

@@ -16,6 +16,10 @@ public class MyToolbar extends JToolBar {
         add(MainFrame.getInstance().getActionManager().getChangeThemeAction());
         addSeparator();
 
+        add(MainFrame.getInstance().getActionManager().getUndoAction());
+        add(MainFrame.getInstance().getActionManager().getRedoAction());
+        addSeparator();
+
         add(MainFrame.getInstance().getActionManager().getInfoAction());
 
         setFloatable(false);

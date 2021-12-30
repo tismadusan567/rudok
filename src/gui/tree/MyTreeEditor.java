@@ -1,6 +1,8 @@
 package gui.tree;
 
+import command.RenameCommand;
 import error.ErrorFactory;
+import main.MainFrame;
 import model.RuNode;
 
 import javax.swing.*;
@@ -45,7 +47,9 @@ public class MyTreeEditor extends DefaultTreeCellEditor implements ActionListene
         }
 
         RuNode ruNode = ((MyTreeNode) clickedOn).getRuNode();
-        ruNode.setName(e.getActionCommand());
+//        ruNode.setName(e.getActionCommand());
+        MainFrame.getInstance().getCommandManager()
+                .addCommand(new RenameCommand(ruNode, ruNode.getName(), e.getActionCommand()));
         stopCellEditing();
     }
 }

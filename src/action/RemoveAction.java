@@ -1,12 +1,11 @@
 package action;
 
+import command.RemoveCommand;
 import error.ErrorFactory;
 import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
 import main.MainFrame;
-import model.*;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class RemoveAction extends AbstractRudokAction {
@@ -21,18 +20,11 @@ public class RemoveAction extends AbstractRudokAction {
         MyTree tree = MainFrame.getInstance().getTree();
 
         MyTreeNode target = tree.getActiveNode();
-        RuNode targetRuNode = target.getRuNode();
 
-        //todo: what happens if remove is called on workspace?
         if (target == tree.getRootNode()) {
             ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.REMOVE_WORKSPACE);
             return;
         }
-
-        target.removeFromParent();
-        if (targetRuNode.getParent() != null)
-            targetRuNode.getParent().remove(targetRuNode);
-
-        SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getTree());
+        MainFrame.getInstance().getCommandManager().addCommand(new RemoveCommand((MyTreeNode) target.getParent(), target));
     }
 }

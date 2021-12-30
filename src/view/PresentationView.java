@@ -163,8 +163,8 @@ public class PresentationView extends JPanel implements ISubscriber {
                 removeSlide(slide);
 
                 //select presentation
-                MyTree tree = MainFrame.getInstance().getTree();
-                tree.selectNode(tree.getActivePresentationNode());
+//                MyTree tree = MainFrame.getInstance().getTree();
+//                tree.selectNode(tree.getActivePresentationNode());
             }
             case RUNODECOMPOSITE_ADD -> {
                 addSlide((Slide) notification.getMessage());

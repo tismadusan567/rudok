@@ -1,6 +1,7 @@
 package main;
 
 import action.ActionManager;
+import command.CommandManager;
 import error.ErrorFactory;
 import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
@@ -19,6 +20,7 @@ import java.awt.*;
 public class MainFrame extends JFrame implements ISubscriber {
     private static MainFrame instance = null;
     private final ActionManager actionManager = new ActionManager();
+    private final CommandManager commandManager = new CommandManager();
     private MyTree tree;
     private ProjectView projectView;
     private MyMenu myMenu;
@@ -91,6 +93,10 @@ public class MainFrame extends JFrame implements ISubscriber {
 
     public ProjectView getProjectView() {
         return projectView;
+    }
+
+    public CommandManager getCommandManager() {
+        return commandManager;
     }
 
     @Override

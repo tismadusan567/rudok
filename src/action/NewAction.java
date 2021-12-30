@@ -1,5 +1,6 @@
 package action;
 
+import command.NewCommand;
 import error.ErrorFactory;
 import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
@@ -32,8 +33,6 @@ public class NewAction extends AbstractRudokAction {
 
         RuNodeComposite targetRuNodeComposite = (RuNodeComposite) targetRuNode;
         RuNode newNode = RuNodeFactoryManager.returnNodeFactory(targetRuNodeComposite).getNewNode(targetRuNodeComposite);
-        target.addChild(newNode);
-
-        SwingUtilities.updateComponentTreeUI(tree);
+        MainFrame.getInstance().getCommandManager().addCommand(new NewCommand(target, newNode));
     }
 }

@@ -1,6 +1,7 @@
 package gui.tree;
 
-import model.*;
+import model.RuNode;
+import model.RuNodeComposite;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.Objects;
@@ -19,9 +20,16 @@ public class MyTreeNode extends DefaultMutableTreeNode {
         }
     }
 
-    public void addChild(RuNode newNode) {
-        add(new MyTreeNode(newNode));
-        ((RuNodeComposite)ruNode).addChild(newNode);
+    public void addChild(MyTreeNode newNode) {
+        add(newNode);
+        ((RuNodeComposite) ruNode).addChild(newNode.getRuNode());
+    }
+
+    @Override
+    public void removeFromParent() {
+        super.removeFromParent();
+        if (ruNode.getParent() != null)
+            ruNode.getParent().remove(ruNode);
     }
 
     @Override
