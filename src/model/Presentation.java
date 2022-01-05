@@ -1,10 +1,13 @@
 package model;
 
+import java.io.ObjectStreamException;
+import java.io.Serial;
+
 public class Presentation extends RuNodeComposite {
 
     private String author;
     private String imagePath;
-    private Slot selectedSlot = null;
+    private transient Slot selectedSlot = null;
 
     public Presentation(String name, RuNodeComposite parent, String author, String imagePath) {
         super(name, parent);
@@ -32,6 +35,7 @@ public class Presentation extends RuNodeComposite {
 
     public void setAuthor(String author) {
         this.author = author;
+        setChanged(true);
         notify(new NotificationEvent(NotificationTypes.PRESENTATION_NEW_AUTHOR, author));
     }
 
@@ -41,6 +45,7 @@ public class Presentation extends RuNodeComposite {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+        setChanged(true);
         notify(new NotificationEvent(NotificationTypes.PRESENTATION_NEW_IMAGE_PATH, imagePath));
     }
 
@@ -50,5 +55,11 @@ public class Presentation extends RuNodeComposite {
         if(this.selectedSlot != null) this.selectedSlot.setSelected(true);
 
         notify(new NotificationEvent(NotificationTypes.REPAINT_SLIDEVIEWS, null));
+    }
+
+    @Serial
+    private Object readResolve() throws ObjectStreamException {
+        initTransients();
+        return this;
     }
 }

@@ -19,6 +19,8 @@ public class ActionManager {
     private final ChooseColorAction chooseColorAction = new ChooseColorAction();
     private final UndoAction undoAction = new UndoAction();
     private final RedoAction redoAction = new RedoAction();
+    private final SaveProjectAction saveProjectAction = new SaveProjectAction();
+    private final OpenProjectAction openProjectAction = new OpenProjectAction();
 
     public InfoAction getInfoAction() {
         return infoAction;
@@ -78,5 +80,13 @@ public class ActionManager {
 
     public RedoAction getRedoAction() {
         return redoAction;
+    }
+
+    public SaveProjectAction getSaveProjectAction() {
+        return saveProjectAction;
+    }
+
+    public OpenProjectAction getOpenProjectAction() {
+        return openProjectAction;
     }
 }

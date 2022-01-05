@@ -68,6 +68,10 @@ public class ProjectView extends JPanel implements ISubscriber {
             }
             case RUNODECOMPOSITE_ADD -> {
                 Presentation presentation = (Presentation) notification.getMessage();
+                if(project == null) {
+                    displayProject((Project) presentation.getParent());
+                    return;
+                }
                 tabbedPane.addTab(presentation.getName(), new PresentationView(presentation, tabbedPane));
                 tabbedPane.validate();
                 tabbedPane.setSelectedIndex(tabbedPane.getTabCount() - 1);

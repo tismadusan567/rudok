@@ -36,6 +36,14 @@ public class MyTreeCellRenderer extends DefaultTreeCellRenderer {
             icon = new ImageIcon(imageURL);
         setIcon(icon);
 
+        //if the runode is changed set the font to italic
+        Font font = new Font(
+                getFont().getFamily(),
+                ruNode.isChanged() ? Font.ITALIC : Font.PLAIN,
+                getFont().getSize()
+        );
+        setFont(font);
+
         return this;
     }
 }

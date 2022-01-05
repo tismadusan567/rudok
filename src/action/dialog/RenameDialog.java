@@ -1,8 +1,8 @@
 package action.dialog;
 
-import command.RemoveCommand;
 import command.RenameCommand;
 import error.ErrorFactory;
+import error.ErrorType;
 import gui.tree.MyTree;
 import main.MainFrame;
 import model.RuNode;
@@ -34,7 +34,7 @@ public class RenameDialog extends JDialog {
         okButton.addActionListener(e -> {
             if(textField.getText().isBlank()) {
 //                dispose();
-                ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.BLANK_RENAME);
+                ErrorFactory.getInstance().generateError(ErrorType.BLANK_RENAME);
                 return;
             }
 

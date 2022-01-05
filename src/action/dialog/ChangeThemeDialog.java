@@ -1,6 +1,7 @@
 package action.dialog;
 
 import error.ErrorFactory;
+import error.ErrorType;
 import main.MainFrame;
 import model.Presentation;
 
@@ -45,7 +46,7 @@ public class ChangeThemeDialog extends JDialog {
 
         okButton.addActionListener(e -> {
             if (newThemePath == null || newThemePath.isBlank()) {
-                ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.NO_THEME_SELECTED);
+                ErrorFactory.getInstance().generateError(ErrorType.NO_THEME_SELECTED);
                 return;
             }
             presentation.setImagePath(newThemePath);

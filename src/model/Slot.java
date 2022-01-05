@@ -5,37 +5,47 @@ import observer.ISubscriber;
 
 import java.awt.*;
 
+import java.io.ObjectStreamException;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Slot implements IPublisher {
+public class Slot implements IPublisher, Serializable {
     private Point pos;
     private Dimension size;
-    private Stroke stroke;
+    private SerializableStrokeAdapter serializableStrokeAdapter;
     private Color color;
     private boolean selected = false;
     private final Slide parentSlide;
-    private final List<ISubscriber> subscribers = new ArrayList<>();
+    private transient List<ISubscriber> subscribers = new ArrayList<>();
 
     //default za testing
     public Slot(Point pos, Slide parentSlide) {
         this(pos, new Dimension(100, 100), new BasicStroke(2f), new Color(255, 255, 255), parentSlide);
     }
 
-    public Slot(Point pos, Stroke stroke, Color color, Slide slide) {
-        this(pos, new Dimension(100, 100), stroke, color, slide);
+    public Slot(Point pos, Stroke serializableStrokeAdapter, Color color, Slide slide) {
+        this(pos, new Dimension(100, 100), serializableStrokeAdapter, color, slide);
     }
 
-    public Slot(Point pos, Dimension size, Stroke stroke, Color color, Slide parentSlide) {
+    public Slot(Point pos, Dimension size, Stroke serializableStrokeAdapter, Color color, Slide parentSlide) {
         this.pos = pos;
         this.size = size;
-        this.stroke = stroke;
+        this.serializableStrokeAdapter = new SerializableStrokeAdapter(serializableStrokeAdapter);
         this.color = color;
         this.parentSlide = parentSlide;
+    }
+
+    @Serial
+    private Object readResolve() throws ObjectStreamException {
+        subscribers = new ArrayList<>();
+        return this;
     }
     
     public void setPos(Point pos) {
         this.pos = pos;
+        parentSlide.setChanged(true);
         notify(new NotificationEvent(NotificationTypes.REPAINT_SLIDEVIEWS, pos));
     }
 
@@ -47,8 +57,8 @@ public class Slot implements IPublisher {
         return size;
     }
 
-    public Stroke getStroke() {
-        return stroke;
+    public SerializableStrokeAdapter getSerializableStrokeAdapter() {
+        return serializableStrokeAdapter;
     }
 
     public Color getColor() {

@@ -3,17 +3,19 @@ package model;
 import observer.IPublisher;
 import observer.ISubscriber;
 
-import java.util.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class RuNode implements IPublisher {
+public abstract class RuNode implements IPublisher, Serializable {
     protected String name;
     protected RuNodeComposite parent;
-    private final List<ISubscriber> subscribers; //set in future
+    private transient List<ISubscriber> subscribers = new ArrayList<>();
+    private transient boolean changed = true;
 
     public RuNode(String name, RuNodeComposite parent) {
         this.name = name;
         this.parent = parent;
-        subscribers = new ArrayList<>();
     }
 
     //dont use getindexinparent when removing this from parent
@@ -46,8 +48,17 @@ public abstract class RuNode implements IPublisher {
         }
     }
 
+    /**
+     * Used for serialization of subclasses
+     */
+    protected void initTransients() {
+        subscribers = new ArrayList<>();
+        changed = false;
+    }
+
     public void setName(String name) {
         this.name = name;
+        setChanged(true);
         notify(new NotificationEvent(NotificationTypes.RUNODE_NAME_CHANGED, name));
 
     }
@@ -62,5 +73,18 @@ public abstract class RuNode implements IPublisher {
 
     public List<ISubscriber> getSubscribers() {
         return subscribers;
+    }
+
+
+    /**
+     * Sets this runodes changed value and if changed, all its predecessors to changed
+     */
+    public void setChanged(boolean changed) {
+        this.changed = changed;
+        if (changed && parent != null) parent.setChanged(true);
+    }
+
+    public boolean isChanged() {
+        return changed;
     }
 }

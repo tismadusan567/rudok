@@ -3,9 +3,9 @@ package error;
 public class MyError {
 
     private final String message;
-    private final ErrorFactory.ErrorType errorType;
+    private final ErrorType errorType;
 
-    public MyError(String message, ErrorFactory.ErrorType errorType) {
+    public MyError(String message, ErrorType errorType) {
         this.message = message;
         this.errorType = errorType;
     }

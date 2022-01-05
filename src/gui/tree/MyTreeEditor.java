@@ -2,6 +2,7 @@ package gui.tree;
 
 import command.RenameCommand;
 import error.ErrorFactory;
+import error.ErrorType;
 import main.MainFrame;
 import model.RuNode;
 
@@ -42,7 +43,7 @@ public class MyTreeEditor extends DefaultTreeCellEditor implements ActionListene
     public void actionPerformed(ActionEvent e) {
         if (!(clickedOn instanceof MyTreeNode)) return;
         if (e.getActionCommand().isBlank()) {
-            ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.BLANK_RENAME);
+            ErrorFactory.getInstance().generateError(ErrorType.BLANK_RENAME);
             return;
         }
 

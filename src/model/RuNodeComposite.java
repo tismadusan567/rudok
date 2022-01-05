@@ -16,15 +16,28 @@ public abstract class RuNodeComposite extends RuNode {
     protected abstract void add(RuNode node);
 
     public void addChild(RuNode node) {
+        setChanged(true);
         add(node);
         maxChildIndex++;
         notify(new NotificationEvent(NotificationTypes.RUNODECOMPOSITE_ADD, node));
     }
 
     public void remove(RuNode node) {
+        setChanged(true);
         children.remove(node);
         notify(new NotificationEvent(NotificationTypes.RUNODECOMPOSITE_REMOVE, node));
 
+    }
+
+    /**
+     * If a parent node is saved(changed becomes false), all it's children are also saved
+     */
+    @Override
+    public void setChanged(boolean changed) {
+        super.setChanged(changed);
+        if(!changed) {
+            children.forEach(child -> child.setChanged(false));
+        }
     }
 
     public List<RuNode> getChildren() {

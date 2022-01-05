@@ -2,6 +2,7 @@ package action;
 
 import action.dialog.ChangeThemeDialog;
 import error.ErrorFactory;
+import error.ErrorType;
 import gui.tree.MyTreeNode;
 import main.MainFrame;
 import model.Presentation;
@@ -20,7 +21,7 @@ public class ChangeThemeAction extends AbstractRudokAction {
     public void actionPerformed(ActionEvent e) {
         MyTreeNode activePresentationNode = MainFrame.getInstance().getTree().getActivePresentationNode();
         if (activePresentationNode == null) {
-            ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.NO_PRESENTATION_SELECTED);
+            ErrorFactory.getInstance().generateError(ErrorType.NO_PRESENTATION_SELECTED);
             return;
         }
         new ChangeThemeDialog((Presentation) activePresentationNode.getRuNode());

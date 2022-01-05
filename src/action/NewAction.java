@@ -2,13 +2,13 @@ package action;
 
 import command.NewCommand;
 import error.ErrorFactory;
+import error.ErrorType;
 import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
 import main.MainFrame;
 import model.*;
 import model.factory.RuNodeFactoryManager;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class NewAction extends AbstractRudokAction {
@@ -27,7 +27,7 @@ public class NewAction extends AbstractRudokAction {
         RuNode targetRuNode = target.getRuNode();
 
         if (targetRuNode instanceof Slide) {
-            ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.ADD_TO_SLIDE);
+            ErrorFactory.getInstance().generateError(ErrorType.ADD_TO_SLIDE);
             return;
         }
 

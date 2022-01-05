@@ -25,7 +25,7 @@ public class SlotView implements ISubscriber {
     }
 
     public void paint(Graphics2D g2d) {
-        BasicStroke b = (BasicStroke) slot.getStroke();
+        BasicStroke b = (BasicStroke) slot.getSerializableStrokeAdapter().getStroke();
         if (slot.isSelected()) {
             g2d.setPaint(Color.ORANGE);
             g2d.setStroke(new BasicStroke((b.getLineWidth() * scale + 8f)));

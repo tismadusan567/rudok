@@ -1,6 +1,7 @@
 package action.dialog;
 
 import error.ErrorFactory;
+import error.ErrorType;
 import main.MainFrame;
 import model.Presentation;
 
@@ -40,7 +41,7 @@ public class ChangeAuthorDialog extends JDialog {
         button.addActionListener(e -> {
             String newAuthor = textField.getText();
             if (newAuthor.isBlank()) {
-                ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.BLANK_RENAME);
+                ErrorFactory.getInstance().generateError(ErrorType.BLANK_RENAME);
                 return;
             }
             presentation.setAuthor(newAuthor);

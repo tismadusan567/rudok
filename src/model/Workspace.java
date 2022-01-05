@@ -1,5 +1,8 @@
 package model;
 
+import java.io.ObjectStreamException;
+import java.io.Serial;
+
 public class Workspace extends RuNodeComposite {
 
     public Workspace(String name) {
@@ -14,5 +17,11 @@ public class Workspace extends RuNodeComposite {
             //error
             System.err.println("You have to add Project to Workspace");
         }
+    }
+
+    @Serial
+    private Object readResolve() throws ObjectStreamException {
+        initTransients();
+        return this;
     }
 }

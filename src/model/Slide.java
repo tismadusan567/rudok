@@ -1,5 +1,7 @@
 package model;
 
+import java.io.ObjectStreamException;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class Slide extends RuNode {
 
     public void addSlot(Slot slot) {
         slots.add(slot);
+        setChanged(true);
         notify(new NotificationEvent(NotificationTypes.ADD_SLOT, slot));
     }
 
@@ -23,7 +26,14 @@ public class Slide extends RuNode {
             ((Presentation)getParent()).setSelectedSlot(null);
         }
         slots.remove(slot);
+        setChanged(true);
         notify(new NotificationEvent(NotificationTypes.REMOVE_SLOT, slot));
+    }
+
+    @Serial
+    private Object readResolve() throws ObjectStreamException {
+        initTransients();
+        return this;
     }
 
     public int getRedniBroj() {

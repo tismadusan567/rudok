@@ -2,6 +2,7 @@ package action;
 
 import command.RemoveCommand;
 import error.ErrorFactory;
+import error.ErrorType;
 import gui.tree.MyTree;
 import gui.tree.MyTreeNode;
 import main.MainFrame;
@@ -22,7 +23,7 @@ public class RemoveAction extends AbstractRudokAction {
         MyTreeNode target = tree.getActiveNode();
 
         if (target == tree.getRootNode()) {
-            ErrorFactory.getInstance().generateError(ErrorFactory.ErrorType.REMOVE_WORKSPACE);
+            ErrorFactory.getInstance().generateError(ErrorType.REMOVE_WORKSPACE);
             return;
         }
         MainFrame.getInstance().getCommandManager().addCommand(new RemoveCommand((MyTreeNode) target.getParent(), target));
