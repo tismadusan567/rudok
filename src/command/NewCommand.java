@@ -2,6 +2,7 @@ package command;
 
 import gui.tree.MyTreeNode;
 import model.RuNode;
+import model.RuNodeComposite;
 
 import javax.swing.*;
 
@@ -19,6 +20,7 @@ public class NewCommand extends AbstractCommand {
     public void doCommand() {
         if(childTreeNode == null) childTreeNode = new MyTreeNode(childRuNode);
         parentTreeNode.addChild(childTreeNode);
+        childRuNode.setParent((RuNodeComposite) parentTreeNode.getRuNode());
         SwingUtilities.updateComponentTreeUI(tree);
     }
 

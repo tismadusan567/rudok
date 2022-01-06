@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ public abstract class RuNodeComposite extends RuNode {
 
     protected final List<RuNode> children;
     private int maxChildIndex = 1;
+    private File file = null;
 
     public RuNodeComposite(String name, RuNodeComposite parent) {
         super(name, parent);
@@ -29,22 +31,19 @@ public abstract class RuNodeComposite extends RuNode {
 
     }
 
-    /**
-     * If a parent node is saved(changed becomes false), all it's children are also saved
-     */
-    @Override
-    public void setChanged(boolean changed) {
-        super.setChanged(changed);
-        if(!changed) {
-            children.forEach(child -> child.setChanged(false));
-        }
-    }
-
     public List<RuNode> getChildren() {
         return children;
     }
 
     public int getMaxChildIndex() {
         return maxChildIndex;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
 }

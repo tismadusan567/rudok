@@ -23,6 +23,7 @@ public class MyTreeNode extends DefaultMutableTreeNode {
     public void addChild(MyTreeNode newNode) {
         add(newNode);
         ((RuNodeComposite) ruNode).addChild(newNode.getRuNode());
+
     }
 
     @Override

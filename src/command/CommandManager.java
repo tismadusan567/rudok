@@ -35,4 +35,11 @@ public class CommandManager {
             MainFrame.getInstance().getActionManager().getUndoAction().setEnabled(false);
         }
     }
+
+    public void clearCommands() {
+        current = 0;
+        commands.clear();
+        MainFrame.getInstance().getActionManager().getRedoAction().setEnabled(false);
+        MainFrame.getInstance().getActionManager().getUndoAction().setEnabled(false);
+    }
 }

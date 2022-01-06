@@ -62,4 +62,15 @@ public class Presentation extends RuNodeComposite {
         initTransients();
         return this;
     }
+
+    /**
+     * If a presentation is saved(changed becomes false), all it's slides are also saved
+     */
+    @Override
+    public void setChanged(boolean changed) {
+        super.setChanged(changed);
+        if(!changed) {
+            children.forEach(child -> child.setChanged(false));
+        }
+    }
 }

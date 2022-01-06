@@ -44,6 +44,8 @@ public class MyTree extends JTree {
 
     public void setRootNode(MyTreeNode rootNode) {
         this.rootNode = rootNode;
+        ((DefaultTreeModel) getModel()).setRoot(rootNode);
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     public MyTreeNode getActiveProjectNode() {
@@ -69,4 +71,5 @@ public class MyTree extends JTree {
     public void setActiveSlideNode(MyTreeNode activeSlideNode) {
         this.activeSlideNode = activeSlideNode;
     }
+
 }

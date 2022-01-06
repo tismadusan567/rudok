@@ -1,5 +1,6 @@
 package action;
 
+import action.filefilter.ProjectFileFilter;
 import command.NewCommand;
 import gui.tree.MyTreeNode;
 import main.MainFrame;
@@ -24,19 +25,18 @@ public class OpenProjectAction extends AbstractRudokAction {
         JFileChooser jfc = new JFileChooser();
         jfc.setFileFilter(new ProjectFileFilter());
 
-        if (jfc.showOpenDialog(MainFrame.getInstance()) == JFileChooser.APPROVE_OPTION) {
-            try {
-                ObjectInputStream os = new ObjectInputStream(new FileInputStream(jfc.getSelectedFile()));
+        if (jfc.showOpenDialog(MainFrame.getInstance()) != JFileChooser.APPROVE_OPTION) return;
 
-                Project project = (Project) os.readObject();
-                MyTreeNode workspaceTreeNode = MainFrame.getInstance().getTree().getRootNode();
+        try {
+            ObjectInputStream os = new ObjectInputStream(new FileInputStream(jfc.getSelectedFile()));
 
-                MainFrame.getInstance().getCommandManager().addCommand(new NewCommand(workspaceTreeNode, project));
+            Project project = (Project) os.readObject();
+            MyTreeNode workspaceTreeNode = MainFrame.getInstance().getTree().getRootNode();
 
-            } catch (IOException | ClassNotFoundException e1) {
-                e1.printStackTrace();
-            }
+            MainFrame.getInstance().getCommandManager().addCommand(new NewCommand(workspaceTreeNode, project));
 
+        } catch (IOException | ClassNotFoundException e1) {
+            e1.printStackTrace();
         }
     }
 }

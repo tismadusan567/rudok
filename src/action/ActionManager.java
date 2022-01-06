@@ -19,8 +19,10 @@ public class ActionManager {
     private final ChooseColorAction chooseColorAction = new ChooseColorAction();
     private final UndoAction undoAction = new UndoAction();
     private final RedoAction redoAction = new RedoAction();
-    private final SaveProjectAction saveProjectAction = new SaveProjectAction();
+    private final SaveAction saveAction = new SaveAction();
     private final OpenProjectAction openProjectAction = new OpenProjectAction();
+    private final OpenWorkspaceAction openWorkspaceAction = new OpenWorkspaceAction();
+    private final OpenPresentationAction openPresentationAction = new OpenPresentationAction();
 
     public InfoAction getInfoAction() {
         return infoAction;
@@ -82,11 +84,19 @@ public class ActionManager {
         return redoAction;
     }
 
-    public SaveProjectAction getSaveProjectAction() {
-        return saveProjectAction;
+    public SaveAction getSaveAction() {
+        return saveAction;
     }
 
     public OpenProjectAction getOpenProjectAction() {
         return openProjectAction;
+    }
+
+    public OpenWorkspaceAction getOpenWorkspaceAction() {
+        return openWorkspaceAction;
+    }
+
+    public OpenPresentationAction getOpenPresentationAction() {
+        return openPresentationAction;
     }
 }

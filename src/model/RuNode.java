@@ -87,4 +87,8 @@ public abstract class RuNode implements IPublisher, Serializable {
     public boolean isChanged() {
         return changed;
     }
+
+    public void setParent(RuNodeComposite parent) {
+        this.parent = parent;
+    }
 }
