@@ -29,10 +29,10 @@ public class Slot implements IPublisher, Serializable {
         this(pos, new Dimension(100, 100), serializableStrokeAdapter, color, slide, slotType);
     }
 
-    public Slot(Point pos, Dimension size, Stroke serializableStrokeAdapter, Color color, Slide parentSlide, SlotType slotType) {
+    public Slot(Point pos, Dimension size, Stroke stroke, Color color, Slide parentSlide, SlotType slotType) {
         this.pos = pos;
         this.size = size;
-        this.serializableStrokeAdapter = new SerializableStrokeAdapter(serializableStrokeAdapter);
+        this.serializableStrokeAdapter = new SerializableStrokeAdapter(stroke);
         this.color = color;
         this.parentSlide = parentSlide;
         this.slotType = slotType;
