@@ -2,7 +2,7 @@ package action.filefilter;
 
 import javax.swing.filechooser.FileFilter;
 
-public abstract class MyFileFilter extends FileFilter {
+public abstract class RudokFileFilter extends FileFilter {
     protected String extension;
 
     public String getExtension() {

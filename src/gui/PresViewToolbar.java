@@ -1,12 +1,13 @@
 package gui;
 
 import main.MainFrame;
+import model.slot.SlotType;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class PresViewToolbar extends JToolBar {
-    public PresViewToolbar(JSpinner jSpinner, JCheckBox jCheckBox) {
+    public PresViewToolbar(JSpinner jSpinner, JCheckBox jCheckBox, JComboBox<SlotType> slotTypeComboBox) {
         add(MainFrame.getInstance().getActionManager().getAddStateAction());
         add(MainFrame.getInstance().getActionManager().getRemoveStateAction());
         add(MainFrame.getInstance().getActionManager().getMoveStateAction());
@@ -25,6 +26,14 @@ public class PresViewToolbar extends JToolBar {
         addSeparator();
 
         add(jCheckBox);
+        addSeparator();
+
+        slotTypeComboBox.setMaximumSize(new Dimension(100, 50));
+        add(new JLabel("Slot type:"));
+        add(slotTypeComboBox);
+        addSeparator();
+
+        add(MainFrame.getInstance().getActionManager().getEditSlotAction());
 
         setFloatable(false);
         setBackground(MainFrame.MAIN_COLOR);

@@ -1,11 +1,9 @@
 package model;
 
-import java.io.File;
 import java.io.ObjectStreamException;
 import java.io.Serial;
 
 public class Project extends RuNodeComposite {
-//    private File projectFile = null;
 
     public Project(String name, RuNodeComposite parent) {
         super(name, parent);
@@ -26,12 +24,4 @@ public class Project extends RuNodeComposite {
         initTransients();
         return this;
     }
-
-//    public void setProjectFile(File projectFile) {
-//        this.projectFile = projectFile;
-//    }
-//
-//    public File getProjectFile() {
-//        return projectFile;
-//    }
 }

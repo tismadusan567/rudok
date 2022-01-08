@@ -5,9 +5,9 @@ import model.RuNode;
 import javax.swing.*;
 
 public class RenameCommand extends AbstractCommand{
-    private RuNode ruNode;
-    private String prevName;
-    private String newName;
+    private final RuNode ruNode;
+    private final String prevName;
+    private final String newName;
 
     public RenameCommand(RuNode ruNode, String prevName, String newName) {
         this.ruNode = ruNode;

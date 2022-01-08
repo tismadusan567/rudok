@@ -2,7 +2,7 @@ package state.slotstate;
 
 import model.Presentation;
 import model.Slide;
-import model.Slot;
+import model.slot.Slot;
 
 import java.awt.event.MouseEvent;
 

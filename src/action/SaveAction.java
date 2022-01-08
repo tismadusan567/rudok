@@ -1,6 +1,6 @@
 package action;
 
-import action.filefilter.MyFileFilter;
+import action.filefilter.RudokFileFilter;
 import action.filefilter.PresentationFileFilter;
 import action.filefilter.ProjectFileFilter;
 import action.filefilter.WorkspaceFileFilter;
@@ -26,17 +26,17 @@ public class SaveAction extends AbstractRudokAction {
     public void actionPerformed(ActionEvent e) {
         MyTree tree = MainFrame.getInstance().getTree();
         RuNodeComposite nodeToSave;
-        MyFileFilter myFileFilter;
+        RudokFileFilter rudokFileFilter;
 
         if(tree.getActivePresentationNode() != null) {
             nodeToSave = (RuNodeComposite) tree.getActivePresentationNode().getRuNode();
-            myFileFilter = new PresentationFileFilter();
+            rudokFileFilter = new PresentationFileFilter();
         } else if(tree.getActiveProjectNode() != null) {
             nodeToSave = (RuNodeComposite) tree.getActiveProjectNode().getRuNode();
-            myFileFilter = new ProjectFileFilter();
+            rudokFileFilter = new ProjectFileFilter();
         } else {
             nodeToSave = (RuNodeComposite) tree.getRootNode().getRuNode();
-            myFileFilter = new WorkspaceFileFilter();
+            rudokFileFilter = new WorkspaceFileFilter();
         }
 
         if (!nodeToSave.isChanged()) return;
@@ -45,13 +45,13 @@ public class SaveAction extends AbstractRudokAction {
 
         if (file == null) {
             JFileChooser jfc = new JFileChooser();
-            jfc.setFileFilter(myFileFilter);
+            jfc.setFileFilter(rudokFileFilter);
             if (jfc.showSaveDialog(MainFrame.getInstance()) != JFileChooser.APPROVE_OPTION) {
                 return;
             }
             file = jfc.getSelectedFile();
-            if (!file.getAbsolutePath().toLowerCase().endsWith(myFileFilter.getExtension())) {
-                file = new File(file.getPath() + myFileFilter.getExtension());
+            if (!file.getAbsolutePath().toLowerCase().endsWith(rudokFileFilter.getExtension())) {
+                file = new File(file.getPath() + rudokFileFilter.getExtension());
             }
         }
         nodeToSave.setFile(file);

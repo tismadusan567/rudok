@@ -1,9 +1,8 @@
 package action.filefilter;
 
-import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
-public class PresentationFileFilter extends MyFileFilter {
+public class PresentationFileFilter extends RudokFileFilter {
     public PresentationFileFilter() {
         extension = ".rps";
     }

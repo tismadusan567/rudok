@@ -1,7 +1,7 @@
 package controller;
 
 import main.MainFrame;
-import model.Slot;
+import model.slot.Slot;
 import view.SlideView;
 
 import java.awt.event.MouseEvent;

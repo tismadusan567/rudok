@@ -6,5 +6,6 @@ public enum ErrorType {
     ADD_TO_SLIDE,
     REMOVE_WORKSPACE,
     BLANK_RENAME,
+    NO_SLOT_SELECTED,
     NO_THEME_SELECTED
 }

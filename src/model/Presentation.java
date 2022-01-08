@@ -1,5 +1,7 @@
 package model;
 
+import model.slot.Slot;
+
 import java.io.ObjectStreamException;
 import java.io.Serial;
 
@@ -7,7 +9,7 @@ public class Presentation extends RuNodeComposite {
 
     private String author;
     private String imagePath;
-    private transient Slot selectedSlot = null;
+    private Slot selectedSlot = null;
 
     public Presentation(String name, RuNodeComposite parent, String author, String imagePath) {
         super(name, parent);
@@ -54,7 +56,11 @@ public class Presentation extends RuNodeComposite {
         this.selectedSlot = selectedSlot;
         if(this.selectedSlot != null) this.selectedSlot.setSelected(true);
 
-        notify(new NotificationEvent(NotificationTypes.REPAINT_SLIDEVIEWS, null));
+        notify(new NotificationEvent(NotificationTypes.REPAINT_SLOTVIEWS, null));
+    }
+
+    public Slot getSelectedSlot() {
+        return selectedSlot;
     }
 
     @Serial

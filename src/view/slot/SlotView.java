@@ -1,20 +1,30 @@
-package view;
+package view.slot;
 
 import model.NotificationEvent;
-import model.Slot;
+import model.slot.Slot;
 import observer.ISubscriber;
 
 import java.awt.*;
 
 public class SlotView implements ISubscriber {
+    private final boolean onSlideShow;
     private Rectangle rectangle;
     private final Slot slot;
     private final float scale;
+    private final SlotHandler slotHandler;
 
-    public SlotView(Slot slot, float scale) {
+    public SlotView(Slot slot, float scale, boolean onSlideShow) {
         this.slot = slot;
         this.scale = scale;
+        this.onSlideShow = onSlideShow;
         slot.addSubscriber(this);
+
+
+        slotHandler = switch (slot.getSlotType()) {
+            case TEXT -> new TextSlotHandler(slot);
+            case IMAGE -> new ImageSlotHandler(slot);
+        };
+        slotHandler.format();
         updateRectangle();
     }
 
@@ -44,6 +54,7 @@ public class SlotView implements ISubscriber {
         g2d.draw(rectangle);
         g2d.setPaint(slot.getColor());
         g2d.fill(rectangle);
+        if(onSlideShow) slotHandler.paintContent(g2d);
     }
 
     public boolean elementAt(Point pos) {
@@ -52,7 +63,10 @@ public class SlotView implements ISubscriber {
 
     @Override
     public void update(NotificationEvent notification) {
-        updateRectangle();
+        switch (notification.getType()) {
+            case REPAINT_SLOTVIEWS -> updateRectangle();
+            case SLOT_CHANGED_CONTENT -> slotHandler.format();
+        }
     }
 
     public Slot getSlot() {

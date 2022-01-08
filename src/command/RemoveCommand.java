@@ -2,7 +2,7 @@ package command;
 
 import gui.tree.MyTreeNode;
 import main.MainFrame;
-import model.RuNode;
+import model.Project;
 
 import javax.swing.*;
 
@@ -19,6 +19,7 @@ public class RemoveCommand extends AbstractCommand{
     public void doCommand() {
         childTreeNode.removeFromParent();
         SwingUtilities.updateComponentTreeUI(tree);
+        if(childTreeNode.getRuNode() instanceof Project) MainFrame.getInstance().getProjectView().reset();
     }
 
     @Override

@@ -2,13 +2,15 @@ package state.slotstate;
 
 import main.MainFrame;
 import model.Slide;
-import model.Slot;
+import model.slot.Slot;
+import model.slot.SlotType;
 import view.PresentationView;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class AddSlotState extends SlotState {
+    private SlotType slotType = SlotType.TEXT;
 
     @Override
     public void mousePressed(Slide slide, MouseEvent e, Slot slot) {
@@ -29,8 +31,12 @@ public class AddSlotState extends SlotState {
         } else {
             stroke = new BasicStroke(pw.getStrokeWidth());
         }
-        Slot newSlot = new Slot(pos, stroke, color, slide);
+        Slot newSlot = new Slot(pos, stroke, color, slide, pw.getSlotType());
         slide.addSlot(newSlot);
 
+    }
+
+    public void setSlotType(SlotType slotType) {
+        this.slotType = slotType;
     }
 }

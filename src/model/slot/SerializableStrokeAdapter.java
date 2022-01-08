@@ -1,4 +1,4 @@
-package model;
+package model.slot;
 
 import java.awt.*;
 import java.io.IOException;

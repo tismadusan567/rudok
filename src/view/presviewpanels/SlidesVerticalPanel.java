@@ -8,11 +8,9 @@ import java.awt.*;
 
 public class SlidesVerticalPanel extends SlidesPanel {
     private final float scale;
-    private final boolean hasListeners;
 
-    public SlidesVerticalPanel(float scale, boolean hasListeners) {
+    public SlidesVerticalPanel(float scale) {
         this.scale = scale;
-        this.hasListeners = hasListeners;
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
     }
@@ -20,7 +18,7 @@ public class SlidesVerticalPanel extends SlidesPanel {
     @Override
     public void addSlideView(Slide slide, Image image) {
         add(Box.createVerticalStrut((int) (scale * 600 / 10)));
-        SlideView newSlideView = new SlideView(slide, image, scale, hasListeners);
+        SlideView newSlideView = new SlideView(slide, image, scale, false);
         add(newSlideView);
         slideViews.add(newSlideView);
     }

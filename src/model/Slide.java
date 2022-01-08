@@ -1,12 +1,14 @@
 package model;
 
+import model.slot.Slot;
+
 import java.io.ObjectStreamException;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Slide extends RuNode {
-    private int redniBroj;
+    private final int redniBroj;
     private final List<Slot> slots = new ArrayList<>();
 
     public Slide(String name, RuNodeComposite parent, int redniBroj) {

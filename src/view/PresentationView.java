@@ -1,9 +1,10 @@
 package view;
 
 import gui.PresViewToolbar;
-import gui.tree.MyTree;
 import main.MainFrame;
 import model.*;
+import model.slot.Slot;
+import model.slot.SlotType;
 import observer.ISubscriber;
 import state.presstate.PresentationViewStateManager;
 import state.slotstate.SlotStateManager;
@@ -25,8 +26,8 @@ public class PresentationView extends JPanel implements ISubscriber {
     //edit panel components
     private final JPanel editPanel = new JPanel();
     private JLabel lblAuthor;
-    private final SlidesVerticalPanel slidesVerticalPanel = new SlidesVerticalPanel(1f, true);
-    private final SlidesVerticalPanel thumbnailPanel = new SlidesVerticalPanel(0.1f, false);
+    private final SlidesVerticalPanel slidesVerticalPanel = new SlidesVerticalPanel(1f);
+    private final SlidesVerticalPanel thumbnailPanel = new SlidesVerticalPanel(0.1f);
     private final JTabbedPane jTabbedPane;
 
     //slideshow panel components
@@ -40,14 +41,15 @@ public class PresentationView extends JPanel implements ISubscriber {
     private final SlotStateManager slotStateManager = new SlotStateManager();
     private final PresentationViewStateManager presentationViewStateManager = new PresentationViewStateManager();
 
-    //color and stroke components
+    //slot components
     private Color color = new Color(255, 255, 255);
-    //    private Stroke stroke = new BasicStroke(2f);
     private float strokeWidth = 2f;
     private boolean isStrokeDashed = false;
+    private SlotType slotType = SlotType.TEXT;
     private final SpinnerNumberModel spinnerModel = new SpinnerNumberModel(2, 1, 20, 1);
     private final JSpinner jSpinner = new JSpinner(spinnerModel);
     private final JCheckBox cbDashedStroke = new JCheckBox("Dashed stroke");
+    private final JComboBox<SlotType> slotTypeComboBox = new JComboBox<>(SlotType.values());
 
     public PresentationView(Presentation presentation, JTabbedPane jTabbedPane) {
         this.presentation = presentation;
@@ -99,7 +101,9 @@ public class PresentationView extends JPanel implements ISubscriber {
 
         cbDashedStroke.addChangeListener(e -> isStrokeDashed = cbDashedStroke.isSelected());
 
-        topPanel.add(new PresViewToolbar(jSpinner, cbDashedStroke), BorderLayout.NORTH);
+        slotTypeComboBox.addActionListener(e -> slotType = (SlotType) slotTypeComboBox.getSelectedItem());
+
+        topPanel.add(new PresViewToolbar(jSpinner, cbDashedStroke, slotTypeComboBox), BorderLayout.NORTH);
         topPanel.add(lblAuthor, BorderLayout.CENTER);
 
         editPanel.add(topPanel, BorderLayout.NORTH);
@@ -161,10 +165,6 @@ public class PresentationView extends JPanel implements ISubscriber {
             case RUNODECOMPOSITE_REMOVE -> {
                 Slide slide = (Slide) notification.getMessage();
                 removeSlide(slide);
-
-                //select presentation
-//                MyTree tree = MainFrame.getInstance().getTree();
-//                tree.selectNode(tree.getActivePresentationNode());
             }
             case RUNODECOMPOSITE_ADD -> {
                 addSlide((Slide) notification.getMessage());
@@ -176,7 +176,7 @@ public class PresentationView extends JPanel implements ISubscriber {
                 loadImage();
                 changeThemeImage();
             }
-            case REPAINT_SLIDEVIEWS -> repaint();
+            case REPAINT_SLOTVIEWS -> repaint();
         }
     }
 
@@ -252,5 +252,9 @@ public class PresentationView extends JPanel implements ISubscriber {
 
     public void mouseReleased(Slide slide, MouseEvent e, Slot slot) {
         slotStateManager.getCurrent().mouseReleased(slide, e, slot);
+    }
+
+    public SlotType getSlotType() {
+        return slotType;
     }
 }

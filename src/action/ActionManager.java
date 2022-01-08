@@ -23,6 +23,7 @@ public class ActionManager {
     private final OpenProjectAction openProjectAction = new OpenProjectAction();
     private final OpenWorkspaceAction openWorkspaceAction = new OpenWorkspaceAction();
     private final OpenPresentationAction openPresentationAction = new OpenPresentationAction();
+    private final EditSlotAction editSlotAction = new EditSlotAction();
 
     public InfoAction getInfoAction() {
         return infoAction;
@@ -98,5 +99,9 @@ public class ActionManager {
 
     public OpenPresentationAction getOpenPresentationAction() {
         return openPresentationAction;
+    }
+
+    public EditSlotAction getEditSlotAction() {
+        return editSlotAction;
     }
 }

@@ -30,6 +30,7 @@ public class ErrorFactory implements IPublisher {
             case BLANK_RENAME -> "The name cant be blank!";
             case NO_THEME_SELECTED -> "You have to select a theme!";
             case NO_PROJECT_SELECTED -> "You have to select a project!";
+            case NO_SLOT_SELECTED -> "You have to select a slot!";
         };
         MyError error = new MyError(message, errorType);
         notify(new NotificationEvent(NotificationTypes.ERROR, error));

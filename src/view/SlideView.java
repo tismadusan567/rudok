@@ -2,7 +2,9 @@ package view;
 
 import controller.SlideViewMouseListener;
 import model.*;
+import model.slot.Slot;
 import observer.ISubscriber;
+import view.slot.SlotView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,15 +14,17 @@ import java.util.List;
 public class SlideView extends JPanel implements ISubscriber {
     private Slide slide;
     private Image image;
+    private final boolean onSlideShow;
     private final JLabel nameLabel;
     private final Dimension dimension;
     private final List<SlotView> slotViews = new ArrayList<>();
     private final float scale;
 
-    public SlideView(Slide slide, Image image, float scale, boolean hasListeners) {
+    public SlideView(Slide slide, Image image, float scale, boolean onSlideShow) {
         this.scale = scale;
         this.dimension = new Dimension((int) (1066 * scale), (int) (600 * scale));
         this.image = image.getScaledInstance(dimension.width, dimension.height, Image.SCALE_SMOOTH);
+        this.onSlideShow = onSlideShow;
         nameLabel = new JLabel();
         add(nameLabel);
         setPreferredSize(dimension);
@@ -30,14 +34,14 @@ public class SlideView extends JPanel implements ISubscriber {
         displaySlide(slide);
 
         SlideViewMouseListener listener = new SlideViewMouseListener(this);
-        if (hasListeners) {
+        if (!onSlideShow) {
             addMouseListener(listener);
             addMouseMotionListener(listener);
         }
     }
 
     private void addSlotView(Slot slot) {
-        slotViews.add(new SlotView(slot, scale));
+        slotViews.add(new SlotView(slot, scale, onSlideShow));
         slot.addSubscriber(this);
     }
 
@@ -83,7 +87,7 @@ public class SlideView extends JPanel implements ISubscriber {
                 slotViews.remove(index);
                 repaint();
             }
-            case REPAINT_SLIDEVIEWS -> repaint();
+            case REPAINT_SLOTVIEWS -> repaint();
         }
     }
 

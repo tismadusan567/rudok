@@ -1,9 +1,8 @@
 package action.filefilter;
 
-import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
-public class WorkspaceFileFilter extends MyFileFilter {
+public class WorkspaceFileFilter extends RudokFileFilter {
     public WorkspaceFileFilter() {
         extension = ".rws";
     }

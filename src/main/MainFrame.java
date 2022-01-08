@@ -22,9 +22,7 @@ public class MainFrame extends JFrame implements ISubscriber {
     private final ActionManager actionManager = new ActionManager();
     private final CommandManager commandManager = new CommandManager();
     private MyTree tree;
-    private ProjectView projectView;
-    private MyMenu myMenu;
-    private MyToolbar myToolbar;
+    private final ProjectView projectView = new ProjectView();
     public static final Color MAIN_COLOR = new Color(161, 192, 87);
 
     private MainFrame() {
@@ -51,10 +49,10 @@ public class MainFrame extends JFrame implements ISubscriber {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Rudok");
 
-        myMenu = new MyMenu();
+        MyMenu myMenu = new MyMenu();
         setJMenuBar(myMenu);
 
-        myToolbar = new MyToolbar();
+        MyToolbar myToolbar = new MyToolbar();
         add(myToolbar, BorderLayout.NORTH);
 
         Workspace workspace = new Workspace("workspace1");
@@ -63,7 +61,6 @@ public class MainFrame extends JFrame implements ISubscriber {
         JScrollPane treeScrollPane = new JScrollPane(tree);
         treeScrollPane.setMinimumSize(new Dimension(200, screenHeight));
 
-        projectView = new ProjectView();
         WorkspaceView workspaceView = new WorkspaceView(projectView, workspace);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScrollPane, workspaceView);

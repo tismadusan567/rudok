@@ -1,9 +1,8 @@
 package action.filefilter;
 
-import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
-public class ProjectFileFilter extends MyFileFilter {
+public class ProjectFileFilter extends RudokFileFilter {
     public ProjectFileFilter() {
         extension = ".rpj";
     }
