@@ -42,7 +42,8 @@ public class OpenPresentationAction extends AbstractRudokAction {
             MainFrame.getInstance().getCommandManager().addCommand(new NewCommand(projectTreeNode, presentation));
 
         } catch (IOException | ClassNotFoundException e1) {
-            e1.printStackTrace();
+//            e1.printStackTrace();
+            ErrorFactory.getInstance().generateError(ErrorType.ERROR_LOADING_FILE);
         }
     }
 }

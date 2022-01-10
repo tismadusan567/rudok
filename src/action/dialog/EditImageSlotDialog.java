@@ -16,11 +16,11 @@ public class EditImageSlotDialog extends JDialog {
     private String filePath = null;
     private final JLabel imageLabel = new JLabel("", SwingConstants.CENTER);
     private final JLabel pathLabel = new JLabel("", SwingConstants.CENTER);
-    private final JButton btnSelect = new JButton("Select image");
+    private final JButton btnOpen = new JButton("Open image");
     private final JButton btnSave = new JButton("Save");
 
     public EditImageSlotDialog(Slot slot) {
-        super(MainFrame.getInstance(), "Select image", true);
+        super(MainFrame.getInstance(), "Edit image", true);
         this.slot = slot;
 
         setSize(500, 500);
@@ -29,7 +29,7 @@ public class EditImageSlotDialog extends JDialog {
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
 
-        buttonPanel.add(btnSelect);
+        buttonPanel.add(btnOpen);
         buttonPanel.add(btnSave);
 
         add(buttonPanel, BorderLayout.SOUTH);
@@ -57,7 +57,7 @@ public class EditImageSlotDialog extends JDialog {
     }
 
     private void addListeners() {
-        btnSelect.addActionListener(e -> {
+        btnOpen.addActionListener(e -> {
             JFileChooser jfc = new JFileChooser();
             jfc.setFileFilter(new ImageFileFilter());
             if (jfc.showOpenDialog(MainFrame.getInstance()) != JFileChooser.APPROVE_OPTION) return;

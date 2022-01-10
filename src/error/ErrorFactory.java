@@ -31,6 +31,8 @@ public class ErrorFactory implements IPublisher {
             case NO_THEME_SELECTED -> "You have to select a theme!";
             case NO_PROJECT_SELECTED -> "You have to select a project!";
             case NO_SLOT_SELECTED -> "You have to select a slot!";
+            case ERROR_LOADING_FILE -> "Error loading file!";
+            case UNSAVED_PROJECTS -> "Some projects have not been saved, they should be manually saved first";
         };
         MyError error = new MyError(message, errorType);
         notify(new NotificationEvent(NotificationTypes.ERROR, error));

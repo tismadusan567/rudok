@@ -10,6 +10,7 @@ public class Presentation extends RuNodeComposite {
     private String author;
     private String imagePath;
     private Slot selectedSlot = null;
+    private boolean shared = false;
 
     public Presentation(String name, RuNodeComposite parent, String author, String imagePath) {
         super(name, parent);
@@ -78,5 +79,13 @@ public class Presentation extends RuNodeComposite {
         if(!changed) {
             children.forEach(child -> child.setChanged(false));
         }
+    }
+
+    public boolean isShared() {
+        return shared;
+    }
+
+    public void setShared(boolean shared) {
+        this.shared = shared;
     }
 }

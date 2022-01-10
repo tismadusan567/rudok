@@ -4,6 +4,8 @@ import action.filefilter.RudokFileFilter;
 import action.filefilter.PresentationFileFilter;
 import action.filefilter.ProjectFileFilter;
 import action.filefilter.WorkspaceFileFilter;
+import error.ErrorFactory;
+import error.ErrorType;
 import gui.tree.MyTree;
 import main.MainFrame;
 import model.RuNode;
@@ -61,7 +63,8 @@ public class SaveAction extends AbstractRudokAction {
             if (nodeToSave instanceof Workspace workspace) successfullySaved = saveWorkspace(workspace, file);
             else successfullySaved = saveCollection(nodeToSave, file);
         } catch (IOException exception) {
-            exception.printStackTrace();
+//            exception.printStackTrace();
+            ErrorFactory.getInstance().generateError(ErrorType.ERROR_LOADING_FILE);
             successfullySaved = false;
         }
 
@@ -75,14 +78,14 @@ public class SaveAction extends AbstractRudokAction {
         for(RuNode ruNode : nodeToSave.getChildren()) {
             RuNodeComposite child = (RuNodeComposite) ruNode;
             if (child.isChanged() || child.getFile() == null) {
-                System.out.println("Failed save: " + child.isChanged() + child.getFile() + child);
-                //todo: error, you have to save all projects before saving the workspace
+//                System.out.println("Failed save: " + child.isChanged() + child.getFile() + child);
                 successfullySaved = false;
                 continue;
             }
             pw.println(child.getFile().getAbsolutePath());
         }
         pw.close();
+        if(!successfullySaved) ErrorFactory.getInstance().generateError(ErrorType.UNSAVED_PROJECTS);
         return successfullySaved;
     }
 

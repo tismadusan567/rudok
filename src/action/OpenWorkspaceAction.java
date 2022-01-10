@@ -1,6 +1,8 @@
 package action;
 
 import action.filefilter.WorkspaceFileFilter;
+import error.ErrorFactory;
+import error.ErrorType;
 import gui.tree.MyTreeNode;
 import main.MainFrame;
 import model.Project;
@@ -44,14 +46,17 @@ public class OpenWorkspaceAction extends AbstractRudokAction {
                     project.setParent(newWorkspace);
                 } catch (ClassNotFoundException | FileNotFoundException ex) {
 //                    ex.printStackTrace();
-                    System.out.println("Problem with loading project" + line);
+//                    System.out.println("Problem with loading project" + line);
+                    ErrorFactory.getInstance().generateError(ErrorType.ERROR_LOADING_FILE);
                 }
             }
 
             MainFrame.getInstance().getCommandManager().clearCommands();
+            MainFrame.getInstance().getProjectView().reset();
             SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getTree());
         } catch (IOException ex) {
             ex.printStackTrace();
+            ErrorFactory.getInstance().generateError(ErrorType.ERROR_LOADING_FILE);
         }
     }
 }

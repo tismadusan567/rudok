@@ -2,6 +2,8 @@ package action;
 
 import action.filefilter.ProjectFileFilter;
 import command.NewCommand;
+import error.ErrorFactory;
+import error.ErrorType;
 import gui.tree.MyTreeNode;
 import main.MainFrame;
 import model.Project;
@@ -36,7 +38,8 @@ public class OpenProjectAction extends AbstractRudokAction {
             MainFrame.getInstance().getCommandManager().addCommand(new NewCommand(workspaceTreeNode, project));
 
         } catch (IOException | ClassNotFoundException e1) {
-            e1.printStackTrace();
+//            e1.printStackTrace();
+            ErrorFactory.getInstance().generateError(ErrorType.ERROR_LOADING_FILE);
         }
     }
 }

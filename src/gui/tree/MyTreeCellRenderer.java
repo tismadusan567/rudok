@@ -22,12 +22,15 @@ public class MyTreeCellRenderer extends DefaultTreeCellRenderer {
 
         RuNode ruNode = ((MyTreeNode) value).getRuNode();
         URL imageURL = null;
+        int fontStyle = Font.PLAIN;
         if (ruNode instanceof Workspace) {
             imageURL = getClass().getResource("/icons/icons32/book2.png");
         } else if (ruNode instanceof Project) {
             imageURL = getClass().getResource("/icons/icons32/folders.png");
-        } else if (ruNode instanceof Presentation) {
+        } else if (ruNode instanceof Presentation presentation) {
             imageURL = getClass().getResource("/icons/icons32/presentation2.png");
+            //if presentation is shared set font to bold
+            if (presentation.isShared()) fontStyle = Font.BOLD;
         } else if (ruNode instanceof Slide) {
             imageURL = getClass().getResource("/icons/icons32/slide.png");
         }
@@ -37,11 +40,8 @@ public class MyTreeCellRenderer extends DefaultTreeCellRenderer {
         setIcon(icon);
 
         //if the runode is changed set the font to italic
-        Font font = new Font(
-                getFont().getFamily(),
-                ruNode.isChanged() ? Font.ITALIC : Font.PLAIN,
-                getFont().getSize()
-        );
+        if (ruNode.isChanged()) fontStyle |= Font.ITALIC;
+        Font font = getFont().deriveFont(fontStyle);
         setFont(font);
 
         return this;

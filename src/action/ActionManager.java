@@ -24,6 +24,7 @@ public class ActionManager {
     private final OpenWorkspaceAction openWorkspaceAction = new OpenWorkspaceAction();
     private final OpenPresentationAction openPresentationAction = new OpenPresentationAction();
     private final EditSlotAction editSlotAction = new EditSlotAction();
+    private final SharePresentationAction sharePresentationAction = new SharePresentationAction();
 
     public InfoAction getInfoAction() {
         return infoAction;
@@ -103,5 +104,9 @@ public class ActionManager {
 
     public EditSlotAction getEditSlotAction() {
         return editSlotAction;
+    }
+
+    public SharePresentationAction getSharePresentationAction() {
+        return sharePresentationAction;
     }
 }
