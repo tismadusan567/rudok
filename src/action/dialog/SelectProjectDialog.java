@@ -1,6 +1,5 @@
 package action.dialog;
 
-import gui.tree.MyTreeNode;
 import main.MainFrame;
 import model.Project;
 import model.RuNode;
@@ -8,13 +7,11 @@ import model.Workspace;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.tree.TreeNode;
 import java.awt.*;
-import java.util.Iterator;
 
 public class SelectProjectDialog extends JDialog {
-    private final JComboBox<MyTreeNode> cbProjects = new JComboBox<>();
-    private MyTreeNode selectedTreeNode = null;
+    private final JComboBox<Project> cbProjects = new JComboBox<>();
+    private Project selectedProject = null;
 
     public SelectProjectDialog(JDialog parent) {
         super(parent, "Select project", true);
@@ -36,9 +33,9 @@ public class SelectProjectDialog extends JDialog {
         label.setBorder(new EmptyBorder(5, 5, 15, 5));
         add(label, BorderLayout.NORTH);
 
-        Iterator<TreeNode> it = MainFrame.getInstance().getTree().getRootNode().children().asIterator();
-        while (it.hasNext()) {
-            cbProjects.addItem((MyTreeNode) it.next());
+        Workspace ws = (Workspace) MainFrame.getInstance().getTree().getRootNode().getRuNode();
+        for (RuNode ruNode : ws.getChildren()) {
+            cbProjects.addItem((Project) ruNode);
         }
         JPanel cbPanel = new JPanel();
         cbPanel.add(cbProjects);
@@ -46,15 +43,15 @@ public class SelectProjectDialog extends JDialog {
 
         JButton button = new JButton("Select");
         button.addActionListener(e -> {
-            selectedTreeNode = (MyTreeNode) cbProjects.getSelectedItem();
+            selectedProject = (Project) cbProjects.getSelectedItem();
             setVisible(false);
             dispose();
         });
         add(button, BorderLayout.SOUTH);
     }
 
-    public MyTreeNode showDialog() {
+    public Project showDialog() {
         setVisible(true);
-        return selectedTreeNode;
+        return selectedProject;
     }
 }

@@ -8,7 +8,6 @@ import observer.ISubscriber;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.util.Objects;
 
 public class MyTreeNode extends DefaultMutableTreeNode implements ISubscriber {
     private final RuNode ruNode;
@@ -34,6 +33,11 @@ public class MyTreeNode extends DefaultMutableTreeNode implements ISubscriber {
 
     @Override
     public void removeFromParent() {
+        if(children != null) {
+            for (int i = 0; i < children.size(); i++) {
+                ((MyTreeNode) children.get(i)).removeFromParent();
+            }
+        }
         super.removeFromParent();
         ruNode.removeSubscriber(this);
     }
@@ -43,24 +47,12 @@ public class MyTreeNode extends DefaultMutableTreeNode implements ISubscriber {
         return ruNode.toString();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MyTreeNode that = (MyTreeNode) o;
-        return ruNode.equals(that.ruNode);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(ruNode);
-    }
-
     public RuNode getRuNode() {
         return ruNode;
     }
 
     public int getIndexOfThis() {
+        if (getParent() == null) return -1;
         return ((RuNodeComposite) ((MyTreeNode) getParent()).getRuNode()).getChildren().indexOf(this.getRuNode());
     }
 }

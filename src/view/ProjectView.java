@@ -55,11 +55,11 @@ public class ProjectView extends JPanel implements ISubscriber {
                 for (int i = 0; i < tabbedPane.getTabCount(); i++) {
                     //find the tab with this presentation
                     if (tabbedPane.getComponentAt(i) instanceof PresentationView curr && curr.getPresentation() == presentation) {
-                        index = i;
-                        break;
+                        tabbedPane.removeTabAt(i);
+                        i--;
                     }
                 }
-                if(index != -1) tabbedPane.removeTabAt(index);
+//                if(index != -1) tabbedPane.removeTabAt(index);
 
                 //select project
                 MyTree tree = MainFrame.getInstance().getTree();

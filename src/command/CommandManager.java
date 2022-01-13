@@ -1,6 +1,5 @@
 package command;
 
-import main.Main;
 import main.MainFrame;
 
 import java.util.ArrayList;

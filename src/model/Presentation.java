@@ -21,6 +21,7 @@ public class Presentation extends RuNodeComposite {
     @Override
     protected void add(RuNode node) {
         if (node instanceof Slide) children.add(node);
+        System.out.println(getSubscribers().size());
     }
 
     public String getAuthor() {
@@ -78,5 +79,12 @@ public class Presentation extends RuNodeComposite {
 
     public void setShared(boolean shared) {
         this.shared = shared;
+    }
+
+    @Override
+    public void removeFromParent() {
+        super.removeFromParent();
+        shared = false;
+        setChanged(true);
     }
 }

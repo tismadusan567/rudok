@@ -68,6 +68,7 @@ public abstract class RuNode implements IPublisher, Serializable {
     public void removeFromParent() {
         if (parent != null) parent.remove(this);
         notify(new NotificationEvent(NotificationTypes.RUNODE_REMOVE_FROM_PARENT, this));
+        subscribers.clear();
     }
 
     public String getName() {

@@ -26,7 +26,7 @@ public abstract class RuNodeComposite extends RuNode {
 
     public void remove(RuNode node) {
         setChanged(true);
-        children.remove(node);
+        children.removeAll(List.of(node));
         notify(new NotificationEvent(NotificationTypes.RUNODECOMPOSITE_REMOVE, node));
     }
 

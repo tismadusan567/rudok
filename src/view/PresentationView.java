@@ -120,7 +120,7 @@ public class PresentationView extends JPanel implements ISubscriber {
 
     private void displayPresentation(Presentation presentation) {
         this.presentation = presentation;
-        presentation.getSubscribers().removeIf(subscriber -> subscriber instanceof PresentationView); //presentation can only have one presentation view at any time
+//        presentation.getSubscribers().removeIf(subscriber -> subscriber instanceof PresentationView); //presentation can only have one presentation view at any time
         presentation.addSubscriber(this);
 
         lblAuthor.setText(presentation.getAuthor());
@@ -256,5 +256,9 @@ public class PresentationView extends JPanel implements ISubscriber {
 
     public SlotType getSlotType() {
         return slotType;
+    }
+
+    public void unsubsribe() {
+        presentation.removeSubscriber(this);
     }
 }
