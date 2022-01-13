@@ -10,7 +10,7 @@ public class Presentation extends RuNodeComposite {
     private String author;
     private String imagePath;
     private Slot selectedSlot = null;
-    private boolean shared = false;
+    private transient boolean shared = false;
 
     public Presentation(String name, RuNodeComposite parent, String author, String imagePath) {
         super(name, parent);
@@ -58,6 +58,7 @@ public class Presentation extends RuNodeComposite {
     @Serial
     private Object readResolve() throws ObjectStreamException {
         initTransients();
+        shared = false;
         return this;
     }
 

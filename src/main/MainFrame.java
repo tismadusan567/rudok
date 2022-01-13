@@ -1,6 +1,7 @@
 package main;
 
 import action.ActionManager;
+import action.dialog.OnStartDialog;
 import command.CommandManager;
 import error.ErrorFactory;
 import gui.tree.MyTree;
@@ -99,5 +100,9 @@ public class MainFrame extends JFrame implements ISubscriber {
     @Override
     public void update(NotificationEvent notification) {
         JOptionPane.showMessageDialog(this, notification.getMessage());
+    }
+
+    public void onStart() {
+        new OnStartDialog();
     }
 }

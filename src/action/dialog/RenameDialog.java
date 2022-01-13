@@ -16,7 +16,7 @@ public class RenameDialog extends JDialog {
     public RenameDialog() {
         super(MainFrame.getInstance(), "Rename", true);
 
-        setSize(250, 250); //todo: add scaling
+        setSize(250, 250);
         setLocationRelativeTo(MainFrame.getInstance());
         setLayout(new BorderLayout());
 
