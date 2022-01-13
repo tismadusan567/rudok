@@ -46,7 +46,7 @@ public class MainFrame extends JFrame implements ISubscriber {
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
 
-        setSize(screenWidth / 2, screenHeight / 2);
+        setSize(screenWidth, screenHeight);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Rudok");
 
