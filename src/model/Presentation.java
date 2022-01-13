@@ -21,7 +21,6 @@ public class Presentation extends RuNodeComposite {
     @Override
     protected void add(RuNode node) {
         if (node instanceof Slide) children.add(node);
-        System.out.println(getSubscribers().size());
     }
 
     public String getAuthor() {
