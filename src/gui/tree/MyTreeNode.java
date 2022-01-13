@@ -1,36 +1,41 @@
 package gui.tree;
 
+import main.MainFrame;
+import model.NotificationEvent;
 import model.RuNode;
 import model.RuNodeComposite;
+import observer.ISubscriber;
 
+import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.Objects;
 
-public class MyTreeNode extends DefaultMutableTreeNode {
+public class MyTreeNode extends DefaultMutableTreeNode implements ISubscriber {
     private final RuNode ruNode;
-    private final boolean isComposite;
 
     public MyTreeNode(RuNode ruNode) {
         this.ruNode = ruNode;
-        isComposite = ruNode instanceof RuNodeComposite;
-        if (isComposite) {
-            for (RuNode child : ((RuNodeComposite) ruNode).getChildren()) {
+        ruNode.addSubscriber(this);
+        if (ruNode instanceof RuNodeComposite ruNodeComposite) {
+            for (RuNode child : ruNodeComposite.getChildren()) {
                 super.add(new MyTreeNode(child));
             }
         }
     }
 
-    public void addChild(MyTreeNode newNode) {
-        add(newNode);
-        ((RuNodeComposite) ruNode).addChild(newNode.getRuNode());
-
+    @Override
+    public void update(NotificationEvent notification) {
+        switch (notification.getType()) {
+            case RUNODECOMPOSITE_ADD -> add(new MyTreeNode((RuNode) notification.getMessage()));
+            case RUNODE_REMOVE_FROM_PARENT -> removeFromParent();
+        }
+        SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getTree());
     }
 
     @Override
     public void removeFromParent() {
         super.removeFromParent();
-        if (ruNode.getParent() != null)
-            ruNode.getParent().remove(ruNode);
+        ruNode.removeSubscriber(this);
     }
 
     @Override

@@ -7,6 +7,7 @@ import error.ErrorType;
 import gui.tree.MyTreeNode;
 import main.MainFrame;
 import model.Presentation;
+import model.RuNodeComposite;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -39,10 +40,9 @@ public class OpenPresentationAction extends AbstractRudokAction {
             ObjectInputStream os = new ObjectInputStream(new FileInputStream(jfc.getSelectedFile()));
             Presentation presentation = (Presentation) os.readObject();
 
-            MainFrame.getInstance().getCommandManager().addCommand(new NewCommand(projectTreeNode, presentation));
+            MainFrame.getInstance().getCommandManager().addCommand(new NewCommand(presentation, (RuNodeComposite) projectTreeNode.getRuNode()));
 
         } catch (IOException | ClassNotFoundException e1) {
-//            e1.printStackTrace();
             ErrorFactory.getInstance().generateError(ErrorType.ERROR_LOADING_FILE);
         }
     }

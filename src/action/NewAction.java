@@ -33,6 +33,6 @@ public class NewAction extends AbstractRudokAction {
 
         RuNodeComposite targetRuNodeComposite = (RuNodeComposite) targetRuNode;
         RuNode newNode = RuNodeFactoryManager.returnNodeFactory(targetRuNodeComposite).getNewNode(targetRuNodeComposite);
-        MainFrame.getInstance().getCommandManager().addCommand(new NewCommand(target, newNode));
+        MainFrame.getInstance().getCommandManager().addCommand(new NewCommand(newNode, targetRuNodeComposite));
     }
 }

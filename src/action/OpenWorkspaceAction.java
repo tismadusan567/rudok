@@ -42,11 +42,9 @@ public class OpenWorkspaceAction extends AbstractRudokAction {
                 try {
                     ObjectInputStream os = new ObjectInputStream(new FileInputStream(line));
                     Project project =  (Project) os.readObject();
-                    workspaceTreeNode.addChild(new MyTreeNode(project));
+                    newWorkspace.addChild(project);
                     project.setParent(newWorkspace);
                 } catch (ClassNotFoundException | FileNotFoundException ex) {
-//                    ex.printStackTrace();
-//                    System.out.println("Problem with loading project" + line);
                     ErrorFactory.getInstance().generateError(ErrorType.ERROR_LOADING_FILE);
                 }
             }

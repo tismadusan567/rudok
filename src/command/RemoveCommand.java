@@ -1,30 +1,27 @@
 package command;
 
-import gui.tree.MyTreeNode;
 import main.MainFrame;
 import model.Project;
-
-import javax.swing.*;
+import model.RuNode;
+import model.RuNodeComposite;
 
 public class RemoveCommand extends AbstractCommand{
-    private final MyTreeNode childTreeNode;
-    private final MyTreeNode parentTreeNode;
+    private final RuNode child;
+    private final RuNodeComposite parent;
 
-    public RemoveCommand(MyTreeNode parentTreeNode, MyTreeNode childTreeNode) {
-        this.parentTreeNode = parentTreeNode;
-        this.childTreeNode = childTreeNode;
+    public RemoveCommand(RuNode child, RuNodeComposite parent) {
+        this.child = child;
+        this.parent = parent;
     }
 
     @Override
     public void doCommand() {
-        childTreeNode.removeFromParent();
-        SwingUtilities.updateComponentTreeUI(tree);
-        if(childTreeNode.getRuNode() instanceof Project) MainFrame.getInstance().getProjectView().reset();
+        child.removeFromParent();
+        if(child instanceof Project) MainFrame.getInstance().getProjectView().reset();
     }
 
     @Override
     public void undoCommand() {
-        parentTreeNode.addChild(childTreeNode);
-        SwingUtilities.updateComponentTreeUI(tree);
+        parent.addChild(child);
     }
 }

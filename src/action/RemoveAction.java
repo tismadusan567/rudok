@@ -4,8 +4,9 @@ import command.RemoveCommand;
 import error.ErrorFactory;
 import error.ErrorType;
 import gui.tree.MyTree;
-import gui.tree.MyTreeNode;
 import main.MainFrame;
+import model.RuNode;
+import model.Workspace;
 
 import java.awt.event.ActionEvent;
 
@@ -20,12 +21,12 @@ public class RemoveAction extends AbstractRudokAction {
     public void actionPerformed(ActionEvent e) {
         MyTree tree = MainFrame.getInstance().getTree();
 
-        MyTreeNode target = tree.getActiveNode();
+        RuNode target = tree.getActiveNode().getRuNode();
 
-        if (target == tree.getRootNode()) {
+        if (target instanceof Workspace) {
             ErrorFactory.getInstance().generateError(ErrorType.REMOVE_WORKSPACE);
             return;
         }
-        MainFrame.getInstance().getCommandManager().addCommand(new RemoveCommand((MyTreeNode) target.getParent(), target));
+        MainFrame.getInstance().getCommandManager().addCommand(new RemoveCommand(target, target.getParent()));
     }
 }

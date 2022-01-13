@@ -43,8 +43,10 @@ public abstract class RuNode implements IPublisher, Serializable {
 
     @Override
     public void notify(NotificationEvent notification) {
-        for (ISubscriber subscriber : subscribers) {
-            subscriber.update(notification);
+        //concurrent modification problems with foreach loop
+        //noinspection ForLoopReplaceableByForEach
+        for (int i = 0; i < subscribers.size(); i++) {
+            subscribers.get(i).update(notification);
         }
     }
 
@@ -61,6 +63,11 @@ public abstract class RuNode implements IPublisher, Serializable {
         setChanged(true);
         notify(new NotificationEvent(NotificationTypes.RUNODE_NAME_CHANGED, name));
 
+    }
+
+    public void removeFromParent() {
+        if (parent != null) parent.remove(this);
+        notify(new NotificationEvent(NotificationTypes.RUNODE_REMOVE_FROM_PARENT, this));
     }
 
     public String getName() {

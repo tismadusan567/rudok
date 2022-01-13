@@ -11,12 +11,7 @@ public class Workspace extends RuNodeComposite {
 
     @Override
     protected void add(RuNode node) {
-        if (node instanceof Project) {
-            children.add(node);
-        } else {
-            //error
-            System.err.println("You have to add Project to Workspace");
-        }
+        if (node instanceof Project) children.add(node);
     }
 
     @Serial

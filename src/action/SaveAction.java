@@ -91,6 +91,7 @@ public class SaveAction extends AbstractRudokAction {
 
     private boolean saveCollection(RuNodeComposite nodeToSave, File file) throws IOException {
         ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
+        nodeToSave.setParent(null);
         os.writeObject(nodeToSave);
         return true;
     }

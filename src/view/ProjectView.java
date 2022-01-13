@@ -25,7 +25,6 @@ public class ProjectView extends JPanel implements ISubscriber {
 
     public void displayProject(Project project) {
         this.project = project;
-        //todo: mozda removeif(instanceof Project)
         this.project.addSubscriber(this);
 
         nameLabel.setText(project.getName());
@@ -68,7 +67,7 @@ public class ProjectView extends JPanel implements ISubscriber {
             }
             case RUNODECOMPOSITE_ADD -> {
                 Presentation presentation = (Presentation) notification.getMessage();
-                if(project == null) {
+                if(project == null || project != presentation.getParent()) {
                     displayProject((Project) presentation.getParent());
                     return;
                 }

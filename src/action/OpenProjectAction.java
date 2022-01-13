@@ -4,9 +4,9 @@ import action.filefilter.ProjectFileFilter;
 import command.NewCommand;
 import error.ErrorFactory;
 import error.ErrorType;
-import gui.tree.MyTreeNode;
 import main.MainFrame;
 import model.Project;
+import model.Workspace;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -33,12 +33,11 @@ public class OpenProjectAction extends AbstractRudokAction {
             ObjectInputStream os = new ObjectInputStream(new FileInputStream(jfc.getSelectedFile()));
 
             Project project = (Project) os.readObject();
-            MyTreeNode workspaceTreeNode = MainFrame.getInstance().getTree().getRootNode();
+            Workspace workspace = (Workspace) MainFrame.getInstance().getTree().getRootNode().getRuNode();
 
-            MainFrame.getInstance().getCommandManager().addCommand(new NewCommand(workspaceTreeNode, project));
+            MainFrame.getInstance().getCommandManager().addCommand(new NewCommand(project, workspace));
 
         } catch (IOException | ClassNotFoundException e1) {
-//            e1.printStackTrace();
             ErrorFactory.getInstance().generateError(ErrorType.ERROR_LOADING_FILE);
         }
     }

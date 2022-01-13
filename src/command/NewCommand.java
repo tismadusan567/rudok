@@ -1,32 +1,25 @@
 package command;
 
-import gui.tree.MyTreeNode;
 import model.RuNode;
 import model.RuNodeComposite;
 
-import javax.swing.*;
-
 public class NewCommand extends AbstractCommand {
-    private MyTreeNode childTreeNode = null;
-    private final MyTreeNode parentTreeNode;
-    private final RuNode childRuNode;
+    private final RuNodeComposite parent;
+    private final RuNode child;
 
-    public NewCommand(MyTreeNode parentTreeNode, RuNode childRuNode) {
-        this.parentTreeNode = parentTreeNode;
-        this.childRuNode = childRuNode;
+    public NewCommand(RuNode childRuNode, RuNodeComposite parent) {
+        this.parent = parent;
+        this.child = childRuNode;
     }
 
     @Override
     public void doCommand() {
-        if(childTreeNode == null) childTreeNode = new MyTreeNode(childRuNode);
-        parentTreeNode.addChild(childTreeNode);
-        childRuNode.setParent((RuNodeComposite) parentTreeNode.getRuNode());
-        SwingUtilities.updateComponentTreeUI(tree);
+        child.setParent(parent);
+        parent.addChild(child);
     }
 
     @Override
     public void undoCommand() {
-        childTreeNode.removeFromParent();
-        SwingUtilities.updateComponentTreeUI(tree);
+        child.removeFromParent();
     }
 }

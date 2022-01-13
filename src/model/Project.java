@@ -11,12 +11,7 @@ public class Project extends RuNodeComposite {
 
     @Override
     protected void add(RuNode node) {
-        if (node instanceof Presentation) {
-            children.add(node);
-        } else {
-            //error
-            System.err.println("You have to add Presentation to Project");
-        }
+        if (node instanceof Presentation) children.add(node);
     }
 
     @Serial

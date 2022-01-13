@@ -33,7 +33,6 @@ public class RenameDialog extends JDialog {
 
         okButton.addActionListener(e -> {
             if(textField.getText().isBlank()) {
-//                dispose();
                 ErrorFactory.getInstance().generateError(ErrorType.BLANK_RENAME);
                 return;
             }
@@ -42,7 +41,6 @@ public class RenameDialog extends JDialog {
 
             RuNode target = tree.getActiveNode().getRuNode();
 
-//            target.setName(textField.getText());
             MainFrame.getInstance().getCommandManager()
                     .addCommand(new RenameCommand(target, target.getName(), textField.getText()));
 

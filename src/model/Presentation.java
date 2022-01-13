@@ -18,18 +18,9 @@ public class Presentation extends RuNodeComposite {
         this.imagePath = imagePath;
     }
 
-    public Presentation(String name, RuNodeComposite parent, String author) {
-        this(name, parent, author, "defaultTheme.png"); //todo: add default theme
-    }
-
     @Override
     protected void add(RuNode node) {
-        if (node instanceof Slide) {
-            children.add(node);
-        } else {
-            //error
-            System.out.println("You have to add Slide to Presentation");
-        }
+        if (node instanceof Slide) children.add(node);
     }
 
     public String getAuthor() {
