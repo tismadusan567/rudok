@@ -51,7 +51,6 @@ public class ProjectView extends JPanel implements ISubscriber {
             case RUNODE_NAME_CHANGED -> nameLabel.setText(project.getName());
             case RUNODECOMPOSITE_REMOVE -> {
                 Presentation presentation = (Presentation) notification.getMessage();
-                int index = -1;
                 for (int i = 0; i < tabbedPane.getTabCount(); i++) {
                     //find the tab with this presentation
                     if (tabbedPane.getComponentAt(i) instanceof PresentationView curr && curr.getPresentation() == presentation) {
