@@ -1,6 +1,6 @@
 # Rudok
 
-Rudok is a desktop application for creating, editing, presenting, saving, sharing presentations. 
+Rudok is a desktop application for creating, editing, presenting, saving and sharing presentations. 
 
 ## Installation
 
