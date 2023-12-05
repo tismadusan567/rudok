@@ -1,4 +1,7 @@
-# rudok-tismadusan567
-rudok-tismadusan567 created by GitHub Classroom
+# Rudok
 
-Dusan Tisma RN20/20
+Rudok is a desktop application for creating, editing, presenting, saving, sharing presentations. 
+
+## Installation
+
+Build with JDK 16.
